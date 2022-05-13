@@ -14,10 +14,10 @@ from . import tools as T
 from pkg_resources import resource_filename
 
 CHEBI_CHEM_FN = os.path.abspath(
-    resource_filename("ms_mint.static", "ChEBI-Chem.parquet")
+    resource_filename("ms_mint_app.static", "ChEBI-Chem.parquet")
 )
 CHEBI_GROUPS_FN = os.path.abspath(
-    resource_filename("ms_mint.static", "ChEBI-Groups.parquet")
+    resource_filename("ms_mint_app.static", "ChEBI-Groups.parquet")
 )
 CHEBI_CHEM = pd.read_parquet(CHEBI_CHEM_FN)
 CHEBI_GROUPS = pd.read_parquet(CHEBI_GROUPS_FN)

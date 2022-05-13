@@ -25,7 +25,7 @@ from ms_mint.peak_optimization.RetentionTimeOptimizer import (
     RetentionTimeOptimizer as RTOpt,
 )
 
-from ..Mint import Mint
+from ms_mint import Mint
 
 from . import tools as T
 

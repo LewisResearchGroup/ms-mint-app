@@ -7,26 +7,33 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 
-install_requires = []
+install_requires = [
+    "wget",
+    "xlsxwriter",
+    "waitress",
+    "dash",
+    "dash_extensions",
+    "dash_bootstrap_components",
+    "flask_login",
+    "urllib3",
+    "dash_tabulator",
+    "dash_uploader",
+]
 
 
 config = {
-    "name": "ms-mint",
+    "name": "ms-mint-app",
     "version": versioneer.get_version(),
     "cmdclass": versioneer.get_cmdclass(),
     "description": "Metabolomics Integrator (Mint)",
     "long_description": long_description,
     "long_description_content_type": "text/markdown",
     "author": "Soren Wacker",
-    "url": "https://github.com/sorenwacker/ms-mint",
+    "url": "https://github.com/LewisResearchGroup/ms-mint-app",
     "author_email": "swacker@ucalgary.ca",
     "scripts": ["scripts/Mint.py"],
     "packages": find_packages(),
     "data_files": [("scripts", ["scripts/Mint.py"])],
-    #                  ('static', ['static/Standard_Peaklist.csv',
-    #                               'static/ChEBI-Chem.parquet',
-    #                               'static/ChEBI-Groups.parquet']),
-    #                  ],
     "classifiers": [
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
@@ -36,7 +43,7 @@ config = {
     "install_requires": install_requires,
     "include_package_data": True,
     "package_data": {
-        "ms_mint.static": [
+        "ms_mint_app.static": [
             "Standard_Peaklist.csv",
             "ChEBI-Chem.parquet",
             "ChEBI-Groups.parquet",
