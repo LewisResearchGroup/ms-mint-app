@@ -134,9 +134,6 @@ _layout = html.Div(
         html.Div(id="ms-n-files"),
         dcc.Loading(ms_table),
         html.Div(id="ms-uploader-fns", style={"visibility": "hidden"}),
-        dcc.Dropdown(id="ms-preview-selection", options=["No files"], value="No files"),
-        dcc.Loading(dcc.Graph(id="ms-preview")),
-        html.Button('Create new target', id='ms-new-target'),
     ]
 )
 
@@ -291,93 +288,3 @@ def callbacks(app, fsc, cache):
         n_files = len(data)
         return dbc.Alert(f"{n_files} files in current workspace.", color="success")
 
-    @app.callback(
-        Output("ms-preview-selection", "options"),
-        Input("ms-table", "data"),
-    )
-    def update_file_preview_selection(data):
-        data = pd.DataFrame(data)
-        options = [i for i in data["MS-file"].values]
-        return options
-
-    @app.callback(
-        Output("ms-preview", "figure"),
-        Input("ms-preview-selection", "value"),
-        State("wdir", "children"),
-        State("viewport-container", "children"),
-
-    )
-    def show_file_preview(ms_file, wdir, viewport):
-
-        width, height = [int(e) for e in viewport.split(",")]
-
-        fn = str(P(wdir) / "ms_files" / ms_file)
-
-        df = ms_file_to_df(fn)
-        df["scan_time_min"] = df["scan_time_min"].round(2)
-        df["mz"] = df["mz"].round(3)
-
-        df = (
-            df.groupby(["scan_time_min", "mz"])
-            .sum()
-            .reset_index()
-            .sort_values("intensity")
-        )
-
-        df = df[df.intensity > 1e4]
-
-        df.intensity = df.intensity.apply(np.log1p)
-
-        targets = T.get_targets(wdir)
-
-        fig = px.density_contour(
-            data_frame=df,
-            x="scan_time_min",
-            y="mz",
-            z="intensity",
-            nbinsx=200,
-            nbinsy=5000,
-            #marginal_x="histogram",
-            #marginal_y="histogram",
-            height=height,
-            #width=width,
-            title=ms_file,
-            #histfunc="max"
-            #color_continuous_scale='Blues',
-        )
-
-        for label, row in targets.iterrows():
-            mz_mean = row['mz_mean']
-            mz_width = row['mz_width']
-            rt_min = row['rt_min']
-            rt_max = row['rt_max']
-            width = mz_mean*mz_width*1e-6
-            fig.add_shape(
-                type="rect",
-                x0=rt_min, 
-                x1=rt_max,
-                y0=mz_mean-width, 
-                y1=mz_mean+width,
-                line=dict(
-                    color="Purple",
-                    width=1,
-                ),
-            fillcolor="red", 
-            opacity=0.2,
-            name=label
-            )
-
-        return fig
-
-    @app.callback(
-        Output({"index": "ms-new-target-output", "type": "output"}, "children"),
-        Input("ms-new-target", "n_clicks"),
-        State("ms-preview", "figure"),
-    )
-    def create_new_target(n_clicks, fig):
-        print('tuuut', n_clicks)
-        if n_clicks is None: raise PreventUpdate
-        rt_min, rt_max = fig["layout"]["xaxis"]["range"]
-        mz_min, mz_max = fig["layout"]["yaxis"]["range"]
-        print(mz_min, mz_max, rt_min, rt_max)
-        return dbc.Alert("Tuuuut", color="success")

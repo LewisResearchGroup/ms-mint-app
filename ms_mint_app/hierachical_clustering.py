@@ -73,6 +73,11 @@ def callbacks(app, fsc, cache):
         if n_clicks is None:
             raise PreventUpdate
 
+        if options is None: 
+            options = []
+        
+        print(options)
+
         mint = Mint()
 
         if fig_size_x is None:
@@ -93,8 +98,8 @@ def callbacks(app, fsc, cache):
         df["ms_file"] = df["MS-file"]
         mint.results = df
 
-        mint.plot_clustering(
-            figsize=(fig_size_x, fig_size_y), transpose="Transposed" in options
+        mint.plot.hierarchical_clustering(
+            figsize=(fig_size_x, fig_size_y), transposed="Transposed" in options
         )
 
         src = T.fig_to_src()

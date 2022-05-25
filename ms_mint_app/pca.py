@@ -8,7 +8,7 @@ from dash.exceptions import PreventUpdate
 
 import dash_bootstrap_components as dbc
 
-from ..Mint import Mint
+from ms_mint import Mint
 
 from . import tools as T
 
@@ -146,8 +146,6 @@ def callbacks(app, fsc, cache):
 
         ndx = mint.decomposition_results["df_projected"].index.to_list()
 
-        mint.pca_plot_cumulative_variance()
-
         src = T.fig_to_src()
         figures.append(html.Img(src=src))
 
@@ -155,7 +153,7 @@ def callbacks(app, fsc, cache):
             color_groups = color_groups.loc[ndx].values
 
         with sns.plotting_context("paper"):
-            mint.plot_pair_plot(
+            mint.plot.pca_scatter_matrix(
                 group_name=groupby,
                 color_groups=color_groups,
                 n_vars=n_components,

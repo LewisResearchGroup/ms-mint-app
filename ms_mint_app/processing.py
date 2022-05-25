@@ -104,12 +104,13 @@ def callbacks(app, fsc, cache):
         def set_progress(x):
             fsc.set("progress", x)
 
-        mint = Mint(verbose=True, progress_callback=set_progress)
-        targets = T.get_targets_fn(wdir)
+        mint = Mint(verbose=False, progress_callback=set_progress)
+        targets_fn = T.get_targets_fn(wdir)
+        output_fn = T.get_results_fn(wdir)
         try:
-            mint.targets_files = targets
+            mint.load_targets(targets_fn)
             mint.ms_files = T.get_ms_fns(wdir)
-            mint.run(output_fn=T.get_results_fn(wdir))
+            mint.run(output_fn=output_fn)
         except Exception as e:
             return dbc.Alert(str(e), color="danger")
         return dbc.Alert("Finished running MINT", color="success")
