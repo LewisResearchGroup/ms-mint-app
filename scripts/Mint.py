@@ -5,7 +5,6 @@ import sys
 import subprocess
 import multiprocessing
 import argparse
-import wget
 import pkg_resources
 import xlsxwriter
 

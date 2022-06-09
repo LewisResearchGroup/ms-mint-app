@@ -252,6 +252,7 @@ def callbacks(app, fsc, cache):
         State("wdir", "children"),
     )
     def get_a_list(fn, wdir):
+        print(fn, wdir)
         if fn is None:
             raise PreventUpdate
         ms_dir = T.get_ms_dirname(wdir)
