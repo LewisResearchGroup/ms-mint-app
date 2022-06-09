@@ -201,9 +201,9 @@ class Chromatograms:
                 os.makedirs(dirname)
             dmz = mz_mean * 1e-6 * mz_width
             chrom = df[(df["mz"] - mz_mean).abs() <= dmz]
-            chrom["scan_time_min"] = chrom["scan_time_min"].round(3)
-            chrom = chrom.groupby("scan_time_min").max().reset_index()
-            chrom[["scan_time_min", "intensity"]].to_feather(fn_chro)
+            chrom["scan_time"] = chrom["scan_time"].round(3)
+            chrom = chrom.groupby("scan_time").max().reset_index()
+            chrom[["scan_time", "intensity"]].to_feather(fn_chro)
 
     def get_single(self, mz_mean, mz_width, ms_file):
         return get_chromatogram(ms_file, mz_mean, mz_width, self.wdir)
@@ -232,10 +232,10 @@ def create_chromatogram(ms_file, mz_mean, mz_width, fn_out, verbose=False):
         os.makedirs(dirname)
     dmz = mz_mean * 1e-6 * mz_width
     chrom = df[(df["mz"] - mz_mean).abs() <= dmz]
-    chrom["scan_time_min"] = chrom["scan_time_min"].round(3)
-    chrom = chrom.groupby("scan_time_min").max().reset_index()
+    chrom["scan_time"] = chrom["scan_time"].round(3)
+    chrom = chrom.groupby("scan_time").max().reset_index()
     with lock(fn_out):
-        chrom[["scan_time_min", "intensity"]].to_feather(fn_out)
+        chrom[["scan_time", "intensity"]].to_feather(fn_out)
     if verbose:
         print("...done creating chromatogram.")
     return chrom
@@ -255,7 +255,7 @@ def get_chromatogram(ms_file, mz_mean, mz_width, wdir):
 
     chrom = chrom.rename(
         columns={
-            "retentionTime": "scan_time_min",
+            "retentionTime": "scan_time",
             "intensity array": "intensity",
             "m/z array": "mz",
         }

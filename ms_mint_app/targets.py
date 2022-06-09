@@ -48,6 +48,7 @@ pkl_table = html.Div(
                     "rt",
                     "rt_min",
                     "rt_max",
+                    "rt_unit",
                     "intensity_threshold",
                     "target_filename",
                 ]

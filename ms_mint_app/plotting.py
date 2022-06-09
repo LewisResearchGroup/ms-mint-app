@@ -27,6 +27,8 @@ _kinds = [
     "strip",
     "swarm",
     "point",
+    "hist",
+    "kde",
 ]
 
 _palettes = [
@@ -233,16 +235,16 @@ _layout = html.Div(
         dcc.Input(
             id="plot-fig-aspect",
             placeholder="Figure aspect ratio",
-            value=1,
+            value=5,
             type="number",
         ),
         dcc.Input(id="plot-title", placeholder="Title", value=None),
         dcc.Dropdown(id="plot-kind", options=kind_options, value="bar"),
-        dcc.Dropdown(id="plot-x", options=[], value=None, placeholder="X"),
-        dcc.Dropdown(id="plot-y", options=[], value="peak_max", placeholder="Y"),
+        dcc.Dropdown(id="plot-x", options=[{"value": "MS-file", "label": "MS-file"}], value="MS-file", placeholder="X"),
+        dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),
         dcc.Dropdown(id="plot-hue", options=[], value=None, placeholder="Color"),
         dcc.Dropdown(id="plot-col", options=[], value=None, placeholder="Columns"),
-        dcc.Dropdown(id="plot-row", options=[], value=None, placeholder="Rows"),
+        dcc.Dropdown(id="plot-row", options=[{"value": "peak_label", "label": "peak_label"}], value="peak_label", placeholder="Rows"),
         dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
         dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),
         dcc.Dropdown(
@@ -277,7 +279,7 @@ def layout():
     return _layout
 
 
-def callbacks(app, fsc, cache):
+def callbacks(app, fsc, cache, cpu=None):
     @app.callback(
         Output("plot-x", "options"),
         Output("plot-y", "options"),
@@ -356,11 +358,11 @@ def callbacks(app, fsc, cache):
             aspect = 1
 
         # With hue both x and y have to be set.
-        if (hue is not None) and (None in [x, y]):
-            if x is None:
-                x = hue
-            if y is None:
-                y = hue
+        #if (hue is not None) and (None in [x, y]):
+        #    if x is None:
+        #        x = hue
+        #    if y is None:
+        #        y = hue
 
         height = min(float(height), 100)
         height = max(height, 1)
@@ -411,6 +413,9 @@ def callbacks(app, fsc, cache):
                 style=style,
                 size=size,
             )
+        elif kind in ["hist", "kde", "ecdf"]:
+            plot_func = sns.displot
+            kwargs={}
         else:
             plot_func = sns.catplot
             kwargs = dict(
@@ -419,6 +424,8 @@ def callbacks(app, fsc, cache):
                 dodge="no-dodge" not in options,
                 facet_kws=dict(legend_out=True),
             )
+        
+        print(x, y, hue)
 
         try:
             g = plot_func(
@@ -464,11 +471,6 @@ def callbacks(app, fsc, cache):
             g.fig.suptitle(title, y=1.01)
 
         g.tight_layout(w_pad=0)
-
-        # try:
-        #    g.legend.set_bbox_to_anchor((1.2, 0.7))
-        # except:
-        #    pass
 
         src = T.fig_to_src(dpi=300 if "HQ" in options else None)
 

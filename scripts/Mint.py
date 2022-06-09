@@ -106,7 +106,12 @@ if __name__ == "__main__":
         type=str,
         help="(deprecated) serve app at a different path e.g. '/mint/' to serve the app at 'localhost:9999/mint/'",
     )
-
+    parser.add_argument(
+        "--ncpu",
+        default=None,
+        type=int,
+        help='Number of CPUs to use',
+    )
     args = parser.parse_args()
 
     if args.version:

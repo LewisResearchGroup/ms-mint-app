@@ -31,6 +31,7 @@ _layout = html.Div(
             value=3,
             min=2,
             max=10,
+            step=1,
             marks={i: f"{i}" for i in range(2, 11)},
         ),
         html.Label("Height of facets"),
@@ -142,18 +143,20 @@ def callbacks(app, fsc, cache):
         figures = []
         mint = Mint()
         mint.results = df
-        mint.pca(n_components=n_components)
+        mint.pca.run(n_components=n_components)
 
-        ndx = mint.decomposition_results["df_projected"].index.to_list()
+        ndx = mint.pca.results["df_projected"].index.to_list()
+        mint.pca.plot.cumulative_variance()
 
         src = T.fig_to_src()
+
         figures.append(html.Img(src=src))
 
         if color_groups is not None:
             color_groups = color_groups.loc[ndx].values
 
         with sns.plotting_context("paper"):
-            mint.plot.pca_scatter_matrix(
+            mint.pca.plot.pairplot(
                 group_name=groupby,
                 color_groups=color_groups,
                 n_vars=n_components,
@@ -164,7 +167,7 @@ def callbacks(app, fsc, cache):
         src = T.fig_to_src()
         figures.append(html.Img(src=src))
 
-        contrib = mint.decomposition_results["feature_contributions"]
+        contrib = mint.pca.results["feature_contributions"]
 
         fig_contrib = px.bar(
             data_frame=contrib,
