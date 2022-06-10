@@ -14,8 +14,8 @@ The Metabolomics Integrator (MINT) is a post-processing tool for liquid chromato
 Metabolomics is the study of all metabolites (small chemical compounds) in a biological sample e.g. from bacteria or a human blood sample. 
 The metabolites can be used to define biomarkers used in medicine to find treatments for diseases or for the development of diagnostic tests 
 or for the identification of pathogens such as methicillin resistant _Staphylococcus aureus_ (MRSA). 
-More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint/) or check out the 
-[Quickstart](https:///LewisResearchGroup.github.io/ms-mint/quickstart/) to jump right into it.
+More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint-app/) or check out the 
+[Quickstart](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
 
 # Browser based as standalone application or server based
 
@@ -41,7 +41,7 @@ MINT integrates open-source software and packages into a Python library for meta
 ### How to contribute
 
 #### Errors, Feedback, Feature Requests
-If you encounter an error, if you have a request for a new feature, or for general feedback, please open a new ticket at the [issue tracker](https://github.com/LewisResearchGroup/ms-mint/issues).
+If you encounter an error, if you have a request for a new feature, or for general feedback, please open a new ticket at the [issue tracker](https://github.com/LewisResearchGroup/ms-mint-app/issues).
 
 #### Code contributions
 If your are up to enhance the codebase yourself, we ask you to followowing steps:
@@ -56,7 +56,7 @@ If your are up to enhance the codebase yourself, we ask you to followowing steps
 Before submitting a pull request please run `flake8`.
 
 ## Get in touch
-Open an [issue](https://github.com/LewisResearchGroup/ms-mint/issues) or join the [slack](https://ms-mint.slack.com/) channel.
+Open an [issue](https://github.com/LewisResearchGroup/ms-mint-app/issues) or join the [slack](https://ms-mint.slack.com/) channel.
 
 # Acknowledgements
 This project would not be possible without the help of the open-source community. 
