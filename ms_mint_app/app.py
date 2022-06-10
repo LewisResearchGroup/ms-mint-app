@@ -97,7 +97,7 @@ _layout = html.Div(
             id="progress-interval", n_intervals=0, interval=2000, disabled=False
         ),
         html.A(
-            href="https://lewisresearchgroup.github.io/ms-mint/gui/",
+            href="https://lewisresearchgroup.github.io/ms-mint-app/gui/",
             children=[
                 html.Button(
                     "Documentation",
@@ -108,7 +108,7 @@ _layout = html.Div(
             target="_blank",
         ),
         html.A(
-            href=f"https://github.com/LewisResearchGroup/ms-mint/issues/new?body={T.get_issue_text()}",
+            href=f"https://github.com/LewisResearchGroup/ms-mint-app/issues/new?body={T.get_issue_text()}",
             children=[
                 html.Button(
                     "Issues", id="B_issues", style={"float": "right", "color": "info"}

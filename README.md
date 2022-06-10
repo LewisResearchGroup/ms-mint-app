@@ -14,11 +14,20 @@ The Metabolomics Integrator (MINT) is a post-processing tool for liquid chromato
 Metabolomics is the study of all metabolites (small chemical compounds) in a biological sample e.g. from bacteria or a human blood sample. 
 The metabolites can be used to define biomarkers used in medicine to find treatments for diseases or for the development of diagnostic tests 
 or for the identification of pathogens such as methicillin resistant _Staphylococcus aureus_ (MRSA). 
-More information on how to install and run the program can be found in the [Documentation](https://sorenwacker.github.io/ms-mint/) or check out the 
-[Quickstart](https:///sorenwacker.github.io/ms-mint/quickstart/) to jump right into it.
+More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint-app/) or check out the 
+[Quickstart](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
+
+# News
+We are refactoring the application. Things might break in the mean time. For example, links might break. Please report issues to the issue tracker.
+
+## Known issues
+The current version of the flask-chaching library seems to be brokem. There will be errors visible in the console:
+
+> ERROR:flask_caching.backends.filesystemcache:get key 'progress' -> invalid load key, '\x13'.
+
+That only means the progress bar is not working correctly right now. 
 
 # Browser based as standalone application or server based
-
 ![](./docs/image/distributions.png)
 
 A demo server is available [here](https://mint.resistancedb.org). Be mindful, you share the server with others.
@@ -39,9 +48,8 @@ MINT originally started as Python project. The core of MINT is a Python class fo
 MINT integrates open-source software and packages into a Python library for metabolomics with a browser based GUI. It is programmed by scientists for scientists to contribute to  better and faster science integrating best practices of data management and computer science. Contributions are welcome that improve the efficiency of the code, bug fixes, feature implementations, security enhancements among others. If you want to contribute to MINT please send me a notification.
 
 ### How to contribute
-
 #### Errors, Feedback, Feature Requests
-If you encounter an error, if you have a request for a new feature, or for general feedback, please open a new ticket at the [issue tracker](https://github.com/sorenwacker/ms-mint/issues).
+If you encounter an error, if you have a request for a new feature, or for general feedback, please open a new ticket at the [issue tracker](https://github.com/LewisResearchGroup/ms-mint-app/issues).
 
 #### Code contributions
 If your are up to enhance the codebase yourself, we ask you to followowing steps:
@@ -56,7 +64,7 @@ If your are up to enhance the codebase yourself, we ask you to followowing steps
 Before submitting a pull request please run `flake8`.
 
 ## Get in touch
-Open an [issue](https://github.com/sorenwacker/ms-mint/issues) or join the [slack](https://ms-mint.slack.com/) channel.
+Open an [issue](https://github.com/LewisResearchGroup/ms-mint-app/issues) or join the [slack](https://ms-mint.slack.com/) channel.
 
 # Acknowledgements
 This project would not be possible without the help of the open-source community. 
