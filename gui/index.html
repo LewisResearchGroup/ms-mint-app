@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Soren Wacker">
+        <link rel="canonical" href="https://github.com/sorenwacker/ms-mint/gui/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>GUI - MINT</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">MINT</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../quickstart/" class="nav-link">Quickstart</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../background/" class="nav-link">Background</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../install/" class="nav-link">Installation</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">GUI</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../targets/" class="nav-link">Targets</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../jupyter/" class="nav-link">Jupyter</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../developer-notes/" class="nav-link">Developer Notes</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../gallery/" class="nav-link">Gallery</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../install/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../targets/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#mint-gui" class="nav-link">MINT GUI</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#workspaces" class="nav-link">Workspaces</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#ms-files" class="nav-link">MS-files</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#metadata" class="nav-link">Metadata</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#peaklist" class="nav-link">Peaklist</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#add-metabolites" class="nav-link">Add Metabolites</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#peak-optimization" class="nav-link">Peak Optimization</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#processing" class="nav-link">Processing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#analysis" class="nav-link">Analysis</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#general-selection-elements" class="nav-link">General selection elements</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#heatmap" class="nav-link">Heatmap</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#distributions" class="nav-link">Distributions</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#pca" class="nav-link">PCA</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#hierarchical-clustering" class="nav-link">Hierarchical clustering</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#plotting" class="nav-link">Plotting</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="mint-gui">MINT GUI</h1>
+<h2 id="workspaces">Workspaces</h2>
+<ul>
+<li>Add new workspaces</li>
+<li>Delete workspaces</li>
+<li>Activate workspace </li>
+</ul>
+<p><img alt="Workspaces" src="../image/workspaces.png" title="Workspaces" /></p>
+<p>A workspace is a container for project files that is separated from other workspaces. Through workspaces it is possible to work on different projects simultaneously. 
+All files relevant for one workspace are stored in a corresponding sub-folder of <code>--data-dir</code>, which by default is the folder MINT in the users home directory. 
+The home directory is different on different platforms. Under Windows the default folder is: <code>C:/Users/&lt;username&gt;/MINT</code>. 
+The path to the active workspace is always displayed above the workspace tab.</p>
+<p>To activate a particular workspace the workspace has to be selected in the table and then the <code>ACTIVATE</code> button has to be clicked. 
+<code>DELETE</code> will display a popup window upon confirmation the selected workspace with all corresponding files on the harddrive in <code>--data-dir</code> will be removed. </p>
+<h2 id="ms-files">MS-files</h2>
+<ul>
+<li>Import mass spectrometry files (MS-file) in mzXML or mzML format</li>
+<li>Convert file to feather format (other formats will be removed)</li>
+<li>Remove MS-files from workspace</li>
+</ul>
+<p><img alt="MS-files" src="../image/ms-files.png" title="MS-files" /></p>
+<p>Mass-Spec files (in <em>mzML</em> or <em>mzXML</em> format) can be added under the <code>MS-files</code> tab by drag and drop or by using the selection form. 
+Due to limitations of the Plotly-Dash framework only up to 10 files can be uploaded at a time. For larger projects, the files can simply 
+be copied manually into the ms-files subdirectory. This will be improved in future versions of MINT. </p>
+<p>To remove certain files the files have to be selected in the table and the <code>DELETE SELECTED FILES</code> has to be clicked.</p>
+<p>The files are converted to <code>feather</code> format which is based on Apache Arrow. It is a representation that allows faster read into memory.
+If files were added manually by copying into the ms-files subdirectory the files can be converted to feather format with the <code>CONVERT TO FEATHER</code> button.
+Note that <em>mzXML</em> and <em>mzML</em> files will be deleted after convertion. </p>
+<h2 id="metadata">Metadata</h2>
+<ul>
+<li>Select samples used for peak optimization by setting values in the column <code>PeakOpt</code> to <code>True</code>.</li>
+<li>Add batch labels to analyse for possible batch effects.</li>
+<li>Add labels to analyse for differences of different groups (e.g. treatment and control)</li>
+<li>Add types for different files e.g. biological sample, quality control sample, standards etc in order to include ore exclude certain types during analysis.</li>
+<li>Add other types of metadata. </li>
+</ul>
+<p><img alt="Metadata" src="../image/metadata.png" title="Metadata" /></p>
+<p>Metadata for the individual files can be edited in the <code>Metadata</code> tab. This data can be used to group results e.g. by batch or by label as well as types.
+You want to edit metadata table to:</p>
+<h2 id="peaklist">Peaklist</h2>
+<ul>
+<li>Import peaklist from CSV file or add new peaks manually</li>
+<li>Rename peaks definitions or change parameters</li>
+<li>Delete peak definitions</li>
+</ul>
+<p><img alt="Peaklist" src="../image/peaklist.png" title="Peaklist" /></p>
+<p>Peaklists are collection of peak definitions for the extraction of MS intensities beloning to individual metabolites. 
+Peaklists can be provided as Excel or CSV files. Peaklists are explained in more detail <a href="peaklists.md">here</a>.
+Files can be uploaded via the drag and drop area or the selection tool. The peaklist can be edited in place or
+with the peak optimization tools.</p>
+<h2 id="add-metabolites">Add Metabolites</h2>
+<ul>
+<li>Search for metabolites from ChEBI three stars database</li>
+<li>Add selected metabolites to peaklist (without RT estimation)</li>
+</ul>
+<p><img alt="Add metabolites" src="../image/add-metabolites.png" title="Add metabolites" /></p>
+<h2 id="peak-optimization">Peak Optimization</h2>
+<ul>
+<li>Optimize retention times for all peaks or individual peaks</li>
+<li>Preview all peakshapes with quality indicator</li>
+</ul>
+<p>Retention times (RT) depend on the experiment and the specific chromatographic column used. 
+Additionally, aging of the column leads to drifts in RT that have to be accounted for. 
+The tools in the peak optimization tab can be used to quickly review all  peak definitions in 
+the presently loaded peaklist. </p>
+<p><img alt="Peak optimization" src="../image/peak-optimization.png" title="Peak optimization" /></p>
+<p>The <code>GENERATE PEAK PREVIEWS</code> generates a preview of all peak definitions and plots the
+coresponding chromatograms for all files. The peaks can be reviewed and modified one by one
+with the interactive tool. <code>FIND CLOSED PEAKS</code> iterates through all peak definitions and
+identifes the closest peak with respect to the expected RT which is displayed as black vertical line.</p>
+<h3 id="manual-interactive-peak-optimization">Manual (interactive) peak optimization</h3>
+<ul>
+<li>Optimize individual peaks one by one</li>
+<li>Find bad peaks</li>
+<li>Remove peaks from peaklist</li>
+<li>Set expected retention time</li>
+</ul>
+<p><img alt="Manual peak optimization" src="../image/manual-peak-optimization.png" title="Manual peak optimization" /></p>
+<p>When a peak is selected in the drop down box the chromatograms for the particular mass windows
+using the peak width as defined in the peaklist is extracted and displayed. The current rt window
+is visualized as green box. <code>SET RT TO CURRENT VIEW</code> will set the <em>rt_min</em> and <em>rt_max</em> values 
+to the current view and updated the peaklist accordingly.</p>
+<h2 id="processing">Processing</h2>
+<ul>
+<li>Run MINT (apply the extraction protocol to all files in the workspace)</li>
+<li>Download results</li>
+<li>Reset results and start again</li>
+</ul>
+<p><img alt="Processing" src="../image/processing.png" title="Processing" /></p>
+<p>When all peaks look good the data can be processed using <code>RUN MINT</code>. This will apply
+the current peaklist to the MS-files in the workspace and extract additional properties.
+When the results tables are present the results can be explored with the following tabs. 
+The generated results can be downloaded with the <code>DOWNLOAD</code> button.</p>
+<h1 id="analysis">Analysis</h1>
+<p>After running MINT the results can be downloaed or analysed using the provided tools.
+For quality control purposes histograms and boxplots can be generated in the 
+quality control tab. The interactive heatmap tool can be used to explore the results data after <code>RUN MINT</code>
+has been exectuted. The tool allows to explore the generated data in from of heatmaps.</p>
+<h2 id="general-selection-elements">General selection elements</h2>
+<ul>
+<li>Include/exclude file types (based on <code>Type</code> column in metadata)</li>
+<li>Include/exclude peak labels for analysis</li>
+<li>Set file sorting (e.g. by name, by batch etc.)</li>
+<li>Select group-by column for coloring and statistics</li>
+</ul>
+<p><img alt="Selections" src="../image/general-selection-elements.png" title="Selections" /></p>
+<h2 id="heatmap">Heatmap</h2>
+<p><img alt="Heatmap" src="../image/heatmap.png" title="Heatmap" /></p>
+<p>The first dropdown menu allows to include certain file types e.g. biological samples rather than quality control samples.
+The second dropdown menu distinguishes the how the heatmap is generated. </p>
+<ul>
+<li>Normalized by biomarer: devide values by column maxium.</li>
+<li>Cluster: Cluster rows with hierachical clustering.  </li>
+<li>Dendrogram: Plots a dendrogram instead of row labels.</li>
+<li>Transpose: Switch columns and rows.</li>
+<li>Correlation: Calculate pearson correlation between columns.</li>
+<li>Show in new tab: The figure will be generated in a new independent tab. That way multiple heatmaps can be generated at the same time.</li>
+</ul>
+<h3 id="correlation-of-scaled-peak_max">Correlation of (scaled) peak_max</h3>
+<p><img alt="Heatmap" src="../image/heatmap-correlation.png" title="Correlation" /></p>
+<h2 id="distributions">Distributions</h2>
+<ul>
+<li>Plot histograms</li>
+<li>Density distributions</li>
+<li>Boxplots</li>
+</ul>
+<p><img alt="Quality Control" src="../image/distributions.png" title="Quality Control" /></p>
+<p>The MS-files can be grouped based on the values in the metadata table. If nothing
+is selected the data will not be grouped in order to plot the overall distribution.
+The second dropdown menu allows to select one or multple kinds of graphs that 
+to generate. The third dropdown menu allows to include certain file types. 
+For example, the analysis can be limited to only the biological samples if such a 
+type has been defined in the type column of the metadata table. </p>
+<p>The checkbox can be used to create a dense view. If the box is unchecked the output will be
+visually grouped into an individual section for each metabolite.</p>
+<h2 id="pca">PCA</h2>
+<ul>
+<li>Perform Principal Component Analysis (PCA)</li>
+<li>Plot projections to first N principal components</li>
+<li>Contributions of original variables to each component.</li>
+</ul>
+<p><img alt="PCA" src="../image/pca.png" title="Principal Components Analysis" /></p>
+<h2 id="hierarchical-clustering">Hierarchical clustering</h2>
+<p><img alt="Hierarchical clustering" src="../image/hierarchical_clustering.png" title="Hierarchical clustering" /></p>
+<h2 id="plotting">Plotting</h2>
+<p>MINT comes with a flexible and powerful plotting interface that is based on the powerful <a href="http://seaborn.pydata.org/">Seaborn</a> library.</p>
+<ul>
+<li>Bar plots</li>
+<li>Violin plots</li>
+<li>Boxen plot</li>
+<li>Scatter plots</li>
+<li>and more...</li>
+</ul>
+<p><img alt="Plot setting" src="../image/plotting_settings.png" title="Plot settings" /></p>
+<p><img alt="Bar plot" src="../image/plotting_results_bar.png" title="Bar plot" /></p>
+<p><img alt="Boxen plot" src="../image/plotting_results_boxen.png" title="Boxen plot" /></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

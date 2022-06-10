@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Soren Wacker">
+        <link rel="canonical" href="https://github.com/sorenwacker/ms-mint/quickstart/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Quickstart - MINT</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">MINT</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Quickstart</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../background/" class="nav-link">Background</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../install/" class="nav-link">Installation</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../gui/" class="nav-link">GUI</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../targets/" class="nav-link">Targets</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../jupyter/" class="nav-link">Jupyter</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../developer-notes/" class="nav-link">Developer Notes</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../gallery/" class="nav-link">Gallery</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../background/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#quickstart" class="nav-link">Quickstart</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#1-open-the-mint-application-and-create-a-new-workspace-named-demo" class="nav-link">1. Open the MINT application and create a new workspace named DEMO.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#2-make-sure-the-demo-workspace-is-activated-indicated-by-a-blue-bullet-in-the-workspace-table" class="nav-link">2. Make sure the DEMO workspace is activated, indicated by a blue bullet in the workspace table.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#3-switch-to-ms-files-and-upload-the-12-ms-files" class="nav-link">3. Switch to MS-Files and upload the 12 MS files.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#4-switch-to-metadata-and-upload-mint-metadatacsv" class="nav-link">4. Switch to Metadata and upload MINT-metadata.csv.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#5-switch-to-targets-and-upload-mint-targetscsv" class="nav-link">5. Switch to Targets and upload MINT-targets.csv.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#6-switch-to-peak-optimization" class="nav-link">6. Switch to Peak Optimization</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#6-switch-to-processing-and-start-the-data-extraction-with-run-mint" class="nav-link">6. Switch to Processing and start the data extraction with Run MINT</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#7-switch-to-analysis" class="nav-link">7. Switch to Analysis.</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#8-switch-to-analysisplotting" class="nav-link">8. Switch to Analysis/Plotting</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#exercise-try-to-create-the-following-plot" class="nav-link">Exercise: Try to create the following plot:</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="quickstart">Quickstart</h2>
+<p>A demo server is available <a href="https://mint.resistancedb.org">here</a>. Be mindful, you share the server with others.</p>
+<p>Download the demo files from <a href="https://drive.google.com/drive/folders/1giAiAJmtOWKN124S0iK9SeiZrFqJjqhQ?usp=sharing">Google Drive</a> and extract the archive.</p>
+<p>You will find two <code>csv</code> files and 12 <code>mzXML</code> and/or <code>mzML</code> files. </p>
+<ul>
+<li>A folder with 12 mass-spectrometry (MS) files from microbial samples. We have four files for each <em>Staphylococcus aureus</em> (SA), <em>Escherichia coli</em> (EC), and <em>Candida albicans</em> (CA).
+Each file belongs to one of four batches (B1-B4). </li>
+<li><code>MINT-metadata.csv</code> contains this information in tabular format. Setting up the metadata for your project is essential. </li>
+<li><code>MINT-targets.csv</code> contains the extraction lists. The identification of the metabolites has been done before, so we know where the metabolites appear in the MS data.</li>
+</ul>
+<h2 id="1-open-the-mint-application-and-create-a-new-workspace-named-demo">1. Open the MINT application and create a new workspace named DEMO.</h2>
+<p>At <code>workspaces</code> click on <code>CREATE WORKSPACE</code>. Type <code>DEMO</code> into the text field and click on <code>CREATE</code>.</p>
+<h2 id="2-make-sure-the-demo-workspace-is-activated-indicated-by-a-blue-bullet-in-the-workspace-table">2. Make sure the DEMO workspace is activated, indicated by a blue bullet in the workspace table.</h2>
+<p><img alt="" src="demo-workspace-is-activated.png" /></p>
+<h2 id="3-switch-to-ms-files-and-upload-the-12-ms-files">3. Switch to <code>MS-Files</code> and upload the 12 MS files.</h2>
+<p><img alt="" src="ms-files-uploaded.png" /></p>
+<p>Wait until all files are uploaded.</p>
+<h2 id="4-switch-to-metadata-and-upload-mint-metadatacsv">4. Switch to <code>Metadata</code> and upload <code>MINT-metadata.csv</code>.</h2>
+<p><img alt="" src="metadata-table.png" /></p>
+<p>This file contains information about your samples. Setting up metadata is important and needs to be done with care.
+Your downstream analysis will benefit greatly from a good metadata table.</p>
+<ul>
+<li><code>PeakOpt</code> if True these files will be used in the peak optimization tab.</li>
+<li><code>Label</code> should be used to indicate the group of the sampe. E.g. treatment group vs control group.</li>
+<li><code>Batch</code> is the batch ID, for example the plate if samples come from multiple plates.</li>
+<li><code>Type</code> indicates the type for the sample. By default evertying is called <code>Biological Sample</code>, other meaningful labels are <code>Standard Sample</code> or <code>Quality Control</code>.</li>
+<li><code>Row</code> and <code>Column</code> indicate the location of the sample on the plate e.g. 1-12 and A-H for a 96-well plate.</li>
+<li><code>RunOrder</code> can contain the order 1-N in which the samples were processed.</li>
+<li>Add more columns if you need. You can download the file, add new columns with Excel, and upload the table again. </li>
+<li>Use the <code>action</code> to set multiple cell values at once. </li>
+</ul>
+<h2 id="5-switch-to-targets-and-upload-mint-targetscsv">5. Switch to <code>Targets</code> and upload <code>MINT-targets.csv</code>.</h2>
+<p><img alt="" src="targets-table.png" /></p>
+<p>This is the data extraction protocol. This determines what data is extracted from the files. The same protocol is applied to all files. No fitting or peak optimization is done. 
+MINT therefore requires a very stable chromatographic column and stable retention times for all files in a workspace. </p>
+<h2 id="6-switch-to-peak-optimization">6. Switch to <code>Peak Optimization</code></h2>
+<p>Switch the <code>File selection</code> to <code>Use all files</code>. Normally, especially for large datasets, you should select a small representative set of samples. The peak optimization takes longer the more files are used for it and the more targets are defined. 'Click on <code>UPDATE PEAK PREVIEWS</code>. </p>
+<p><img alt="" src="peak-preview.png" /></p>
+<ul>
+<li>here you can see the shapes of the extracted peaks.</li>
+<li>optimize the retention time with the interactive tool.</li>
+<li>you can click on the image to load the data into the interactive tool or use the dropdown menu.</li>
+<li>highlight the prefered region (highlighted in green) and click on <code>SET RT TO CURRENT VIEW</code> to update the retention time window.</li>
+<li>the horizontal bar indicates how far away the selected window is from the <code>rt</code> reference value in the <code>Targets</code>.</li>
+</ul>
+<p><img alt="" src="peak-optimization.png" /></p>
+<ul>
+<li>if you are happy with the peak shapes you can proceed to <code>Processing</code>.</li>
+</ul>
+<h2 id="6-switch-to-processing-and-start-the-data-extraction-with-run-mint">6. Switch to <code>Processing</code> and start the data extraction with <code>Run MINT</code></h2>
+<p><img alt="" src="run-mint.png" /></p>
+<p>The extraction process is done when you get a green notification <code>Finished running MINT</code>.
+Now, you can download the results in long-format or the dense peak_max values. 
+The tidy format contains all results, while the <code>DENSE PEAK_MAX</code> only contians the <code>peak_max</code> values as a matrix. </p>
+<h2 id="7-switch-to-analysis">7. Switch to <code>Analysis</code>.</h2>
+<p>Once the results are generated the 'Heatmap<code>tab will show an interactive heatmap.
+You can change the size of the heatmap by changing your browser window and</code>UPDATE<code>the plot.
+The heatmap shows the</code>peak_max` values. The dropdown menu provides some options.</p>
+<h2 id="8-switch-to-analysisplotting">8. Switch to <code>Analysis/Plotting</code></h2>
+<p>The plotting tool is very powerful, but requires some practise. It is a wrapper of the powerful seaborn API. 
+Let's create a few simple visualizations.</p>
+<p><img alt="" src="01-demo-plot.png" /></p>
+<p>And click on <code>Update</code>. A very simple bar-graph is shown, and we will gradually make it more complex. 
+This simple bar graph shows the average <code>peak_max</code> value across the whole dataset for all targets. </p>
+<h3 id="a-select-peak_label-for-the-x-axis">a) select <code>peak_label</code> for the <code>X</code> axis.</h3>
+<h3 id="b-set-aspect-ratio-to-5">b) set aspect-ratio to 5.</h3>
+<h3 id="c-select-logarithmic-y-scale-in-the-dropdown-options">c) select <code>Logarithmic y-scale</code> in the dropdown options.</h3>
+<h3 id="d-click-on-update">d) click on <code>UPDATE</code>.</h3>
+<p><img alt="" src="02-demo-plot.png" /></p>
+<h3 id="e-set-figure-height-to-15-and-aspect-ratio-to-2">e) set figure height to <code>1.5</code> and aspect ratio to <code>2</code>.</h3>
+<h3 id="e-set-column-to-label">e) set <code>Column</code> to <code>Label</code>.</h3>
+<h3 id="f-set-row-to-batch">f) set <code>Row</code> to <code>Batch</code>.</h3>
+<p><img alt="" src="03-demo-plot.png" /></p>
+<p>This way you can look at the whole dataset at once, sliced by <code>Batch</code> and <code>Label</code></p>
+<h2 id="exercise-try-to-create-the-following-plot">Exercise: Try to create the following plot:</h2>
+<p><img alt="" src="05-demo-plot.png" /></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
