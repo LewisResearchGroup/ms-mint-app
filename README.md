@@ -1,9 +1,9 @@
-[![Python package](https://github.com/sorenwacker/ms-mint/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/sorenwacker/ms-mint/actions/workflows/pythonpackage.yml)
+[![Python package](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/pythonpackage.yml)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5178/badge)](https://bestpractices.coreinfrastructure.org/projects/5178)
 ![](images/coverage.svg)
-[![Github All Releases](https://img.shields.io/github/downloads/sorenwacker/ms-mint/total.svg)]()
-[![CodeQL](https://github.com/sorenwacker/ms-mint/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/sorenwacker/ms-mint/actions/workflows/codeql-analysis.yml)
-[![Docker Image CI](https://github.com/sorenwacker/ms-mint/actions/workflows/docker-image.yml/badge.svg)](https://github.com/sorenwacker/ms-mint/actions/workflows/docker-image.yml)
+[![Github All Releases](https://img.shields.io/github/downloads/LewisResearchGroup/ms-mint/total.svg)]()
+[![CodeQL](https://github.com/Lew/ms-mint/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/LewisResearchGroup/ms-mint/actions/workflows/codeql-analysis.yml)
+[![Docker Image CI](https://github.com/LewisResearchGroup/ms-mint/actions/workflows/docker-image.yml/badge.svg)](https://github.com/LewisResearchGroup/ms-mint/actions/workflows/docker-image.yml)
 
 ![](docs/image/MINT-logo.jpg)
 
