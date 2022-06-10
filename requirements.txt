@@ -9,4 +9,6 @@ urllib3
 dash_tabulator
 dash_uploader==0.7.0a1
 Flask-Caching
-
+flask_migrate
+flask_wtf
+email_validator
