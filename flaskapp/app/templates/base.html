@@ -13,7 +13,7 @@
     <a href="{{ url_for('main.index') }}"><button>Home</button></a>
     {% if current_user.is_anonymous %}
     <a href="{{ url_for('main.login') }}"><button>Login</button></a>
-    <a href="https://sorenwacker.github.io/ms-mint" target="blank"><button style='float: right'>Documentation</button></a>
+    <a href="https://LewisResearchGroup.github.io/ms-mint-app" target="blank"><button style='float: right'>Documentation</button></a>
 
     {% else %}
     <a href="{{ url_for('main.logout') }}"><button>Logout</button></a>

@@ -2,9 +2,9 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MINT"
-#define MyAppVersion "0.0.56"
+#define MyAppVersion "0.1.7"
 #define MyAppPublisher "Lewis Research Group (University of Calgary)"
-#define MyAppURL "https://github.com/sorenwacker/ms-mint"
+#define MyAppURL "https://github.com/LewisResearchGroup/ms-mint-app"
 #define MyAppExeName "Mint.exe"
 
 [Setup]
@@ -20,12 +20,12 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\soere\workspace\ms-mint\LICENSE
-InfoBeforeFile=C:\Users\soere\workspace\ms-mint\README.md
+LicenseFile=C:\Users\soere\workspace\ms-mint-app\LICENSE
+InfoBeforeFile=C:\Users\soere\workspace\ms-mint-app\README.md
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
 OutputBaseFilename=mysetup
-SetupIconFile=C:\Users\soere\workspace\ms-mint\ms_mint\static\logo\logo.ico
+SetupIconFile=C:\Users\soere\workspace\ms-mint-app\ms_mint_app\static\logo\logo.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -37,8 +37,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\soere\workspace\ms-mint\dist\Mint\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\soere\workspace\ms-mint\dist\Mint\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\Users\soere\workspace\ms-mint-app\dist\Mint\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Users\soere\workspace\ms-mint-app\dist\Mint\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
