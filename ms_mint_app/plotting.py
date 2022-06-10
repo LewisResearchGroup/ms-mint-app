@@ -229,36 +229,42 @@ _layout = html.Div(
         html.H3(_label),
         dbc.Row([
             dbc.Col([
-                html.Label("Figure title"),
-                dcc.Input(id="plot-title", placeholder="Figure title", value=None, style={'width': '100%'}),                
+              
                 html.Label("Figure kind"),
                 dcc.Dropdown(id="plot-kind", options=kind_options, value="bar"),
-            ]),
-            dbc.Col([                
                 html.Label("Facet dimensions:"),
                 dbc.Row([
                     dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
                     dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=5, type="number"),   
                 ]),
                 html.Label("Column wrap"),
-                dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=0),                
+                dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=0),                 
+            ]),
+            dbc.Col([                
+                              
                 html.Label("x- and y-axes"),
                 dcc.Dropdown(id="plot-x", options=[{"value": "MS-file", "label": "MS-file"}], value="MS-file", placeholder="X"),
-                dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),            
-            ]),
-            dbc.Col([
+                dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),  
 
                 html.Label("Row and column facets:"),
                 dcc.Dropdown(id="plot-col", options=[], value=None, placeholder="Columns"),
                 dcc.Dropdown(id="plot-row", options=[{"value": "peak_label", "label": "peak_label"}], value="peak_label", placeholder="Rows"), 
+
+            ]),
+            dbc.Col([
+
+                html.Label("Marker style and size:"),
+                dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
+                dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),       
+                         
                 html.Label("Colors"),
                 dcc.Dropdown(id="plot-hue", options=[], value=None, placeholder="Color"),
                 dcc.Dropdown(id="plot-palette", options=palette_options, value=None, placeholder="Palette (Colors)",),
             ]),
             dbc.Col([                
-                html.Label("Marker style and size:"),
-                dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
-                dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),
+
+                html.Label("Figure title"),
+                dcc.Input(id="plot-title", placeholder="Figure title", value=None, style={'width': '100%'}),                  
             ]),
         ]),
         html.Label("Options"),

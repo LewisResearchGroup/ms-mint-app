@@ -1,7 +1,6 @@
 import os
 import tempfile
 import logging
-import tempfile
 
 import pandas as pd
 
@@ -33,7 +32,7 @@ from . import metadata
 from . import targets
 from . import peak_optimization
 from . import processing
-from . import add_metab
+#from . import add_metab
 from . import analysis
 from . import messages
 
