@@ -45,9 +45,6 @@ Then you can start the application with:
       --debug               start MINT server in debug mode
       --port PORT           Port to use
       --host HOST           Host binding address
-      --serve-path SERVE_PATH
-                            (deprecated) serve app at a different path e.g. '/mint/' to serve the app at
-                            'localhost:9999/mint/'
       --ncpu NCPU           Number of CPUs to use  # Not yet implemented
 
 
