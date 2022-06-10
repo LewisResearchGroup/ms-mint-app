@@ -114,7 +114,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.version:
-        print("Mint version:", ms_mint.__version__)
+        print("Mint version:", ms_mint_app.__version__)
         exit()
 
     url = f"http://{args.host}:{args.port}"
