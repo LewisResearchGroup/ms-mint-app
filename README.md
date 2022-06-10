@@ -17,8 +17,17 @@ or for the identification of pathogens such as methicillin resistant _Staphyloco
 More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint-app/) or check out the 
 [Quickstart](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
 
-# Browser based as standalone application or server based
+# News
+We are refactoring the application. Things might break in the mean time. For example, links might break. Please report issues to the issue tracker.
 
+## Known issues
+The current version of the flask-chaching library seems to be brokem. There will be errors visible in the console:
+
+> ERROR:flask_caching.backends.filesystemcache:get key 'progress' -> invalid load key, '\x13'.
+
+That only means the progress bar is not working correctly right now. 
+
+# Browser based as standalone application or server based
 ![](./docs/image/distributions.png)
 
 A demo server is available [here](https://mint.resistancedb.org). Be mindful, you share the server with others.
@@ -39,7 +48,6 @@ MINT originally started as Python project. The core of MINT is a Python class fo
 MINT integrates open-source software and packages into a Python library for metabolomics with a browser based GUI. It is programmed by scientists for scientists to contribute to  better and faster science integrating best practices of data management and computer science. Contributions are welcome that improve the efficiency of the code, bug fixes, feature implementations, security enhancements among others. If you want to contribute to MINT please send me a notification.
 
 ### How to contribute
-
 #### Errors, Feedback, Feature Requests
 If you encounter an error, if you have a request for a new feature, or for general feedback, please open a new ticket at the [issue tracker](https://github.com/LewisResearchGroup/ms-mint-app/issues).
 
