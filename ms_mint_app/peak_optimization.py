@@ -32,11 +32,11 @@ a long time the first time. Try converting your files to
 _feather_ format first.'
 """
 
-_label = "Peak Optimization"
+_label = "Optimization"
 
 _layout = html.Div(
     [
-        html.H3("Peak Optimization"),
+        html.H3("Target Optimization"),
         dcc.Markdown("---"),
         html.H4("File selection"),
         dcc.Dropdown(
@@ -50,6 +50,7 @@ _layout = html.Div(
             ],
             value="peakopt",
             clearable=False,
+            style={'max-width': '400px'}
         ),
         html.Div(
             id="experimental",
@@ -106,9 +107,13 @@ _layout = html.Div(
         html.H4("Peak previews"),
         html.Button("Update peak previews", id="pko-peak-preview"),
         html.Button("Regenerate all figures", id="pko-peak-preview-from-scratch"),
+        html.Button("Detect rt_min,rt_max", id="pko-optimize-rt"),
+        dcc.Markdown("---"),
+
         html.Div(
             id="pko-peak-preview-images",
-            style={"maxHeight": "630px", "overflowX": "scroll", "padding": "auto"},
+            style={"maxHeight": "600px", "overflowX": "scroll", "padding": "auto"},
+
         ),
         dcc.Markdown("---"),
         html.Div(id="pko-controls"),
@@ -118,24 +123,26 @@ _layout = html.Div(
             value=0,
             style={"marginBottom": "20px", "width": "100%"},
         ),
+
+        html.Button("Set RT to current view", id="pko-set-rt"),
+        html.Button("Detect rt_min,rt_max for all", id="pko-find-largest-peak"),
+        html.Button("Confirm retention time", id="pko-confirm-rt"),
+        html.Button("Remove Peak", id="pko-delete", style={"float": "right"}),
+
         dcc.Loading(dcc.Graph("pko-figure")),
         dcc.Checklist(
             id="pko-figure-options",
             options=[{"value": "log", "label": "Logarithmic y-scale"}],
             value=[],
-        ),
-        html.Button("Set RT to current view", id="pko-set-rt"),
-        html.Button("Find largest peak", id="pko-find-largest-peak"),
-        html.Button("Confirm retention time", id="pko-confirm-rt"),
-        html.Button("Remove Peak", id="pko-delete", style={"float": "right"}),
-        html.Div(id="pko-image-clicked"),
+        ),        
+        html.Div(id="pko-image-clicked", style={'visibility': 'hidden'}),
         html.Div(
             children=[
                 html.Button("<< Previous", id="pko-prev"),
                 html.Button("Suggest", id="pko-suggest-next"),
                 html.Button("Next >>", id="pko-next"),
             ],
-            style={"text-align": "center", "margin": "auto", "marginTop": "10%"},
+            style={"text-align": "center", "margin": "auto", "marginTop": "2%"},
         ),
     ]
 )
@@ -250,8 +257,8 @@ def callbacks(app, fsc, cache, cpu=None):
             fig.layout.xaxis.range = [rt_min, rt_max]
 
             fig.update_layout(
-                yaxis_title="MS-Intensity",
-                xaxis_title="Retention Time [min]",
+                yaxis_title="Intensity",
+                xaxis_title="Scan Time [s]",
                 xaxis=dict(rangeslider=dict(visible=True)),
             )
             fig.update_layout(title=label)
@@ -480,10 +487,10 @@ def callbacks(app, fsc, cache, cpu=None):
                 ["mz_mean", "mz_width", "rt", "rt_min", "rt_max"]
             ]
 
-            if np.isnan(rt_min) or rt_min is None:
+            if rt_min is None or np.isnan(rt_min):
                 rt_min = 0
-            if np.isnan(rt_max) or rt_max is None:
-                rt_max = 15
+            if  rt_max is None or np.isnan(rt_max):
+                rt_max = 1000
 
             image_label = f"{peak_label}_{rt_min}_{rt_max}"
 
@@ -584,7 +591,7 @@ def callbacks(app, fsc, cache, cpu=None):
         mint = Mint()
         mint.targets = targets
         mint.ms_files = ms_files
-        mint.opt.find_rt_min_max()       
+        mint.opt.find_rt_min_max(peak_labels=[peak_label])       
         new_targets = mint.targets
         new_targets.to_csv(T.get_targets_fn(wdir), index=False)
 
@@ -643,7 +650,7 @@ def create_preview_peakshape(
     ms_files, mz_mean, mz_width, rt, rt_min, rt_max, image_label, wdir, title, colors
 ):
     """Create peak shape previews."""
-    plt.figure(figsize=(4, 2.5), dpi=30)
+    plt.figure(figsize=(2.5, 1.5), dpi=30)
     y_max = 0
     for fn in ms_files:
         color = colors[T.filename_to_label(fn)]
@@ -663,8 +670,8 @@ def create_preview_peakshape(
         plt.vlines(x, 0, y_max, lw=3, color=color)
     plt.gca().set_title(title[:30], y=1.0, pad=15)
     plt.gca().ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-    plt.xlabel("Retention Time [min]")
-    plt.ylabel("MS-Intensity")
+    plt.xlabel("Scan Time [s]")
+    plt.ylabel("Intensity")
     filename = T.savefig(kind="peak-preview", wdir=wdir, label=image_label)
     plt.close()
     return filename

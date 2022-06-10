@@ -1,6 +1,7 @@
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
 
 from . import heatmap
 from . import pca
@@ -41,40 +42,47 @@ _layout = html.Div(
                 for key in modules.keys()
             ],
         ),
-        dcc.Dropdown(
-            id="ana-file-types",
-            options=[],
-            placeholder="Types of files to include",
-            multi=True,
-        ),
-        dcc.Dropdown(
-            id="ana-peak-labels-include",
-            options=[],
-            placeholder="Include peak_labels",
-            multi=True,
-        ),
-        dcc.Dropdown(
-            id="ana-peak-labels-exclude",
-            options=[],
-            placeholder="Exclude peak_labels",
-            multi=True,
-        ),
-        dcc.Dropdown(
-            id="ana-ms-order", options=[], placeholder="MS-file sorting", multi=True
-        ),
-        dcc.Dropdown(
-            id="ana-groupby",
-            options=groupby_options,
-            value=None,
-            placeholder="Group by column",
-        ),
-        dcc.Dropdown(
-            id="ana-normalization-cols",
-            options=ana_normalization_cols,
-            value=None,
-            placeholder="Normalize by",
-            multi=True,
-        ),
+        dbc.Row([
+            dbc.Col([
+                dcc.Dropdown(
+                    id="ana-file-types",
+                    options=[],
+                    placeholder="Types of files to include",
+                    multi=True,
+                ),
+                dcc.Dropdown(
+                    id="ana-peak-labels-include",
+                    options=[],
+                    placeholder="Include peak_labels",
+                    multi=True,
+                ),
+                dcc.Dropdown(
+                    id="ana-peak-labels-exclude",
+                    options=[],
+                    placeholder="Exclude peak_labels",
+                    multi=True,
+                ),
+            ]),
+            dbc.Col([
+                dcc.Dropdown(
+                    id="ana-ms-order", options=[], placeholder="MS-file sorting", multi=True
+                ),
+                dcc.Dropdown(
+                    id="ana-groupby",
+                    options=groupby_options,
+                    value=None,
+                    placeholder="Group by column",
+                ),
+                dcc.Dropdown(
+                    id="ana-normalization-cols",
+                    options=ana_normalization_cols,
+                    value=None,
+                    placeholder="Normalize by",
+                    multi=True,
+                ),
+            ]),
+        ]),
+
         html.Div(id="ana-secondary-tab-content"),
     ]
 )

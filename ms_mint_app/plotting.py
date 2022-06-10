@@ -29,6 +29,7 @@ _kinds = [
     "point",
     "hist",
     "kde",
+    "ecdf"
 ]
 
 _palettes = [
@@ -226,36 +227,42 @@ options = [
 _layout = html.Div(
     [
         html.H3(_label),
-        dcc.Input(
-            id="plot-fig-height",
-            placeholder="Figure facet height x",
-            value=2.5,
-            type="number",
-        ),
-        dcc.Input(
-            id="plot-fig-aspect",
-            placeholder="Figure aspect ratio",
-            value=5,
-            type="number",
-        ),
-        dcc.Input(id="plot-title", placeholder="Title", value=None),
-        dcc.Dropdown(id="plot-kind", options=kind_options, value="bar"),
-        dcc.Dropdown(id="plot-x", options=[{"value": "MS-file", "label": "MS-file"}], value="MS-file", placeholder="X"),
-        dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),
-        dcc.Dropdown(id="plot-hue", options=[], value=None, placeholder="Color"),
-        dcc.Dropdown(id="plot-col", options=[], value=None, placeholder="Columns"),
-        dcc.Dropdown(id="plot-row", options=[{"value": "peak_label", "label": "peak_label"}], value="peak_label", placeholder="Rows"),
-        dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
-        dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),
-        dcc.Dropdown(
-            id="plot-palette",
-            options=palette_options,
-            value=None,
-            placeholder="Palette (Colors)",
-        ),
-        html.Label("Column wrap:"),
-        dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=0),
-        dcc.Dropdown(id="plot-options", value=["sci"], options=options, multi=True),
+        dbc.Row([
+            dbc.Col([
+                html.Label("Figure title"),
+                dcc.Input(id="plot-title", placeholder="Figure title", value=None, style={'width': '100%'}),                
+                html.Label("Figure kind"),
+                dcc.Dropdown(id="plot-kind", options=kind_options, value="bar"),
+            ]),
+            dbc.Col([                
+                html.Label("Facet dimensions:"),
+                dbc.Row([
+                    dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
+                    dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=5, type="number"),   
+                ]),
+                html.Label("Column wrap"),
+                dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=0),                
+                html.Label("x- and y-axes"),
+                dcc.Dropdown(id="plot-x", options=[{"value": "MS-file", "label": "MS-file"}], value="MS-file", placeholder="X"),
+                dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),            
+            ]),
+            dbc.Col([
+
+                html.Label("Row and column facets:"),
+                dcc.Dropdown(id="plot-col", options=[], value=None, placeholder="Columns"),
+                dcc.Dropdown(id="plot-row", options=[{"value": "peak_label", "label": "peak_label"}], value="peak_label", placeholder="Rows"), 
+                html.Label("Colors"),
+                dcc.Dropdown(id="plot-hue", options=[], value=None, placeholder="Color"),
+                dcc.Dropdown(id="plot-palette", options=palette_options, value=None, placeholder="Palette (Colors)",),
+            ]),
+            dbc.Col([                
+                html.Label("Marker style and size:"),
+                dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
+                dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),
+            ]),
+        ]),
+        html.Label("Options"),
+        dcc.Dropdown(id="plot-options", value=["sci"], options=options, multi=True),    
         html.Button("Update", id="plot-update"),
         dcc.Loading(
             html.Div(
@@ -357,13 +364,6 @@ def callbacks(app, fsc, cache, cpu=None):
         if aspect is None:
             aspect = 1
 
-        # With hue both x and y have to be set.
-        #if (hue is not None) and (None in [x, y]):
-        #    if x is None:
-        #        x = hue
-        #    if y is None:
-        #        y = hue
-
         height = min(float(height), 100)
         height = max(height, 1)
         aspect = max(0.01, float(aspect))
@@ -415,7 +415,13 @@ def callbacks(app, fsc, cache, cpu=None):
             )
         elif kind in ["hist", "kde", "ecdf"]:
             plot_func = sns.displot
-            kwargs={}
+            kwargs = dict(
+                facet_kws=dict(
+                    sharex="share-x" in options,
+                    sharey="share-y" in options,
+                    legend_out=True,
+                ),
+            )            
         else:
             plot_func = sns.catplot
             kwargs = dict(

@@ -66,7 +66,7 @@ _modules = [
     ms_files,
     metadata,
     targets,
-    add_metab,
+    #add_metab,
     peak_optimization,
     processing,
     analysis,
