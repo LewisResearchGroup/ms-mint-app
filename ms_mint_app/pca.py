@@ -113,11 +113,11 @@ def callbacks(app, fsc, cache):
             df = df[df["Type"].isin(file_types)]
 
         if groupby is not None and len(groupby) > 0:
-            color_groups = (
+            labels = (
                 df[["ms_file", groupby]].drop_duplicates().set_index("ms_file")
             )
         else:
-            color_groups = None
+            labels = None
             groupby = None
 
         if len(norm_cols) != 0:
@@ -152,13 +152,12 @@ def callbacks(app, fsc, cache):
 
         figures.append(html.Img(src=src))
 
-        if color_groups is not None:
-            color_groups = color_groups.loc[ndx].values
+        if labels is not None:
+            labels = labels.loc[ndx].values
 
         with sns.plotting_context("paper"):
             mint.pca.plot.pairplot(
-                group_name=groupby,
-                color_groups=color_groups,
+                labels=labels,
                 n_vars=n_components,
                 height=facet_height,
                 corner="Corner" in options,

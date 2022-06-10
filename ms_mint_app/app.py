@@ -180,7 +180,6 @@ def register_callbacks(app, cache, fsc):
     messages.callbacks(app=app, fsc=fsc, cache=cache)
 
     for module in _modules:
-        print(module.__file__)
         func = module.callbacks
         if func is not None:
             func(app=app, fsc=fsc, cache=cache)
