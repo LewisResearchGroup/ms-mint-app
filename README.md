@@ -16,7 +16,14 @@ or for the identification of pathogens such as methicillin resistant _Staphyloco
 More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint-app/) or check out the 
 [Tutorial](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
 
+## News
+MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
+
 # Quickstart
+
+## Try it
+
+A demo server is available [here](https://mint.resistancedb.org). Be mindful, you share the server with others.
   
 ## Installation
 
@@ -53,13 +60,9 @@ There are more options available:
 
   The latest Windows installer is available [here](https://github.com/LewisResearchGroup/ms-mint-app/releases/tag/v0.1.7.6).
 
-## News
-MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
-
 # Browser based as standalone application or server based
 ![](./docs/image/distributions.png)
 
-A demo server is available [here](https://mint.resistancedb.org). Be mindful, you share the server with others.
 
 ## Contributions
 All contributions, bug reports, code reviews, bug fixes, documentation improvements, enhancements, and ideas are welcome.
