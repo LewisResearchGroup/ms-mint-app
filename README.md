@@ -29,6 +29,9 @@ Then you can start the application with:
 
     Mint.py  # This starts the application
 
+Once the server has started navigate to http://localhost:9999 with your browser (tested on Chrome).
+
+There are more options available:
 
     Mint.py --help
     >>>
@@ -46,6 +49,7 @@ Then you can start the application with:
       --port PORT           Port to use
       --host HOST           Host binding address
       --ncpu NCPU           Number of CPUs to use  # Not yet implemented
+
 
 
 ## News
