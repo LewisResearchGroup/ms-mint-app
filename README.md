@@ -19,6 +19,7 @@ More information on how to install and run the program can be found in the [Docu
 ## News
 MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
 
+## Screenshot
 ![Screenshot](docs/gallery/MINT-interface-1.png)
 
 # Quickstart
