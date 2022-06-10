@@ -50,7 +50,9 @@ There are more options available:
       --host HOST           Host binding address
       --ncpu NCPU           Number of CPUs to use  # Not yet implemented
 
+## Windows installer
 
+  The latest windows installer is available [here](https://github.com/LewisResearchGroup/ms-mint-app/releases/tag/v0.1.7.6).
 
 ## News
 MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
