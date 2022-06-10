@@ -1,10 +1,9 @@
 import os
 
 from pathlib import Path as P
-from .filelock import FileLock
 
 import dash
-from dash import html, dcc
+from dash import html
 
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
@@ -13,8 +12,6 @@ from dash.dcc import send_file, send_bytes
 from dash.dependencies import Input, Output, State
 
 from ms_mint.Mint import Mint
-
-import plotly.express as px
 
 from . import tools as T
 

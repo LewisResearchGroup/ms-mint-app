@@ -18,18 +18,6 @@ from scipy.spatial.transform import _rotation_groups
 import ms_mint_app
 
 
-def fake_use_wget():
-    "Need this here for pyinstaller/flake8"
-    wget
-
-
-"""
-Simple module that monkey patches pkg_resources.get_distribution used by dash
-to determine the version of Flask-Compress which is not available with a
-flask_compress.__version__ attribute. Known to work with dash==1.16.3 and
-PyInstaller==3.6.
-"""
-
 welcome = r"""
  __________________________________________________________________________________________________________
 /___/\\\\____________/\\\\__/\\\\\\\\\\\__/\\\\\_____/\\\__/\\\\\\\\\\\\\\\_______________/\\\_____________\
@@ -114,7 +102,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.version:
-        print("Mint version:", ms_mint.__version__)
+        print("Mint version:", ms_mint_app.__version__)
         exit()
 
     url = f"http://{args.host}:{args.port}"

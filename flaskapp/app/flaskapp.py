@@ -1,13 +1,8 @@
-import dash
-from flask import Flask, request
+from flask import Flask
 from flask.helpers import get_root_path
 from flask_login import login_required
 
-import dash_bootstrap_components as dbc
-
 from config import BaseConfig
-
-import dash_uploader as du
 
 
 def create_app():

@@ -7,8 +7,6 @@ import tempfile
 
 from pathlib import Path as P
 
-from glob import glob
-
 import pandas as pd
 
 from dash import html, dcc
@@ -17,12 +15,9 @@ from dash.dependencies import Input, Output, State
 
 import dash_bootstrap_components as dbc
 
-import plotly.express as px
-
-from ms_mint.io import convert_ms_file_to_feather, ms_file_to_df
+from ms_mint.io import convert_ms_file_to_feather
 
 from dash_tabulator import DashTabulator
-from tqdm import tqdm
 
 import dash_uploader as du
 
