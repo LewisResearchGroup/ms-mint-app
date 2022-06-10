@@ -19,8 +19,37 @@ More information on how to install and run the program can be found in the [Docu
 
 # Quickstart
   
+## Installation
+
+The recommended way of installing Mint is to use `pip`:
+
     pip install ms-mint-app
+    
+Then you can start the application with:
+
     Mint.py  # This starts the application
+
+
+    Mint.py --help
+    >>>
+    usage: Mint.py [-h] [--no-browser] [--version] [--data-dir DATA_DIR] [--debug] [--port PORT] [--host HOST]
+                   [--serve-path SERVE_PATH] [--ncpu NCPU]
+
+    MINT frontend.
+
+    options:
+      -h, --help            show this help message and exit
+      --no-browser          do not start the browser
+      --version             print current version
+      --data-dir DATA_DIR   target directory for MINT data
+      --debug               start MINT server in debug mode
+      --port PORT           Port to use
+      --host HOST           Host binding address
+      --serve-path SERVE_PATH
+                            (deprecated) serve app at a different path e.g. '/mint/' to serve the app at
+                            'localhost:9999/mint/'
+      --ncpu NCPU           Number of CPUs to use  # Not yet implemented
+
 
 ## News
 MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
