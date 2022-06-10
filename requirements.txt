@@ -12,3 +12,4 @@ Flask-Caching
 flask_migrate
 flask_wtf
 email_validator
+Flask-Caching==1.10.1
