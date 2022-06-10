@@ -15,9 +15,9 @@ WORKDIR /app
 
 RUN pip3 install .
 
-ENV MINT_DATA_DIR /data
-
 ENV SQLALCHEMY_DATABASE_URI sqlite:///data/mint.db
+
+ENV MINT_DATA_DIR /data/
 
 CMD ./entrypoint.sh
 
