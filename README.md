@@ -20,7 +20,7 @@ More information on how to install and run the program can be found in the [Docu
 # Quickstart
   
     pip install ms-mint-app
-    Mint.py
+    Mint.py  # This starts the application
 
 ## News
 MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
