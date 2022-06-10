@@ -107,7 +107,7 @@ _layout = html.Div(
         html.H4("Peak previews"),
         html.Button("Update peak previews", id="pko-peak-preview"),
         html.Button("Regenerate all figures", id="pko-peak-preview-from-scratch"),
-        html.Button("Detect rt_min,rt_max", id="pko-optimize-rt"),
+        html.Button("Detect rt_min,rt_max for all targets", id="pko-optimize-rt"),
         dcc.Markdown("---"),
 
         html.Div(
@@ -125,7 +125,7 @@ _layout = html.Div(
         ),
 
         html.Button("Set RT to current view", id="pko-set-rt"),
-        html.Button("Detect rt_min,rt_max for all", id="pko-find-largest-peak"),
+        html.Button("Detect rt_min,rt_max", id="pko-find-largest-peak"),
         html.Button("Confirm retention time", id="pko-confirm-rt"),
         html.Button("Remove Peak", id="pko-delete", style={"float": "right"}),
 

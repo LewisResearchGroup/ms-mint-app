@@ -13,7 +13,6 @@ from tqdm import tqdm
 from glob import glob
 from pathlib import Path as P
 
-import wget
 import urllib3, ftplib
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup
@@ -693,22 +692,6 @@ def filename_to_label(fn: str):
     if is_ms_file(fn):
         fn = os.path.splitext(fn)[0]
     return os.path.basename(fn)
-
-
-def import_from_url(url, target_dir, fsc=None):
-    filenames = get_filenames_from_url(url)
-    filenames = [fn for fn in filenames if is_ms_file(fn)]
-    if len(filenames) == 0:
-        return None
-    fns = []
-    n_files = len(filenames)
-    for i, fn in enumerate(tqdm(filenames)):
-        _url = url + "/" + fn
-        logging.info("Downloading", _url)
-        if fsc is not None:
-            fsc.set("progress", int(100 * (1 + i) / n_files))
-        wget.download(_url, out=target_dir)
-    return fns
 
 
 def get_filenames_from_url(url):
