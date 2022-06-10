@@ -246,13 +246,8 @@ def create_app(**kwargs):
             dbc.themes.MINTY,
             "https://codepen.io/chriddyp/pen/bWLwgP.css",
         ],
-        # requests_pathname_prefix=os.getenv('MINT_SERVE_PATH', default='/'),
-        # routes_pathname_prefix=os.getenv('MINT_SERVE_PATH', default='/'),
         **kwargs,
     )
-
-    # app.css.config.serve_locally = True
-    # app.scripts.config.serve_locally = True
 
     app.layout = _layout
     app.title = "MINT"

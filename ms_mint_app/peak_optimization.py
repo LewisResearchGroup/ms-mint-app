@@ -21,10 +21,6 @@ import dash_bootstrap_components as dbc
 
 import plotly.graph_objects as go
 
-from ms_mint.peak_optimization.RetentionTimeOptimizer import (
-    RetentionTimeOptimizer as RTOpt,
-)
-
 from ms_mint import Mint
 
 from . import tools as T
@@ -175,7 +171,7 @@ def layout():
     return _layout
 
 
-def callbacks(app, fsc, cache):
+def callbacks(app, fsc, cache, cpu=None):
     @app.callback(
         Output("pko-dropdown", "options"),
         Input("tab", "value"),
@@ -278,7 +274,7 @@ def callbacks(app, fsc, cache):
             name, _ = os.path.splitext(name)
             chrom = T.get_chromatogram(fn, mz_mean, mz_width, wdir)
             fig.add_trace(
-                go.Scatter(x=chrom["scan_time_min"], y=chrom["intensity"], name=name)
+                go.Scatter(x=chrom["scan_time"], y=chrom["intensity"], name=name)
             )
             fig.update_layout(showlegend=False)
             fig.update_layout(hoverlabel=dict(namelength=-1))
@@ -305,33 +301,25 @@ def callbacks(app, fsc, cache):
         State("pko-margin", "value"),
         State("wdir", "children"),
     )
-    def pko_find_largest_peak(n_clicks, ms_selection, margin, wdir):
+    def pko_optimise_rt_min_max(n_clicks, ms_selection, margin, wdir):
         if n_clicks is None:
             raise PreventUpdate
+    
         targets = T.get_targets(wdir)
 
         if ms_selection == "peakopt":
             ms_files = T.get_ms_fns_for_peakopt(wdir)
         elif ms_selection == "all":
             ms_files = T.get_ms_fns(wdir)
-        print(margin)
-        n_peaks = len(targets)
-        for i, (peak_label, row) in tqdm(enumerate(targets.iterrows()), total=n_peaks):
-            fsc.set("progress", int(100 * (1 + i) / n_peaks))
-            mz_mean, mz_width = row.loc[["mz_mean", "mz_width"]]
-            chromatograms = [
-                T.get_chromatogram(fn, mz_mean, mz_width, wdir).set_index(
-                    "scan_time_min"
-                )["intensity"]
-                for fn in ms_files
-            ]
-            # rt_min, rt_max = max(0, row['rt']-(margin/2)), row['rt']+(margin/2)
-            rt_min, rt_max = RTOpt(rt=row["rt"], rt_margin=margin).find_largest_peak(
-                chromatograms
-            )
-            targets.loc[peak_label, ["rt_min", "rt_max"]] = rt_min, rt_max
 
-        T.write_targets(targets, wdir)
+        mint = Mint()
+        mint.targets = targets
+        mint.ms_files = ms_files
+        mint.opt.find_rt_min_max()       
+        new_targets = mint.targets
+
+        T.write_targets(new_targets, wdir)
+
         return dbc.Alert("Peak optimization done.", color="info")
 
     @app.callback(
@@ -584,28 +572,24 @@ def callbacks(app, fsc, cache):
             raise PreventUpdate
         if peak_label_ndx is None:
             raise PreventUpdate
-        targets = T.get_targets(wdir)
+        targets = T.get_targets(wdir).reset_index()
+
         if ms_selection == "peakopt":
             ms_files = T.get_ms_fns_for_peakopt(wdir)
         elif ms_selection == "all":
             ms_files = T.get_ms_fns(wdir)
-        row = targets.iloc[peak_label_ndx]
-        mz_mean, mz_width = row.loc[["mz_mean", "mz_width"]]
-        chromatograms = [
-            T.get_chromatogram(fn, mz_mean, mz_width, wdir).set_index("scan_time_min")[
-                "intensity"
-            ]
-            for fn in ms_files
-        ]
-        rt_min, rt_max = RTOpt(
-            rt=row["rt"], rt_min=row["rt_min"], rt_max=["rt_max"], rt_margin=margin
-        ).find_largest_peak(chromatograms)
-        targets = targets.reset_index()
-        targets.loc[peak_label_ndx, ["rt_min", "rt_max"]] = rt_min, rt_max
-        peak_label = targets.loc[peak_label_ndx, "peak_label"]
-        targets.to_csv(T.get_targets_fn(wdir), index=False)
+
+        peak_label = targets.at[peak_label_ndx, 'peak_label']
+        
+        mint = Mint()
+        mint.targets = targets
+        mint.ms_files = ms_files
+        mint.opt.find_rt_min_max()       
+        new_targets = mint.targets
+        new_targets.to_csv(T.get_targets_fn(wdir), index=False)
+
         return dbc.Alert(
-            f"Set rt_min, rt_max for {peak_label}: {rt_min}, {rt_max}.", color="info"
+            f"Done optimize rt_min rt_max for {peak_label}", color="info"
         )
 
     @app.callback(
@@ -667,9 +651,9 @@ def create_preview_peakshape(
             color = "grey"
         fn_chro = T.get_chromatogram(fn, mz_mean, mz_width, wdir)
         fn_chro = fn_chro[
-            (rt_min < fn_chro["scan_time_min"]) & (fn_chro["scan_time_min"] < rt_max)
+            (rt_min < fn_chro["scan_time"]) & (fn_chro["scan_time"] < rt_max)
         ]
-        plt.plot(fn_chro["scan_time_min"], fn_chro["intensity"], lw=1, color=color)
+        plt.plot(fn_chro["scan_time"], fn_chro["intensity"], lw=1, color=color)
         y_max = max(y_max, fn_chro["intensity"].max())
     if (not np.isnan(rt)) and not (np.isnan(rt_max)) and not (np.isnan(rt_min)):
         x = max(min(rt, rt_max), rt_min)

@@ -8,7 +8,6 @@ with open("README.md", "r") as fh:
 
 
 install_requires = [
-    "wget",
     "xlsxwriter",
     "waitress",
     "dash",

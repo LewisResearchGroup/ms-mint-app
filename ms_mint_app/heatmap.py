@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 
 from ms_mint.Mint import Mint
-from ms_mint.vis.plotly import plotly_heatmap
+from ms_mint.plotly_tools import plotly_heatmap
 
 from . import tools as T
 

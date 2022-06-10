@@ -123,10 +123,6 @@ _layout = html.Div(
                 "display": "inline-block",
             },
         ),
-        html.Button("Import from URL", id="ms-import-from-url"),
-        dcc.Input(
-            id="url", placeholder="Drop URL / path here", style={"width": "100%"}
-        ),
         dcc.Markdown("---", style={"marginTop": "10px"}),
         dcc.Markdown("##### Actions"),
         html.Button("Convert to Feather", id="ms-convert"),
@@ -224,64 +220,30 @@ def callbacks(app, fsc, cache):
             os.remove(fn)
         return dbc.Alert(f"{len(rows)} files deleted", color="info")
 
-    @app.callback(
-        Output("ms-uploader-fns", "children"),
-        [Input("ms-uploader", "uploadedFiles")],
-        [
-            State("ms-uploader", "fileNames"),
-            State("ms-uploader", "upload_id"),
-            State("ms-uploader", "isCompleted"),
-            State("ms-uploader", "newestUploadedFileName"),
-        ],
-    )
-    def callback_on_completion(n_files, filenames, upload_id, iscompleted, latest_file):
-        if n_files == 0:
-            return  # no files uploaded yet.
-        out = []
-        if filenames is not None:
-            if upload_id:
-                root_folder = P(UPLOAD_FOLDER_ROOT) / upload_id
-            else:
-                root_folder = P(UPLOAD_FOLDER_ROOT)
 
-            for filename in filenames:
-                file = root_folder / filename
-                out.append(file)
-            return str(file)
-        return []
+    @du.callback(
+        output=Output('ms-uploader-fns', 'children'),
+        id='ms-uploader',
+    )
+    def upload_completed(status):
+        return [str(fn) for fn in status.uploaded_files]
 
     @app.callback(
         Output({"index": "ms-uploader-output", "type": "output"}, "children"),
         Input("ms-uploader-fns", "children"),
         State("wdir", "children"),
     )
-    def get_a_list(fn, wdir):
-        if fn is None:
+    def move_uploaded_files(fns, wdir):
+        if fns is None or len(fns)==0:
             raise PreventUpdate
         ms_dir = T.get_ms_dirname(wdir)
-        fn_new = P(ms_dir) / P(fn).name
-        shutil.move(fn, fn_new)
-        logging.info(f"Move {fn} to {fn_new}")
+        for fn in fns:
+            if not P(fn).is_file():
+                continue
+            fn_new = P(ms_dir) / P(fn).name
+            shutil.move(fn, fn_new)
+            logging.info(f"Move {fn} to {fn_new}")
         return dbc.Alert("Upload finished", color="success")
-
-    @app.callback(
-        Output({"index": "ms-import-from-url-output", "type": "output"}, "children"),
-        Input("ms-import-from-url", "n_clicks"),
-        State("url", "value"),
-        State("wdir", "children"),
-    )
-    def import_from_url_or_path(n_clicks, url, wdir):
-        if n_clicks is None or url is None:
-            raise PreventUpdate
-        url = url.strip()
-        ms_dir = T.get_ms_dirname(wdir)
-        logging.warning(
-            f"Local file not found, looking for URL ({url}) [{P(url).is_dir()}, {os.path.isdir(url)}]"
-        )
-        fns = T.import_from_url(url, ms_dir, fsc=fsc)
-        if fns is None:
-            return dbc.Alert(f"No MS files found at {url}", color="warning")
-        return dbc.Alert(f"{len(fns)} files imported.", color="success")
 
     @app.callback(Output("ms-n-files", "children"), Input("ms-table", "data"))
     def n_files(data):
