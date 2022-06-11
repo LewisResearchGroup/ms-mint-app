@@ -167,7 +167,7 @@ def callbacks(app, fsc, cache):
 
         T.maybe_update_workpace_scheme(wdir)
 
-        return dbc.Alert(message, color="info"), wdir, ws_name
+        return dbc.Alert(message, color="success"), wdir, ws_name
 
     @app.callback(
         Output("progress-bar", "value"),
@@ -205,7 +205,7 @@ def callbacks(app, fsc, cache):
             dirname = T.workspace_path(tmpdir, ws_name)
             shutil.rmtree(dirname)
         message = f"Worskpace {ws_name} deleted."
-        return dbc.Alert(message, color="info")
+        return dbc.Alert(message, color="success")
 
     @app.callback(
         Output("ws-create-popup", "is_open"),

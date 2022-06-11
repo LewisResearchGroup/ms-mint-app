@@ -265,7 +265,7 @@ def callbacks(app, fsc, cache, cpu=None):
             ms_files = T.get_ms_fns(wdir)
 
         mint = Mint()
-        mint.targets = targets
+        mint.targets = targets.reset_index()
         mint.ms_files = ms_files
         mint.opt.find_rt_min_max()       
         new_targets = mint.targets
@@ -454,7 +454,7 @@ def callbacks(app, fsc, cache, cpu=None):
                     rt_max,
                     image_label,
                     wdir,
-                    title=peak_label,
+                    peak_label=peak_label,
                     colors=file_colors,
                 )
 
@@ -542,53 +542,13 @@ def callbacks(app, fsc, cache, cpu=None):
         return dbc.Alert(
             f"Done optimize rt_min rt_max for {peak_label}", color="info"
         )
-
-    @app.callback(
-        Output(
-            {"index": "pko-remove-low-intensity-output", "type": "output"}, "children"
-        ),
-        Input("pko-remove-low-intensity", "n_clicks"),
-        State("pko-ms-selection", "value"),
-        State("pko-threshold", "value"),
-        State("wdir", "children"),
-    )
-    def remove_low_intensity_peaks(n_clicks, ms_selection, threshold, wdir):
-        if n_clicks is None:
-            raise PreventUpdate
-        logging.info("Remove low intensity peaks.")
-        targets = T.get_targets(wdir)
-
-        if ms_selection == "peakopt":
-            ms_files = T.get_ms_fns_for_peakopt(wdir)
-        elif ms_selection == "all":
-            ms_files = T.get_ms_fns(wdir)
-
-        def set_progress(x):
-            fsc.set("progress", x)
-
-        mint = Mint(verbose=True, progress_callback=set_progress)
-
-        tmp_targets = targets.reset_index().copy()
-
-        tmp_targets["rt_min"] = tmp_targets.rt_min.fillna(0)
-        tmp_targets["rt_max"] = tmp_targets.rt_max.fillna(100)
-
-        mint.ms_files = ms_files
-        mint.targets = tmp_targets
-        mint.run()
-        peak_labels = mint.results[
-            mint.results.peak_max > float(threshold)
-        ].peak_label.drop_duplicates()
-        targets = targets[targets.index.isin(peak_labels)]
-        T.write_targets(targets, wdir)
-        return dbc.Alert("Low intensity peaks removed.", color="info")
-
+        
 
 def create_preview_peakshape(
-    ms_files, mz_mean, mz_width, rt, rt_min, rt_max, image_label, wdir, title, colors
+    ms_files, mz_mean, mz_width, rt, rt_min, rt_max, image_label, wdir, peak_label, colors
 ):
     """Create peak shape previews."""
-    plt.figure(figsize=(2.5, 1.5), dpi=30)
+    plt.figure(figsize=(1.5, 1), dpi=30)
     y_max = 0
     for fn in ms_files:
         color = colors[T.filename_to_label(fn)]
@@ -603,12 +563,13 @@ def create_preview_peakshape(
     if (not np.isnan(rt)) and not (np.isnan(rt_max)) and not (np.isnan(rt_min)):
         x = max(min(rt, rt_max), rt_min)
         rt_mean = np.mean([rt_min, rt_max])
-        color_value = np.abs(rt_mean - rt)
+        color_value = np.abs(rt_mean - rt) / 10
         color = T.float_to_color(color_value, vmin=0, vmax=1, cmap="coolwarm")
         plt.vlines(x, 0, y_max, lw=3, color=color)
-    plt.gca().set_title(title[:30], y=1.0, pad=15)
+    title = f'{peak_label[:30]}\nm/z={mz_mean:.2f}'
+    plt.gca().set_title(title, y=1.0, pad=15)
     plt.gca().ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-    plt.xlabel("Scan Time [s]")
+    plt.xlabel("Rt [s]")
     plt.ylabel("Intensity")
     filename = T.savefig(kind="peak-preview", wdir=wdir, label=image_label)
     plt.close()
