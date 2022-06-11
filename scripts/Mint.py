@@ -110,6 +110,7 @@ if __name__ == "__main__":
     if not args.no_browser:
         if os.name == "nt":
             # https://github.com/pyinstaller/pyinstaller/wiki/Recipe-Multiprocessing
+            print('Using Windows')
             multiprocessing.freeze_support()
 
         # Open the browser

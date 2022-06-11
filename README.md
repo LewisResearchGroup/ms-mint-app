@@ -1,7 +1,6 @@
 [![Python package](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/pythonpackage.yml/badge.svg)](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/pythonpackage.yml)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5178/badge)](https://bestpractices.coreinfrastructure.org/projects/5178)
 ![](images/coverage.svg)
-[![Github All Releases](https://img.shields.io/github/downloads/LewisResearchGroup/ms-mint/total.svg)]()
 [![Total alerts](https://img.shields.io/lgtm/alerts/g/LewisResearchGroup/ms-mint-app.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/LewisResearchGroup/ms-mint-app/alerts/)
 [![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/LewisResearchGroup/ms-mint-app.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/LewisResearchGroup/ms-mint-app/context:python)
 [![Docker Image CI](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/docker-image.yml/badge.svg)](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/docker-image.yml)
@@ -15,53 +14,61 @@ Metabolomics is the study of all metabolites (small chemical compounds) in a bio
 The metabolites can be used to define biomarkers used in medicine to find treatments for diseases or for the development of diagnostic tests 
 or for the identification of pathogens such as methicillin resistant _Staphylococcus aureus_ (MRSA). 
 More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint-app/) or check out the 
-[Quickstart](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
+[Tutorial](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
 
-# News
-We are refactoring the application. Things might break in the mean time. For example, links might break. Please report issues to the issue tracker.
+## News
+MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
 
-## Known issues
-The current version of the flask-chaching library seems to be brokem. There will be errors visible in the console:
+## Screenshot
+![Screenshot](docs/gallery/MINT-interface-1.png)
 
-> ERROR:flask_caching.backends.filesystemcache:get key 'progress' -> invalid load key, '\x13'.
+# Quickstart
 
-That only means the progress bar is not working correctly right now. 
-
-# Browser based as standalone application or server based
-![](./docs/image/distributions.png)
+## Try it
 
 A demo server is available [here](https://mint.resistancedb.org). Be mindful, you share the server with others.
+  
+## Installation
 
-# Metabolomics with Python
+The recommended way of installing Mint is to use `pip`:
 
-MINT originally started as Python project. The core of MINT is a Python class for targeted metabolomics that can be used independent of the graphical application.
+    pip install ms-mint-app
+    
+Then you can start the application with:
 
-    from ms_mint.notebook import Mint
-    mint.ms_files = glob('/path/to/files/*mzML')
-    mint.peaklist_files = '/path/to/peaklist/file/peaklist.csv'
-    mint.run()
-    mint.results
+    Mint.py  # This starts the application
 
-![Mint Jupyter Results](./docs/image/jupyter_results.png "Mint Jupyter Results")
+Once the server has started navigate to http://localhost:9999 with your browser (tested on Chrome).
 
-# Contributions are welcome
-MINT integrates open-source software and packages into a Python library for metabolomics with a browser based GUI. It is programmed by scientists for scientists to contribute to  better and faster science integrating best practices of data management and computer science. Contributions are welcome that improve the efficiency of the code, bug fixes, feature implementations, security enhancements among others. If you want to contribute to MINT please send me a notification.
+There are more options available:
 
-### How to contribute
-#### Errors, Feedback, Feature Requests
-If you encounter an error, if you have a request for a new feature, or for general feedback, please open a new ticket at the [issue tracker](https://github.com/LewisResearchGroup/ms-mint-app/issues).
+    Mint.py --help
+    >>>
+    usage: Mint.py [-h] [--no-browser] [--version] [--data-dir DATA_DIR] [--debug] [--port PORT] [--host HOST]
+                   [--serve-path SERVE_PATH] [--ncpu NCPU]
 
-#### Code contributions
-If your are up to enhance the codebase yourself, we ask you to followowing steps:
+    MINT frontend.
 
-1.   fork the repository
-1.   implement the new feature or bug-fix
-1.   add corresponding tests
-2.   run `flake8`
-3.   submit a pull request
+    options:
+      -h, --help            show this help message and exit
+      --no-browser          do not start the browser
+      --version             print current version
+      --data-dir DATA_DIR   target directory for MINT data
+      --debug               start MINT server in debug mode
+      --port PORT           Port to use
+      --host HOST           Host binding address
+      --ncpu NCPU           Number of CPUs to use  # Not yet implemented
 
-#### Code standards
-Before submitting a pull request please run `flake8`.
+## Windows installer
+
+  The latest Windows installer is available [here](https://github.com/LewisResearchGroup/ms-mint-app/releases/tag/v0.1.7.6).
+
+## Contributions
+All contributions, bug reports, code reviews, bug fixes, documentation improvements, enhancements, and ideas are welcome.
+Before you modify the code please reach out to us using the [issues](https://github.com/LewisResearchGroup/ms-mint/issues) page.
+
+## Code standards
+The project follows PEP8 standard and uses Black and Flake8 to ensure a consistent code format throughout the project.
 
 ## Get in touch
 Open an [issue](https://github.com/LewisResearchGroup/ms-mint-app/issues) or join the [slack](https://ms-mint.slack.com/) channel.
