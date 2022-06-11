@@ -548,7 +548,7 @@ def create_preview_peakshape(
     ms_files, mz_mean, mz_width, rt, rt_min, rt_max, image_label, wdir, peak_label, colors
 ):
     """Create peak shape previews."""
-    plt.figure(figsize=(1.5, 1), dpi=30)
+    plt.figure(figsize=(2, 1), dpi=30)
     y_max = 0
     for fn in ms_files:
         color = colors[T.filename_to_label(fn)]
@@ -569,7 +569,7 @@ def create_preview_peakshape(
     title = f'{peak_label[:30]}\nm/z={mz_mean:.2f}'
     plt.gca().set_title(title, y=1.0, pad=15)
     plt.gca().ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-    plt.xlabel("Rt [s]")
+    plt.xlabel("Scan Time [s]")
     plt.ylabel("Intensity")
     filename = T.savefig(kind="peak-preview", wdir=wdir, label=image_label)
     plt.close()
