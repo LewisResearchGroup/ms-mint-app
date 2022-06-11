@@ -18,7 +18,7 @@ def create_app():
 
 def register_dashapps(app):
     from ms_mint_app.app import create_app
-    from ms_mintapp.app import register_callbacks
+    from ms_mint_app.app import register_callbacks
 
     # Meta tags for viewport responsiveness
     meta_viewport = {
