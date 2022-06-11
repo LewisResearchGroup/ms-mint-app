@@ -7,5 +7,5 @@ export SQLALCHEMY_DATABASE_URI='sqlite:////data/mint.db'
 
 flask db upgrade
 
-waitress-serve --port 8000 --call 'flaskapp:create_app' --threads=16
+waitress-serve --port 8000 --threads=16 --call 'flaskapp:create_app'
 
