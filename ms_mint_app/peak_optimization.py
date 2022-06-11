@@ -188,7 +188,7 @@ def callbacks(app, fsc, cache, cpu=None):
 
         peak_label_ndx = peak_label_ndx % len(targets)
         mz_mean, mz_width, rt, rt_min, rt_max, label = targets.loc[peak_label_ndx, cols]
-
+        margin = 30
         if rt is np.isnan(rt):
             if (not np.isnan(rt_min)) and (not np.isnan(rt_max)):
                 rt = np.mean([rt_min, rt_max])
