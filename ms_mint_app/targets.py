@@ -160,7 +160,7 @@ def callbacks(app, fsc=None, cache=None):
         if len(df) == 0:
             df = pd.DataFrame(columns=TARGETS_COLUMNS)
         T.write_targets(df, wdir)
-        return dbc.Alert("Peaklist saved.", color="info")
+        return dbc.Alert("Target list saved.", color="success")
 
     @app.callback(
         Output("pkl-table", "downloadButtonType"),
