@@ -52,62 +52,11 @@ _layout = html.Div(
             clearable=False,
             style={'max-width': '400px'}
         ),
-        html.Div(
-            id="experimental",
-            children=[
-                dcc.Markdown("---"),
-                dbc.Row(
-                    style={"visibility": "hidden", "height": "0px"},
-                    children=[
-                        html.H4("Process all peaks"),
-                        html.Div(
-                            [
-                                html.Button(
-                                    "Find largest peaks for all",
-                                    id="pko-find-largest-peak-for-all",
-                                    style={"width": "100%"},
-                                ),
-                                html.Label("Margin:"),
-                                dcc.Slider(
-                                    id="pko-margin",
-                                    min=0.1,
-                                    max=20,
-                                    step=0.05,
-                                    value=0.3,
-                                ),
-                                html.Label("", id="pko-margin-display"),
-                            ],
-                            style={
-                                "width": "45%",
-                                "display": "inline-block",
-                                "margin": "auto",
-                            },
-                        ),
-                        html.Div(
-                            [
-                                html.Button(
-                                    "Remove low intensity peaks",
-                                    id="pko-remove-low-intensity",
-                                    style={"width": "100%"},
-                                ),
-                                html.Label("Threshold:"),
-                                dcc.Input(id="pko-threshold", value="1e4"),
-                            ],
-                            style={
-                                "width": "45%",
-                                "display": "inline-block",
-                                "margin": "auto",
-                            },
-                        ),
-                        dcc.Markdown("---"),
-                    ],
-                ),
-            ],
-        ),
+
         html.H4("Peak previews"),
         html.Button("Update peak previews", id="pko-peak-preview"),
         html.Button("Regenerate all figures", id="pko-peak-preview-from-scratch"),
-        html.Button("Detect rt_min,rt_max for all targets", id="pko-optimize-rt"),
+        html.Button("Detect rt_min,rt_max for all targets", id="pko-detect-rtmin-rtmax-for-all"),
         dcc.Markdown("---"),
 
         html.Div(
@@ -125,7 +74,7 @@ _layout = html.Div(
         ),
 
         html.Button("Set RT to current view", id="pko-set-rt"),
-        html.Button("Detect rt_min,rt_max", id="pko-find-largest-peak"),
+        html.Button("Detect rt_min,rt_max", id="pko-detect-rtmin-rtmax"),
         html.Button("Confirm retention time", id="pko-confirm-rt"),
         html.Button("Remove Peak", id="pko-delete", style={"float": "right"}),
 
@@ -165,9 +114,9 @@ _outputs = html.Div(
         html.Div(id={"index": "pko-set-rt-output", "type": "output"}),
         html.Div(id={"index": "pko-confirm-rt-output", "type": "output"}),
         html.Div(
-            id={"index": "pko-find-largest-peak-for-all-output", "type": "output"}
+            id={"index": "pko-detect-rtmin-rtmax-for-all-output", "type": "output"}
         ),
-        html.Div(id={"index": "pko-find-largest-peak-output", "type": "output"}),
+        html.Div(id={"index": "pko-detect-rtmin-rtmax-output", "type": "output"}),
         html.Div(id={"index": "pko-delete-output", "type": "output"}),
         html.Div(id={"index": "pko-remove-low-intensity-output", "type": "output"}),
     ],
@@ -207,13 +156,12 @@ def callbacks(app, fsc, cache, cpu=None):
         Input({"index": "pko-set-rt-output", "type": "output"}, "children"),
         Input("pko-dropdown", "options"),
         Input(
-            {"index": "pko-find-largest-peak-for-all-output", "type": "output"},
+            {"index": "pko-detect-rtmin-rtmax-for-all-output", "type": "output"},
             "children",
         ),
-        Input({"index": "pko-find-largest-peak-output", "type": "output"}, "children"),
+        Input({"index": "pko-detect-rtmin-rtmax-output", "type": "output"}, "children"),
         Input({"index": "pko-confirm-rt-output", "type": "output"}, "children"),
         State("pko-ms-selection", "value"),
-        State("pko-margin", "value"),
         State("wdir", "children"),
     )
     def pko_figure(
@@ -225,7 +173,6 @@ def callbacks(app, fsc, cache, cpu=None):
         find_largest_peak_single,
         rt_set,
         ms_selection,
-        margin,
         wdir,
     ):
         fig = None
@@ -299,16 +246,13 @@ def callbacks(app, fsc, cache, cpu=None):
         return progress
 
     @app.callback(
-        Output(
-            {"index": "pko-find-largest-peak-for-all-output", "type": "output"},
-            "children",
-        ),
-        Input("pko-find-largest-peak-for-all", "n_clicks"),
+        Output({"index": "pko-detect-rtmin-rtmax-for-all-output", "type": "output"}, "children"),
+        Input("pko-detect-rtmin-rtmax-for-all", "n_clicks"),
         State("pko-ms-selection", "value"),
-        State("pko-margin", "value"),
         State("wdir", "children"),
     )
-    def pko_optimise_rt_min_max(n_clicks, ms_selection, margin, wdir):
+    def pko_optimise_rt_min_ma_for_all_targets(n_clicks, ms_selection, wdir):
+        print('Running peak detection')
         if n_clicks is None:
             raise PreventUpdate
     
@@ -316,6 +260,7 @@ def callbacks(app, fsc, cache, cpu=None):
 
         if ms_selection == "peakopt":
             ms_files = T.get_ms_fns_for_peakopt(wdir)
+
         elif ms_selection == "all":
             ms_files = T.get_ms_fns(wdir)
 
@@ -327,7 +272,7 @@ def callbacks(app, fsc, cache, cpu=None):
 
         T.write_targets(new_targets, wdir)
 
-        return dbc.Alert("Peak optimization done.", color="info")
+        return dbc.Alert("Peak detection finished.", color="info")
 
     @app.callback(
         Output({"index": "pko-set-rt-output", "type": "output"}, "children"),
@@ -567,14 +512,13 @@ def callbacks(app, fsc, cache, cpu=None):
         return dbc.Alert(f"{peak_label} removed from targets.", color="info")
 
     @app.callback(
-        Output({"index": "pko-find-largest-peak-output", "type": "output"}, "children"),
-        Input("pko-find-largest-peak", "n_clicks"),
+        Output({"index": "pko-detect-rtmin-rtmax-output", "type": "output"}, "children"),
+        Input("pko-detect-rtmin-rtmax", "n_clicks"),
         State("pko-dropdown", "value"),
         State("pko-ms-selection", "value"),
-        State("pko-margin", "value"),
         State("wdir", "children"),
     )
-    def find_largest_peak(n_clicks, peak_label_ndx, ms_selection, margin, wdir):
+    def detect_rt_min_max(n_clicks, peak_label_ndx, ms_selection, wdir):
         if n_clicks is None:
             raise PreventUpdate
         if peak_label_ndx is None:
@@ -638,12 +582,6 @@ def callbacks(app, fsc, cache, cpu=None):
         targets = targets[targets.index.isin(peak_labels)]
         T.write_targets(targets, wdir)
         return dbc.Alert("Low intensity peaks removed.", color="info")
-
-    @app.callback(
-        Output("pko-margin-display", "children"), Input("pko-margin", "value")
-    )
-    def display_slider_value(value):
-        return "Value: {} [min]".format(value)
 
 
 def create_preview_peakshape(
