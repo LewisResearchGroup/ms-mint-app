@@ -272,7 +272,7 @@ def callbacks(app, fsc, cache, cpu=None):
 
         T.write_targets(new_targets, wdir)
 
-        return dbc.Alert("Peak detection finished.", color="info")
+        return dbc.Alert("Rt detection finished.", color="success")
 
     @app.callback(
         Output({"index": "pko-set-rt-output", "type": "output"}, "children"),
