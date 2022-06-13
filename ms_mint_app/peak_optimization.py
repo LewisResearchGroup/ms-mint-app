@@ -140,7 +140,7 @@ def callbacks(app, fsc, cache, cpu=None):
             raise PreventUpdate
         targets = T.get_targets(wdir)
         if targets is None:
-            logging.warning("Peaklist is None")
+            logging.warning("Target-list is empty")
             raise PreventUpdate
         options = [
             {"label": label, "value": i} for i, label in enumerate(targets.index)

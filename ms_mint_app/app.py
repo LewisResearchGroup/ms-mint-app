@@ -170,7 +170,7 @@ _layout = html.Div(
 
 
 def register_callbacks(app, cache, fsc):
-    logging.warning("Register callbacks")
+    logging.info("Register callbacks")
     upload_root = os.getenv("MINT_DATA_DIR", tempfile.gettempdir())
     upload_dir = str(P(upload_root) / "MINT-Uploads")
     UPLOAD_FOLDER_ROOT = upload_dir
@@ -229,11 +229,8 @@ def register_callbacks(app, cache, fsc):
     def upate_tmpdir(x):
         if hasattr(app.server, "login_manager"):
             username = current_user.username
-            logging.warning(f"User: {username}")
             tmpdir = str(TMPDIR / "User" / username)
-            logging.warning(tmpdir)
             return tmpdir, {"visibility": "visible"}
-        logging.info("Hide login button")
         return str(TMPDIR / "Local"), {"visibility": "hidden"}
 
 
@@ -254,8 +251,6 @@ def create_app(**kwargs):
 
     upload_root = os.getenv("MINT_DATA_DIR", tempfile.gettempdir())
     CACHE_DIR = str(P(upload_root) / "MINT-Cache")
-
-    logging.info("Cache directory: {}".format(CACHE_DIR))
 
     cache = Cache(
         app.server, config={"CACHE_TYPE": "filesystem", "CACHE_DIR": CACHE_DIR}
