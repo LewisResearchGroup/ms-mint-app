@@ -65,7 +65,7 @@ _modules = [
     ms_files,
     metadata,
     targets,
-    #add_metab,
+    add_metab,
     peak_optimization,
     processing,
     analysis,
@@ -142,6 +142,8 @@ _layout = html.Div(
                         "display": "inline-block",
                         "visibility": "visible",
                         "float": "right",
+                        "margin": "20px",
+                        "color": "red"
                     },
                 ),
             ],
