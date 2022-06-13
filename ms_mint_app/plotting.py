@@ -232,11 +232,13 @@ _layout = html.Div(
               
                 html.Label("Figure kind"),
                 dcc.Dropdown(id="plot-kind", options=kind_options, value="bar"),
+                
                 html.Label("Facet dimensions:"),
                 dbc.Row([
                     dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
                     dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=5, type="number"),   
                 ]),
+
                 html.Label("Column wrap"),
                 dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=0),                 
             ]),
@@ -256,7 +258,7 @@ _layout = html.Div(
                 html.Label("Marker style and size:"),
                 dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
                 dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),       
-                         
+
                 html.Label("Colors"),
                 dcc.Dropdown(id="plot-hue", options=[], value=None, placeholder="Color"),
                 dcc.Dropdown(id="plot-palette", options=palette_options, value=None, placeholder="Palette (Colors)",),
