@@ -1,6 +1,7 @@
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
 
 from ms_mint.notebook import Mint
 
@@ -23,7 +24,7 @@ _layout = html.Div(
             id="hc-figsize-y", placeholder="Figure size x", value=8, type="number"
         ),
         dcc.Dropdown(id="hc-options", options=options, value=[]),
-        html.Button("Update", id="hc-update"),
+        dbc.Button("Update", id="hc-update"),
         dcc.Loading(
             html.Div(
                 id="hc-figures",

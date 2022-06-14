@@ -65,38 +65,52 @@ _label = "Targets"
 _layout = html.Div(
     [
         html.H3(_label),
-        dcc.Upload(
-            id="pkl-upload",
-            children=html.Div(["Drag and Drop or ", html.A("Select Files")]),
-            style={
-                "width": "100%",
-                "height": "60px",
-                "lineHeight": "60px",
-                "borderWidth": "1px",
-                "borderStyle": "dashed",
-                "borderRadius": "5px",
-                "textAlign": "center",
-                "margin": "10px",
-            },
-            # Allow multiple files to be uploaded
-            multiple=True,
+
+        dbc.Row([
+                    
+                dcc.Upload(
+                    id="pkl-upload",
+                    children=html.Div(["Drag and Drop or ", html.A("Select Files")]),
+                    style={
+                        "width": "100%",
+                        "height": "60px",
+                        "lineHeight": "60px",
+                        "borderWidth": "1px",
+                        "borderStyle": "dashed",
+                        "borderRadius": "5px",
+                        "textAlign": "center",
+                        "margin": "10px",
+                    },
+                    # Allow multiple files to be uploaded
+                    multiple=True,
+                ),
+
+                html.Div(
+                    [
+                        html.Label('Upload options'),
+                        dcc.Dropdown(
+                            id="pkl-ms-mode",
+                            options=[
+                                {
+                                    "value": "positive",
+                                    "label": "Add proton mass to formula (positive mode)",
+                                },
+                                {
+                                    "value": "negative",
+                                    "label": "Subtract proton mass from formula (negative mode)",
+                                },
+                            
+                            ],
+                            value=None,
+                        ),
+                    ],
+                ),
+            ], style={"marginBottom": "30px"}
         ),
-        dcc.Dropdown(
-            id="pkl-ms-mode",
-            options=[
-                {
-                    "value": "positive",
-                    "label": "Add proton mass to formula (positive mode)",
-                },
-                {
-                    "value": "negative",
-                    "label": "Subtract proton mass from formula (negative mode)",
-                },
-            ],
-            value=None,
-        ),
-        html.Button("Save", id="pkl-save"),
-        html.Button("Clear", id="pkl-clear", style={"float": "right"}),
+
+        dcc.Markdown("##### Table actions"),
+        dbc.Button("Save changes", id="pkl-save"),
+        dbc.Button("Clear targets table", id="pkl-clear", style={"float": "right"}, color='danger'),
         pkl_table,
     ]
 )

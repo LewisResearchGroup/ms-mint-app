@@ -17,7 +17,7 @@ options = [{"value": i, "label": i} for i in ["Standard", "Corner"]]
 _layout = html.Div(
     [
         html.H3("Principal Components Analysis"),
-        html.Button("Run PCA", id="pca-update"),
+        dbc.Button("Run PCA", id="pca-update"),
         dcc.Dropdown(
             id="pca-options",
             options=options,

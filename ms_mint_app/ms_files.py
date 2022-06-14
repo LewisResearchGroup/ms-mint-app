@@ -118,12 +118,23 @@ _layout = html.Div(
                 "display": "inline-block",
             },
         ),
-        dcc.Markdown("---", style={"marginTop": "10px"}),
         dcc.Markdown("##### Actions"),
-        html.Button("Convert to Feather", id="ms-convert"),
-        html.Button("Delete selected files", id="ms-delete", style={"float": "right"}),
-        html.Div(id="ms-n-files"),
+        dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        dbc.Button("Convert selected files to Feather", id="ms-convert"),
+                    ]
+                ),
+                dbc.Col(
+                    [
+                        dbc.Button("Delete selected files", id="ms-delete", color='danger')
+                    ]
+                , style={"text-align": 'right'}),
+            ]
+        ),
         dcc.Loading(ms_table),
+        html.Div(id="ms-n-files", style={"max-width": "300px"}),
         html.Div(id="ms-uploader-fns", style={"visibility": "hidden"}),
     ]
 )
@@ -243,5 +254,5 @@ def callbacks(app, fsc, cache):
     @app.callback(Output("ms-n-files", "children"), Input("ms-table", "data"))
     def n_files(data):
         n_files = len(data)
-        return dbc.Alert(f"{n_files} files in current workspace.", color="success")
+        return dbc.Alert(f"{n_files} files in current workspace.", color="info")
 

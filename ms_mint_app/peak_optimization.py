@@ -54,9 +54,11 @@ _layout = html.Div(
         ),
 
         html.H4("Peak previews"),
-        html.Button("Update peak previews", id="pko-peak-preview"),
-        html.Button("Regenerate all figures", id="pko-peak-preview-from-scratch"),
-        html.Button("Detect rt_min,rt_max for all targets", id="pko-detect-rtmin-rtmax-for-all"),
+        dbc.Row([
+            dbc.Col(dbc.Button("Update peak previews", id="pko-peak-preview", style={'width': '100%'})),
+            dbc.Col(dbc.Button("Regenerate all figures", id="pko-peak-preview-from-scratch", style={'width': '100%'})),
+            dbc.Col(dbc.Button("Detect rt_min,rt_max for all targets", id="pko-detect-rtmin-rtmax-for-all", color='danger', style={'width': '100%'})),
+        ]),
         dcc.Markdown("---"),
 
         html.Div(
@@ -65,6 +67,8 @@ _layout = html.Div(
 
         ),
         dcc.Markdown("---"),
+        html.H4("Interactive Rt optimization"),
+
         html.Div(id="pko-controls"),
         dcc.Dropdown(id="pko-dropdown", options=[], value=None),
         dbc.Progress(
@@ -73,10 +77,12 @@ _layout = html.Div(
             style={"marginBottom": "20px", "width": "100%"},
         ),
 
-        html.Button("Set RT to current view", id="pko-set-rt"),
-        html.Button("Detect rt_min,rt_max", id="pko-detect-rtmin-rtmax"),
-        html.Button("Confirm retention time", id="pko-confirm-rt"),
-        html.Button("Remove Peak", id="pko-delete", style={"float": "right"}),
+        dbc.Row([
+            dbc.Col(dbc.Button("Set RT to current view", id="pko-set-rt", style={"width": "100%"})),
+            dbc.Col(dbc.Button("Detect rt_min,rt_max", id="pko-detect-rtmin-rtmax", style={"width": "100%"})),
+            dbc.Col(dbc.Button("Confirm retention time", id="pko-confirm-rt", style={"width": "100%"})),
+            dbc.Col(dbc.Button("Remove Peak", id="pko-delete", style={"width": "100%"}, color='danger')),
+        ]),
 
         dcc.Loading(dcc.Graph("pko-figure")),
         dcc.Checklist(
@@ -85,11 +91,11 @@ _layout = html.Div(
             value=[],
         ),        
         html.Div(id="pko-image-clicked", style={'visibility': 'hidden'}),
-        html.Div(
+        dbc.Row(
             children=[
-                html.Button("<< Previous", id="pko-prev"),
-                html.Button("Suggest", id="pko-suggest-next"),
-                html.Button("Next >>", id="pko-next"),
+                dbc.Col(dbc.Button("<< Previous", id="pko-prev", style={'width': '100%'})),
+                dbc.Col(dbc.Button("Suggest", id="pko-suggest-next", style={'width': '100%'})),
+                dbc.Col(dbc.Button("Next >>", id="pko-next", style={'width': '100%'})),
             ],
             style={"text-align": "center", "margin": "auto", "marginTop": "2%"},
         ),
@@ -140,7 +146,7 @@ def callbacks(app, fsc, cache, cpu=None):
             raise PreventUpdate
         targets = T.get_targets(wdir)
         if targets is None:
-            logging.warning("Peaklist is None")
+            logging.warning("Target-list is empty")
             raise PreventUpdate
         options = [
             {"label": label, "value": i} for i, label in enumerate(targets.index)

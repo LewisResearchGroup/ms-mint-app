@@ -9,7 +9,7 @@ from dash.dependencies import Input, Output, ALL
 
 _label = None
 
-_layout = html.Div([html.Div(id="message")])
+_layout = html.Div([html.Div(id="message")], style={"margin-bottom": '0px'})
 
 
 def layout():

@@ -21,10 +21,12 @@ _label = "Processing"
 _layout = html.Div(
     [
         html.H3("Run MINT"),
-        html.Button("Run MINT", id="run-mint"),
-        html.Button("Download all results", id="res-download"),
-        html.Button("Download dense peak_max", id="res-download-peakmax"),
-        html.Button("Delete results", id="res-delete", style={"float": "right"}),
+        dbc.Row([
+            dbc.Col(dbc.Button("Run MINT", id="run-mint", style={"width": "100%"})),
+            dbc.Col(dbc.Button("Download all results", id="res-download", style={"width": "100%"}, color='secondary')),
+            dbc.Col(dbc.Button("Download dense peak_max", id="res-download-peakmax", style={"width": "100%"}, color='secondary')),
+            dbc.Col(dbc.Button("Delete results", id="res-delete", style={"width": "100%"}, color='danger')),
+        ])
     ]
 )
 

@@ -32,7 +32,7 @@ from . import metadata
 from . import targets
 from . import peak_optimization
 from . import processing
-#from . import add_metab
+from . import add_metab
 from . import analysis
 from . import messages
 
@@ -65,7 +65,7 @@ _modules = [
     ms_files,
     metadata,
     targets,
-    #add_metab,
+    add_metab,
     peak_optimization,
     processing,
     analysis,
@@ -121,32 +121,27 @@ _layout = html.Div(
             value=100,
             style={"marginBottom": "20px", "width": "100%", "marginTop": "20px"},
         ),
-        messages.layout(),
         Download(id="res-download-data"),
         html.Div(id="tmpdir", children=str(TMPDIR), style={"visibility": "hidden"}),
-        html.Div(
-            [
-                html.P(
-                    "Current Workspace: ",
-                    style={
-                        "display": "inline-block",
-                        "marginRight": "5px",
-                        "marginTop": "5px",
-                    },
-                ),
-                html.Div(id="active-workspace", style={"display": "inline-block"}),
-                html.Div(
-                    id="wdir",
-                    children="",
-                    style={
-                        "display": "inline-block",
-                        "visibility": "visible",
-                        "float": "right",
-                    },
-                ),
-            ],
-            style={"marginBottom": "20px"},
-        ),
+
+        dbc.Row([
+            dbc.Col(
+                dbc.Alert(
+                    [
+                        html.H6("Workspace: ", style={"display": "inline"}),
+                        html.H6(id="active-workspace", style={"display": "inline"}),
+                    ]
+                , color='info', style={'text-align': 'center'}),
+            ),
+            dbc.Col(
+                dbc.Alert(
+                    [
+                        html.H6(id="wdir", style={"display": "inline"}),
+                    ]
+                , color='info', style={'text-align': 'center'}),
+            ),
+        ], style={'margin-top': '5px', "margin-bottom": "30px"}),
+
         html.Div(id="pko-creating-chromatograms"),
         dcc.Tabs(
             id="tab",
@@ -160,6 +155,9 @@ _layout = html.Div(
                 for key in modules.keys()
             ],
         ),
+
+        messages.layout(),
+
         html.Div(id="pko-image-store", style={"visibility": "hidden", "height": "0px"}),
         html.Div(id="tab-content"),
         html.Div(id="viewport-container", style={"visibility": "hidden"}),
@@ -170,7 +168,7 @@ _layout = html.Div(
 
 
 def register_callbacks(app, cache, fsc):
-    logging.warning("Register callbacks")
+    logging.info("Register callbacks")
     upload_root = os.getenv("MINT_DATA_DIR", tempfile.gettempdir())
     upload_dir = str(P(upload_root) / "MINT-Uploads")
     UPLOAD_FOLDER_ROOT = upload_dir
@@ -229,11 +227,8 @@ def register_callbacks(app, cache, fsc):
     def upate_tmpdir(x):
         if hasattr(app.server, "login_manager"):
             username = current_user.username
-            logging.warning(f"User: {username}")
             tmpdir = str(TMPDIR / "User" / username)
-            logging.warning(tmpdir)
             return tmpdir, {"visibility": "visible"}
-        logging.info("Hide login button")
         return str(TMPDIR / "Local"), {"visibility": "hidden"}
 
 
@@ -254,8 +249,6 @@ def create_app(**kwargs):
 
     upload_root = os.getenv("MINT_DATA_DIR", tempfile.gettempdir())
     CACHE_DIR = str(P(upload_root) / "MINT-Cache")
-
-    logging.info("Cache directory: {}".format(CACHE_DIR))
 
     cache = Cache(
         app.server, config={"CACHE_TYPE": "filesystem", "CACHE_DIR": CACHE_DIR}

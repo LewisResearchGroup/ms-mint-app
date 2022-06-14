@@ -8,7 +8,6 @@ from matplotlib import pyplot as plt
 import seaborn as sns
 
 plt.rcParams["figure.autolayout"] = False
-sns.set_context("paper")
 
 
 from . import tools as T
@@ -222,6 +221,7 @@ options = [
     {"label": "Logarithmic y-scale", "value": "log-y"},
     {"label": "High Quality", "value": "HQ"},
     {"label": "Don't dodge", "value": "no-dodge"},
+    {"label": "Figure context talk", "value": 'talk'}
 ]
 
 _layout = html.Div(
@@ -232,13 +232,15 @@ _layout = html.Div(
               
                 html.Label("Figure kind"),
                 dcc.Dropdown(id="plot-kind", options=kind_options, value="bar"),
+                
                 html.Label("Facet dimensions:"),
                 dbc.Row([
                     dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
                     dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=5, type="number"),   
                 ]),
+
                 html.Label("Column wrap"),
-                dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=0),                 
+                dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=3),                 
             ]),
             dbc.Col([                
                               
@@ -247,8 +249,8 @@ _layout = html.Div(
                 dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),  
 
                 html.Label("Row and column facets:"),
-                dcc.Dropdown(id="plot-col", options=[], value=None, placeholder="Columns"),
-                dcc.Dropdown(id="plot-row", options=[{"value": "peak_label", "label": "peak_label"}], value="peak_label", placeholder="Rows"), 
+                dcc.Dropdown(id="plot-col", options=[{"value": "peak_label", "label": "peak_label"}], value="peak_label", placeholder="Columns"),
+                dcc.Dropdown(id="plot-row", options=[], value=None, placeholder="Rows"), 
 
             ]),
             dbc.Col([
@@ -256,7 +258,7 @@ _layout = html.Div(
                 html.Label("Marker style and size:"),
                 dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
                 dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),       
-                         
+
                 html.Label("Colors"),
                 dcc.Dropdown(id="plot-hue", options=[], value=None, placeholder="Color"),
                 dcc.Dropdown(id="plot-palette", options=palette_options, value=None, placeholder="Palette (Colors)",),
@@ -268,8 +270,8 @@ _layout = html.Div(
             ]),
         ]),
         html.Label("Options"),
-        dcc.Dropdown(id="plot-options", value=["sci"], options=options, multi=True),    
-        html.Button("Update", id="plot-update"),
+        dcc.Dropdown(id="plot-options", value=["sci", "share-x", "rot-x-ticks", "log-y"], options=options, multi=True),    
+        dbc.Button("Update", id="plot-update"),
         dcc.Loading(
             html.Div(
                 id="plot-figures",
@@ -369,6 +371,10 @@ def callbacks(app, fsc, cache, cpu=None):
             height = 2.5
         if aspect is None:
             aspect = 1
+        if 'talk' in options:
+            sns.set_context("talk")
+        else:
+            sns.set_context("paper")
 
         height = min(float(height), 100)
         height = max(height, 1)

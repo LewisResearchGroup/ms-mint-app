@@ -33,8 +33,8 @@ ws_table = html.Div(
 _layout = html.Div(
     [
         html.H3("Workspaces"),
-        html.Button("Create Workspace", id="ws-create"),
-        html.Button("Delete Workspace", id="ws-delete", style={"float": "right"}),
+        dbc.Button("Create Workspace", id="ws-create"),
+        dbc.Button("Delete Workspace", id="ws-delete", style={"float": "right"}, color='danger'),
         ws_table,
         dbc.Modal(
             [

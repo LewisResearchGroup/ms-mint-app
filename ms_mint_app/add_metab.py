@@ -41,12 +41,16 @@ columns = T.gen_tabulator_columns(CHEBI_CHEM.columns, editor=None, col_width="au
 
 add_metab_table = html.Div(
     id="add-metab-table-container",
-    style={"minHeight": 100, "marginTop": "10%"},
+    style={"minHeight": 100, "marginTop": "30px"},
     children=[
         dbc.Alert(
-            "This feature is experimental. Please, check values and report errors to the issue tracker.",
+            "This feature is experimental! Please, check values and report errors to the issue tracker.",
             color="danger",
+            style={"maxWidth": '500px', 'marginRight': 'auto', 'marginLeft': 'auto', 'textAlign': 'center', 'marginBottom': '50px'}
         ),
+
+        html.H5('Options'),
+        html.Label('MS-mode'),
         dcc.Dropdown(
             id="add-metab-ms-mode",
             placeholder="Select ionization mode",
@@ -56,7 +60,9 @@ add_metab_table = html.Div(
             ],
             value="Negative",
         ),
+        html.Label('Drug classes to select from'),
         dcc.Dropdown(id="add-metab-groups", options=groups_options, multi=True),
+        dcc.Markdown('---'),
         dcc.Loading(
             DashTabulator(
                 id="add-metab-table",
