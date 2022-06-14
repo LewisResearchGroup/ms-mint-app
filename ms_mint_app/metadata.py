@@ -80,39 +80,51 @@ _layout = html.Div(
             multiple=True,
         ),
         dcc.Markdown("---"),
-        dcc.Markdown("##### Actions"),
+        dcc.Markdown("##### Table actions"),
+        
         dbc.Row(
             [
-                dcc.Dropdown(
-                    id="meta-action",
-                    options=[
-                        {"label": "Set", "value": "Set"},
-                        {"label": "Create column", "value": "create_column"},
-                        {"label": "Delete column", "value": "delete_column"},
-                        # {'label': 'Delete selected files', 'value': 'delete_ms_files'},
-                    ],
-                    value="Set",
-                    style={"width": "150px"},
-                ),
-                dcc.Dropdown(
-                    id="meta-column",
-                    options=options,
-                    value=None,
-                    style={"width": "150px"},
-                ),
-                dcc.Input(id="meta-input"),
-                dcc.Dropdown(
-                    id="meta-input-bool",
-                    options=[
-                        {"value": "True", "label": "True"},
-                        {"value": "False", "label": "False"},
-                    ],
-                    value=None,
-                ),
-                html.Button("Apply", id="meta-apply"),
-            ],
-            style={"marginLeft": "5px"},
+                dbc.Col([
+                    html.Label('Action'),
+                    dcc.Dropdown(
+                        id="meta-action",
+                        options=[
+                            {"label": "Set column values", "value": "Set"},
+                            {"label": "Create column", "value": "create_column"},
+                            {"label": "Delete column", "value": "delete_column"},
+                        ],
+                        value="Set",
+                        style={"width": "300px"},
+                    ),
+                ]),
+
+                dbc.Col([
+                    html.Label('Column'),
+                    dcc.Dropdown(
+                        id="meta-column",
+                        options=options,
+                        value=None,
+                        style={"width": "300px"},
+                    ),
+                ]),
+
+                dbc.Col([
+                    html.Label('Value'),
+                    dcc.Input(id="meta-input"),
+                    dcc.Dropdown(
+                        id="meta-input-bool",
+                        options=[
+                            {"value": "True", "label": "True"},
+                            {"value": "False", "label": "False"},
+                        ],
+                        value=None),
+                ]),
+
+                dbc.Col([
+                ])
+            ]
         ),
+        dbc.Button("Apply", id="meta-apply"),
         dcc.Markdown("---"),
         dcc.Loading(meta_table),
         html.Div(id="meta-upload-output", style={"visibility": "hidden"}),
@@ -282,8 +294,8 @@ def callbacks(app, fsc, cache):
         Input("meta-column", "value"),
     )
     def set_peak_opt_show_boolean_dropdown(action, column):
-        visible = {"visibility": "visible", "width": "150px", "margin": 0}
-        hidden = {"visibility": "hidden", "width": "0px", "margin": 0}
+        visible = {"visibility": "visible", "width": "300px"}
+        hidden = {"visibility": "hidden", "height": "0px", "widht": "300px"}
         if (action == "Set") & (column == "PeakOpt"):
             return hidden, visible
         return visible, hidden

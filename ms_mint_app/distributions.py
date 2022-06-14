@@ -24,7 +24,7 @@ _label = "Distributions"
 _layout = html.Div(
     [
         html.H3("Quality Control"),
-        html.Button("Update", id="dist-update"),
+        dbc.Button("Update", id="dist-update"),
         dcc.Dropdown(
             id="dist-graphs",
             options=graph_options,

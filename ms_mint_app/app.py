@@ -32,7 +32,7 @@ from . import metadata
 from . import targets
 from . import peak_optimization
 from . import processing
-#from . import add_metab
+from . import add_metab
 from . import analysis
 from . import messages
 
@@ -121,34 +121,27 @@ _layout = html.Div(
             value=100,
             style={"marginBottom": "20px", "width": "100%", "marginTop": "20px"},
         ),
-        messages.layout(),
         Download(id="res-download-data"),
         html.Div(id="tmpdir", children=str(TMPDIR), style={"visibility": "hidden"}),
-        html.Div(
-            [
-                html.P(
-                    "Current Workspace: ",
-                    style={
-                        "display": "inline-block",
-                        "marginRight": "5px",
-                        "marginTop": "5px",
-                    },
-                ),
-                html.Div(id="active-workspace", style={"display": "inline-block"}),
-                html.Div(
-                    id="wdir",
-                    children="",
-                    style={
-                        "display": "inline-block",
-                        "visibility": "visible",
-                        "float": "right",
-                        "margin": "20px",
-                        "color": "red"
-                    },
-                ),
-            ],
-            style={"marginBottom": "20px"},
-        ),
+
+        dbc.Row([
+            dbc.Col(
+                dbc.Alert(
+                    [
+                        html.H6("Workspace: ", style={"display": "inline"}),
+                        html.H6(id="active-workspace", style={"display": "inline"}),
+                    ]
+                , color='info', style={'text-align': 'center'}),
+            ),
+            dbc.Col(
+                dbc.Alert(
+                    [
+                        html.H6(id="wdir", style={"display": "inline"}),
+                    ]
+                , color='info', style={'text-align': 'center'}),
+            ),
+        ], style={'margin-top': '5px', "margin-bottom": "30px"}),
+
         html.Div(id="pko-creating-chromatograms"),
         dcc.Tabs(
             id="tab",
@@ -162,6 +155,9 @@ _layout = html.Div(
                 for key in modules.keys()
             ],
         ),
+
+        messages.layout(),
+
         html.Div(id="pko-image-store", style={"visibility": "hidden", "height": "0px"}),
         html.Div(id="tab-content"),
         html.Div(id="viewport-container", style={"visibility": "hidden"}),

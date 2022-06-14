@@ -3,6 +3,7 @@ import numpy as np
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
+import dash_bootstrap_components as dbc
 
 from ms_mint.Mint import Mint
 from ms_mint.plotly_tools import plotly_heatmap
@@ -26,7 +27,7 @@ heatmap_options = [
 _layout = html.Div(
     [
         html.H3("Heatmap"),
-        html.Button("Update", id="heatmap-update"),
+        dbc.Button("Update", id="heatmap-update"),
         dcc.Dropdown(
             id="heatmap-options",
             value=["normed_by_cols"],
