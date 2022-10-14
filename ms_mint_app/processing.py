@@ -109,7 +109,7 @@ def callbacks(app, fsc, cache):
         try:
             mint.load_targets(targets_fn)
             mint.ms_files = T.get_ms_fns(wdir)
-            mint.run(output_fn=output_fn)
+            mint.run(fn=output_fn)
         except Exception as e:
             return dbc.Alert(str(e), color="danger")
         return dbc.Alert("Finished running MINT", color="success")
