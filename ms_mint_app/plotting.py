@@ -443,8 +443,6 @@ def callbacks(app, fsc, cache, cpu=None):
                 facet_kws=dict(legend_out=True),
             )
         
-        print(x, y, hue)
-
         try:
             g = plot_func(
                 x=x,
