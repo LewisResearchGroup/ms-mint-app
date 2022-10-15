@@ -103,9 +103,10 @@ _layout = html.Div(
         html.Div(
             du.Upload(
                 id="ms-uploader",
-                filetypes=["tar", "zip", "mzxml", "mzml", "mzXML", "mzML"],
+                filetypes=["tar", "zip", "mzxml", "mzml", "mzXML", "mzML", "mzMLb", "feather", "parquet"],
                 upload_id=uuid.uuid1(),
                 max_files=10000,
+                max_file_size=50000,
                 pause_button=True,
                 cancel_button=True,
                 text="Upload mzXML/mzML files.",
