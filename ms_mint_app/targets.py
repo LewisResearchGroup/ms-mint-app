@@ -198,7 +198,7 @@ def callbacks(app, fsc=None, cache=None):
         State("active-workspace", "children"),
     )
     def table_export_fn(tab, ws_name):
-        fn = f"{T.today()}-{ws_name}_MINT-target"
+        fn = f"{T.today()}-MINT__{ws_name}__targets"
         downloadButtonType = {
             "css": "btn btn-primary",
             "text": "Export",

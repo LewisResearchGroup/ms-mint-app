@@ -231,12 +231,12 @@ _layout = html.Div(
             dbc.Col([
               
                 html.Label("Figure kind"),
-                dcc.Dropdown(id="plot-kind", options=kind_options, value="bar"),
+                dcc.Dropdown(id="plot-kind", options=kind_options, value="box"),
                 
                 html.Label("Facet dimensions:"),
                 dbc.Row([
                     dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
-                    dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=5, type="number"),   
+                    dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=1, type="number"),   
                 ]),
 
                 html.Label("Column wrap"),
@@ -245,11 +245,11 @@ _layout = html.Div(
             dbc.Col([                
                               
                 html.Label("x- and y-axes"),
-                dcc.Dropdown(id="plot-x", options=[{"value": "MS-file", "label": "MS-file"}], value="MS-file", placeholder="X"),
+                dcc.Dropdown(id="plot-x", options=[{"value": "MS-file", "label": "MS-file"}], value=None, placeholder="X"),
                 dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),  
 
                 html.Label("Row and column facets:"),
-                dcc.Dropdown(id="plot-col", options=[{"value": "peak_label", "label": "peak_label"}], value="peak_label", placeholder="Columns"),
+                dcc.Dropdown(id="plot-col", options=[{"value": "peak_label", "label": "peak_label"}], value=None, placeholder="Columns"),
                 dcc.Dropdown(id="plot-row", options=[], value=None, placeholder="Rows"), 
 
             ]),
