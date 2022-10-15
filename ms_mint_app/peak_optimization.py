@@ -383,6 +383,7 @@ def callbacks(app, fsc, cache, cpu=None):
         State("wdir", "children"),
     )
     def peak_preview(n_clicks, from_scratch, ms_selection, wdir):  # peak_opt, #set_rt,
+        logging.warning(f'Create peak previews {wdir}')
         if n_clicks is None:
             raise PreventUpdate
         # reset updating after 5 attempts

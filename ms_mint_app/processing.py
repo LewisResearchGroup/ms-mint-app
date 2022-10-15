@@ -37,6 +37,10 @@ _outputs = html.Div(
             id={"index": "run-mint-output", "type": "output"},
             style={"visibility": "hidden"},
         ),
+        html.Div(
+            id={"index": "res-delete-output", "type": "output"},
+            style={"visibility": "hidden"},
+        ),
     ],
 )
 
@@ -47,7 +51,7 @@ def layout():
 
 def callbacks(app, fsc, cache):
     @app.callback(
-        Output("res-delete-output", "children"),
+        Output({"index": "res-delete-output", "type": "output"}, "children"),
         Input("res-delete", "n_clicks"),
         State("wdir", "children"),
     )
@@ -55,7 +59,7 @@ def callbacks(app, fsc, cache):
         if n_clicks is None:
             raise PreventUpdate
         os.remove(T.get_results_fn(wdir))
-        return dbc.Alert("Results file deleted.")
+        return dbc.Alert("Results file deleted.", color='success')
 
     @app.callback(
         [
@@ -76,7 +80,7 @@ def callbacks(app, fsc, cache):
             fn = T.get_results_fn(wdir)
             workspace = os.path.basename(wdir)
             return [
-                send_file(fn, filename=f"{T.today()}__MINT__{workspace}__results.csv")
+                send_file(fn, filename=f"{T.today()}-MINT__{workspace}__results.csv")
             ]
 
         elif prop_id == "res-download-peakmax.n_clicks":
@@ -87,7 +91,7 @@ def callbacks(app, fsc, cache):
             buffer = T.df_to_in_memory_excel_file(df)
             return [
                 send_bytes(
-                    buffer, filename=f"{T.today()}__MINT__{workspace}__peak-max.xlsx"
+                    buffer, filename=f"{T.today()}-MINT__{workspace}__results_peak-max.xlsx"
                 )
             ]
 
