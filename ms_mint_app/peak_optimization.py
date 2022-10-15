@@ -258,10 +258,11 @@ def callbacks(app, fsc, cache, cpu=None):
         State("wdir", "children"),
     )
     def pko_optimise_rt_min_ma_for_all_targets(n_clicks, ms_selection, wdir):
-        print('Running peak detection')
         if n_clicks is None:
             raise PreventUpdate
-    
+
+        logging.warning(f'Running peak detection {wdir}')
+
         targets = T.get_targets(wdir)
 
         if ms_selection == "peakopt":
