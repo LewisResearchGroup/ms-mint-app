@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 
 install_requires = [
-    "ms-mint>=0.1.8.2",
+    "ms-mint>=0.1.8.3",
     "xlsxwriter",
     "waitress",
     "dash",
