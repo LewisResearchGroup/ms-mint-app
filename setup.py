@@ -8,7 +8,7 @@ with open("README.md", "r") as fh:
 
 
 install_requires = [
-    "ms-mint==0.1.8.3",
+    "ms-mint==0.2.0",
     "xlsxwriter",
     "waitress",
     "dash",
@@ -17,7 +17,7 @@ install_requires = [
     "flask_login",
     "urllib3",
     "dash_tabulator",
-    "dash_uploader==0.7.0a1",
+    "dash_uploader",
 ]
 
 

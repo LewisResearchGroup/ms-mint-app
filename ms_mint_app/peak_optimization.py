@@ -258,10 +258,11 @@ def callbacks(app, fsc, cache, cpu=None):
         State("wdir", "children"),
     )
     def pko_optimise_rt_min_ma_for_all_targets(n_clicks, ms_selection, wdir):
-        print('Running peak detection')
         if n_clicks is None:
             raise PreventUpdate
-    
+
+        logging.warning(f'Running peak detection {wdir}')
+
         targets = T.get_targets(wdir)
 
         if ms_selection == "peakopt":
@@ -273,7 +274,7 @@ def callbacks(app, fsc, cache, cpu=None):
         mint = Mint()
         mint.targets = targets.reset_index()
         mint.ms_files = ms_files
-        mint.opt.find_rt_min_max()       
+        mint.opt.rt_min_max()       
         new_targets = mint.targets
 
         T.write_targets(new_targets, wdir)

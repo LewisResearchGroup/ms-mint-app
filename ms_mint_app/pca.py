@@ -158,7 +158,6 @@ def callbacks(app, fsc, cache):
         with sns.plotting_context("paper"):
             mint.pca.plot.pairplot(
                 labels=labels,
-                n_vars=n_components,
                 height=facet_height,
                 corner="Corner" in options,
             )
