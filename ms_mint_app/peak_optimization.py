@@ -274,7 +274,7 @@ def callbacks(app, fsc, cache, cpu=None):
         mint = Mint()
         mint.targets = targets.reset_index()
         mint.ms_files = ms_files
-        mint.opt.find_rt_min_max()       
+        mint.opt.rt_min_max()       
         new_targets = mint.targets
 
         T.write_targets(new_targets, wdir)

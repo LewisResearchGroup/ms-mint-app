@@ -11,6 +11,7 @@ import matplotlib
 matplotlib.use("Agg")
 
 import dash
+
 from dash import html, dcc
 
 from dash.dependencies import Input, Output, State
@@ -23,6 +24,7 @@ import dash_bootstrap_components as dbc
 from flask_caching import Cache
 from flask_login import current_user
 
+import ms_mint
 
 from . import tools as T
 
@@ -33,6 +35,7 @@ from . import targets
 from . import peak_optimization
 from . import processing
 from . import add_metab
+from . import quality_control
 from . import analysis
 from . import messages
 
@@ -68,6 +71,7 @@ _modules = [
     add_metab,
     peak_optimization,
     processing,
+    quality_control,
     analysis,
 ]
 
@@ -233,6 +237,8 @@ def register_callbacks(app, cache, fsc):
 
 
 def create_app(**kwargs):
+
+    logging.warning(f'ms-mint: {ms_mint.__version__}, ({ms_mint.__file__})')
 
     app = dash.Dash(
         __name__,
