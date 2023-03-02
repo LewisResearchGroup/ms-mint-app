@@ -7,15 +7,15 @@ RUN /usr/local/bin/python -m pip install --upgrade pip
 
 COPY requirements.txt .
 
-RUN pip3 install -r requirements.txt
-
-RUN pip3 list
-
 COPY . /app
 
 WORKDIR /app
 
 RUN pip3 install .
+
+RUN pip3 install -r requirements.txt
+
+RUN pip3 list
 
 ENV SQLALCHEMY_DATABASE_URI sqlite:///data/mint.db
 
