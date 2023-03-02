@@ -7,6 +7,7 @@ import multiprocessing
 import argparse
 import pkg_resources
 import xlsxwriter
+import bs4
 
 from waitress import serve
 from os.path import expanduser
@@ -14,7 +15,8 @@ from pathlib import Path as P
 from collections import namedtuple
 from multiprocessing import freeze_support
 
-from scipy.spatial.transform import _rotation_groups
+# from scipy.spatial.transform import _rotation_groups
+
 import ms_mint_app
 
 
