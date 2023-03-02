@@ -21,5 +21,5 @@ ENV SQLALCHEMY_DATABASE_URI sqlite:///data/mint.db
 
 ENV MINT_DATA_DIR /data/
 
-CMD ./entrypoint.sh
+CMD chmod +x entrypoint.sh && ./entrypoint.sh
 
