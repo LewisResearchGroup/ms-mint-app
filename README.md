@@ -14,7 +14,13 @@ or for the identification of pathogens such as methicillin resistant _Staphyloco
 More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint-app/) or check out the 
 [Tutorial](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
 
-## News
+## Release notes
+
+### 0.2.1
+- uses ms-mint 0.2.1 with new implementation of `peak_area_top3`
+- new quality control tab
+
+### 0.1.9
 MINT has been split into the Python library and the app. This repository contains the Python library. The underlying Python library `ms-mint` can be found [here](https://github.com/LewisResearchGroup/ms-mint).
 
 ## Screenshot
