@@ -112,6 +112,7 @@ def callbacks(app, fsc, cache):
         output_fn = T.get_results_fn(wdir)
         try:
             mint.load_targets(targets_fn)
+            mint.targets = mint.targets[mint.targets.rt_min.notna() & mint.targets.rt_max.notna()]
             mint.ms_files = T.get_ms_fns(wdir)
             mint.run(fn=output_fn)
         except Exception as e:

@@ -6,6 +6,7 @@ from dash.dependencies import Input, Output, State
 
 import plotly.express as px
 
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt 
 import contextlib
@@ -179,9 +180,13 @@ def callbacks(app, fsc, cache):
         mint = Mint()
         mint.load(T.get_results_fn(wdir))
 
-        fig = mint.plot.peak_shapes(interactive=True, col_wrap=4)
-        fig.update_layout(showlegend=False) 
-
+        # select 30 random files at max
+        fns = mint.ms_files
+        np.random.shuffle(fns)
+        fns = fns[:30]
+        fig = mint.plot.peak_shapes(fns=fns, interactive=True, col_wrap=5)
+        fig.update_layout(showlegend=True) 
+        
         return fig
 
 def layout():
