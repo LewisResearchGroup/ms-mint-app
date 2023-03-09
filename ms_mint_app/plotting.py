@@ -233,9 +233,10 @@ _layout = html.Div(
                 html.Label("Figure kind"),
                 dcc.Dropdown(id="plot-kind", options=kind_options, value="box"),
                 
-                html.Label("Facet dimensions:"),
                 dbc.Row([
+                    html.Label("Facet width (inches):"),
                     dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
+                    html.Label("Facet aspect ratio:"),
                     dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=1, type="number"),   
                 ]),
 

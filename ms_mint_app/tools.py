@@ -437,11 +437,17 @@ def Basename(fn):
 
 def format_columns(x):
     try:
-        if (x is None) or (x == "") or np.isnan(x):
+        if isinstance(x, str):
+            if x in ["", "null", "None"]:
+                return None
+            else:
+                return x
+        elif x is None:
+            return None
+        elif np.isnan(x):
             return None
     except:
-        print(type(x))
-        print(x)
+        print(type(x), x)
         assert False
     return f"{int(x):02.0f}"
 

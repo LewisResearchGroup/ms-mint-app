@@ -12,7 +12,7 @@ from ms_mint import Mint
 
 from . import tools as T
 
-options = [{"value": i, "label": i} for i in ["Standard", "Corner"]]
+options = [{"value": i, "label": i} for i in ["Standard scaling", "Corner"]]
 
 _layout = html.Div(
     [
@@ -21,7 +21,7 @@ _layout = html.Div(
         dcc.Dropdown(
             id="pca-options",
             options=options,
-            value=["Standard"],
+            value=["Standard scaling"],
             multi=True,
             placeholder="Scaling used before PCA",
         ),
@@ -157,6 +157,7 @@ def callbacks(app, fsc, cache):
 
         with sns.plotting_context("paper"):
             mint.pca.plot.pairplot(
+                n_components=n_components,
                 labels=labels,
                 height=facet_height,
                 corner="Corner" in options,
