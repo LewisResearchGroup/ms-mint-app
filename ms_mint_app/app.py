@@ -25,6 +25,7 @@ from flask_caching import Cache
 from flask_login import current_user
 
 import ms_mint
+import ms_mint_app
 
 from . import tools as T
 
@@ -166,8 +167,11 @@ _layout = html.Div(
         html.Div(id="tab-content"),
         html.Div(id="viewport-container", style={"visibility": "hidden"}),
         _outputs,
+        html.Div(f'ms-mint: {ms_mint.__version__}'),
+        html.Div(f'ms-mint-app: {ms_mint_app.__version__}'),
     ],
     style={"margin": "2%"},
+
 )
 
 
