@@ -16,6 +16,22 @@ More information on how to install and run the program can be found in the [Docu
 
 ## Release notes
 
+### 0.3.0 Milestones
+- Be able to share a workspace with another user
+- Be able to rename a workspace
+- Explanation of expected metadata in app
+  - explain what can be put as colors
+- describe accepted file types in ms_files tab
+- target-list add columns database_ref, formula, polarity
+- add descriptions to the optimization tab
+- total ion chromatogram (TIC)
+- full extracted ion chromatogram (EIC or XIC)
+- feature to convert intensities to concentrations
+
+### 0.2.2
+- version strings in GUI
+- fixed issues with QC figures
+
 ### 0.2.1
 - uses ms-mint 0.2.1 with new implementation of `peak_area_top3`
 - new quality control tab
