@@ -354,7 +354,16 @@ def get_metadata(wdir):
 
     df = df[df["MS-file"] != ""]
 
-    df = df.groupby("MS-file").first().reindex(ms_files).reset_index()
+    new_files = [e for e in ms_files if e not in df['MS-file']]
+
+    df = df.groupby("MS-file").first().reindex(ms_files, ).reset_index()
+    
+    print('NEW FILES:', new_files)
+    if new_files :
+        # Default for PeakOpt for new files should be False
+        ndx = df[df['MS-file'].isin(new_files)].index
+        print('INDEX:', ndx)
+        df.loc[ndx, 'PeakOpt'] = False
 
     if "PeakOpt" not in df.columns:
         df["PeakOpt"] = False
@@ -386,7 +395,7 @@ def init_metadata(ms_files):
     df["InAnalysis"] = True
     df["Label"] = ""
     df["Color"] = None
-    df["Type"] = "Biological Sample"
+    df["Type"] = "Unknown"
     df["RunOrder"] = ""
     df["Batch"] = ""
     df["Row"] = ""

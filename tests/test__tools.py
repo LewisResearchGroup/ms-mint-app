@@ -1,6 +1,7 @@
 import pandas as pd
-from ms_mint_app.tools import merge_metadata
+from pathlib import Path as P
 
+from ms_mint_app import tools as T
 
 def test__merge_metadata():
     # Define the old DataFrame
@@ -31,7 +32,7 @@ def test__merge_metadata():
     }
     expected_df = pd.DataFrame(data=expected)
 
-    actual_df = merge_metadata(old_df, new_df)
+    actual_df = T.merge_metadata(old_df, new_df)
     
     print('Old datafame:')
     print(old_df)
@@ -43,3 +44,68 @@ def test__merge_metadata():
     print(actual_df)
 
     assert actual_df.equals(expected_df), actual_df
+    
+    
+
+def test__get_metadata(tmp_path):
+    
+    T.create_workspace(tmp_path, 'test')
+    
+    # Create working directory
+    wdir = P(tmp_path/'workspaces', 'test')
+
+    ms_files_path = P(wdir/'ms_files')
+    
+    # Create files
+    open(ms_files_path/'F1.mzXML', 'w').close()
+    open(ms_files_path/'F2.mzXML', 'w').close()
+  
+    for subpath in P(tmp_path).rglob('*'):
+        print(subpath)
+    
+    metadata = T.get_metadata(wdir)
+    
+    print(metadata)
+    
+    for e in metadata['MS-file']:
+        print(f'"{e}"')
+    
+    assert 'F1' in list(metadata['MS-file']), metadata
+    assert 'F2' in list(metadata['MS-file']), metadata
+        
+    
+
+def test__get_metadata_after_more_files_added(tmp_path):
+    
+    T.create_workspace(tmp_path, 'test')
+    
+    # Create working directory
+    wdir = P(tmp_path/'workspaces', 'test')
+
+    ms_files_path = P(wdir/'ms_files')
+    
+    # Create files
+    open(ms_files_path/'F1.mzXML', 'w').close()
+    open(ms_files_path/'F2.mzXML', 'w').close()
+  
+    for subpath in P(tmp_path).rglob('*'):
+        print(subpath)
+    
+    metadata = T.get_metadata(wdir)
+    
+    print(metadata)
+    
+    T.write_metadata(metadata, wdir)
+    
+    # Create more files
+    open(ms_files_path/'F3.mzXML', 'w').close()
+    open(ms_files_path/'F4.mzXML', 'w').close()    
+    
+    for subpath in P(tmp_path).rglob('*'):
+        print(subpath)
+        
+    metadata = T.get_metadata(wdir)
+
+    print(metadata)
+
+    assert all( metadata.PeakOpt == False)
