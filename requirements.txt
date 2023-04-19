@@ -18,3 +18,5 @@ beautifulsoup4
 pandas>=1.4,<1.5
 packaging==21.3.0
 beautifulsoup4
+brotlipy
+dash[diskcache]
