@@ -2,6 +2,7 @@ ms-mint==0.2.2
 xlsxwriter
 waitress
 dash
+dash[diskcache]
 dash_extensions
 dash_bootstrap_components
 flask_login
@@ -17,4 +18,3 @@ beautifulsoup4
 pandas>=1.4,<1.5
 packaging==21.3.0
 beautifulsoup4
-dash[diskcache]
