@@ -92,6 +92,7 @@ def test__get_metadata_after_more_files_added(tmp_path):
         print(subpath)
     
     metadata = T.get_metadata(wdir)
+    metadata.loc[0, 'PeakOpt] = True
     
     print(metadata)
     
