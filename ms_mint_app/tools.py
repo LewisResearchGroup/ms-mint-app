@@ -437,11 +437,17 @@ def Basename(fn):
 
 def format_columns(x):
     try:
-        if (x is None) or (x == "") or np.isnan(x):
+        if isinstance(x, str):
+            if x in ["", "null", "None"]:
+                return None
+            else:
+                return x
+        elif x is None:
+            return None
+        elif np.isnan(x):
             return None
     except:
-        print(type(x))
-        print(x)
+        print(type(x), x)
         assert False
     return f"{int(x):02.0f}"
 
@@ -599,10 +605,24 @@ def fig_to_src(dpi=100):
     return "data:image/png;base64,{}".format(encoded)
 
 
-def merge_metadata(old, new):
-    old = old.set_index("MS-file")
+def merge_metadata(old: pd.DataFrame, new: pd.DataFrame, index_col='MS-file') -> pd.DataFrame:
+    """
+    This function updates one existing dataframe 
+    with information from a second dataframe.
+    If a column of the new dataframe does not 
+    exist it will be created.
 
-    new = new.groupby("MS-file").first().replace("null", None)
+    Parameters:
+    old (pd.DataFrame): The DataFrame to merge new data into.
+    new (pd.DataFrame): The DataFrame containing the new data to merge.
+
+    Returns:
+    pd.DataFrame: The merged DataFrame.
+
+    """    
+    old = old.set_index(index_col)
+
+    new = new.groupby(index_col).first().replace("null", None)
 
     for col in new.columns:
         if col == "" or col.startswith("Unnamed"):
@@ -615,6 +635,7 @@ def merge_metadata(old, new):
                 continue
             if ndx in old.index:
                 old.loc[ndx, col] = value
+
     return old.reset_index()
 
 

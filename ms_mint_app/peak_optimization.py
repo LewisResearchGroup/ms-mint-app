@@ -274,7 +274,7 @@ def callbacks(app, fsc, cache, cpu=None):
         mint = Mint()
         mint.targets = targets.reset_index()
         mint.ms_files = ms_files
-        mint.opt.rt_min_max()       
+        mint.opt.rt_min_max(sigma=1000)       
         new_targets = mint.targets
 
         T.write_targets(new_targets, wdir)
@@ -543,7 +543,7 @@ def callbacks(app, fsc, cache, cpu=None):
         mint = Mint()
         mint.targets = targets
         mint.ms_files = ms_files
-        mint.opt.find_rt_min_max(peak_labels=[peak_label])       
+        mint.opt.rt_min_max(peak_labels=[peak_label])
         new_targets = mint.targets
         new_targets.to_csv(T.get_targets_fn(wdir), index=False)
 

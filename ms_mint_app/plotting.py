@@ -233,9 +233,10 @@ _layout = html.Div(
                 html.Label("Figure kind"),
                 dcc.Dropdown(id="plot-kind", options=kind_options, value="box"),
                 
-                html.Label("Facet dimensions:"),
                 dbc.Row([
+                    html.Label("Facet width (inches):"),
                     dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
+                    html.Label("Facet aspect ratio:"),
                     dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=1, type="number"),   
                 ]),
 
@@ -315,7 +316,7 @@ def callbacks(app, fsc, cache, cpu=None):
         options = [{"value": x, "label": x} for x in cols]
         return [options] * 7
 
-    @app.callback(
+    @app.long_callback(
         Output("plot-figures", "children"),
         Input("plot-update", "n_clicks"),
         State("plot-kind", "value"),
@@ -337,6 +338,7 @@ def callbacks(app, fsc, cache, cpu=None):
         State("plot-palette", "value"),
         State("plot-options", "value"),
         State("wdir", "children"),
+        cancel=[Input("plot-update", "n_clicks")],
     )
     def create_figure(
         n_clicks,
