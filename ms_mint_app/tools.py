@@ -354,7 +354,7 @@ def get_metadata(wdir):
 
     df = df[df["MS-file"] != ""]
 
-    new_files = [e for e in ms_files if e not in df['MS-file']]
+    new_files = [e for e in ms_files if e not in df['MS-file'].values]
 
     df = df.groupby("MS-file").first().reindex(ms_files, ).reset_index()
     
