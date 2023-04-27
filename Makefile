@@ -2,7 +2,7 @@ lint:
 	flake8
 
 pyinstaller:
-	cd specfiles && pyinstaller --onedir --noconfirm Mint__onedir__.spec --additional-hooks-dir=hooks
+	cd specfiles && pyinstaller --noconfirm Mint.spec ../scripts/Mint.py
 
 docs:
 	mkdocs build && mkdocs gh-deploy

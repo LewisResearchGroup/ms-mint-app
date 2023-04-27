@@ -316,7 +316,7 @@ def callbacks(app, fsc, cache, cpu=None):
         options = [{"value": x, "label": x} for x in cols]
         return [options] * 7
 
-    @app.callback(
+    @app.long_callback(
         Output("plot-figures", "children"),
         Input("plot-update", "n_clicks"),
         State("plot-kind", "value"),
@@ -338,6 +338,7 @@ def callbacks(app, fsc, cache, cpu=None):
         State("plot-palette", "value"),
         State("plot-options", "value"),
         State("wdir", "children"),
+        cancel=[Input("plot-update", "n_clicks")],
     )
     def create_figure(
         n_clicks,

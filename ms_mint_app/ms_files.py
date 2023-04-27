@@ -233,6 +233,7 @@ def callbacks(app, fsc, cache):
         id='ms-uploader',
     )
     def upload_completed(status):
+        logging.warning(f'Upload status: {status} ({type(status)})')
         return [str(fn) for fn in status.uploaded_files]
 
     @app.callback(
