@@ -1,5 +1,9 @@
-FROM python:3.10
+FROM python:3.11
 EXPOSE 9999
+
+ENV SQLALCHEMY_DATABASE_URI sqlite:///data/mint.db
+
+ENV MINT_DATA_DIR /data/
 
 RUN mkdir -p /data
 
@@ -7,19 +11,13 @@ RUN /usr/local/bin/python -m pip install --upgrade pip
 
 COPY requirements.txt .
 
-COPY . /app
-
-WORKDIR /app
-
-RUN pip3 install .
-
 RUN pip3 install -r requirements.txt
 
-RUN pip3 list
+COPY . /app
 
-ENV SQLALCHEMY_DATABASE_URI sqlite:///data/mint.db
+RUN cd /app && pip3 install -e .
 
-ENV MINT_DATA_DIR /data/
+WORKDIR /app
 
 CMD chmod +x entrypoint.sh && ./entrypoint.sh
 

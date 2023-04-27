@@ -288,7 +288,7 @@ _layout = html.Div(
     ]
 )
 
-_ouptuts = html.Div([])
+_outputs = html.Div([])
 
 
 def layout():
@@ -316,7 +316,7 @@ def callbacks(app, fsc, cache, cpu=None):
         options = [{"value": x, "label": x} for x in cols]
         return [options] * 7
 
-    @app.long_callback(
+    @app.callback(
         Output("plot-figures", "children"),
         Input("plot-update", "n_clicks"),
         State("plot-kind", "value"),

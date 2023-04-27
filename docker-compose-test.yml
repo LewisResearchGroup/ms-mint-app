@@ -1,0 +1,10 @@
+version: "3.3"
+
+services:
+  web:
+    build: .
+    command: python scripts/Mint.py --no-browser --debug --host 0.0.0.0
+    volumes:
+      - .:/app/   
+    ports:
+      - "9999:9999"
