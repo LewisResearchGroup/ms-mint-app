@@ -93,7 +93,8 @@ def test__get_metadata_after_more_files_added(tmp_path):
     
     metadata = T.get_metadata(wdir)
 
-    metadata.loc[0, 'PeakOpt'] = True
+    ndx = metadata[metadata['MS-file']=='F1'].index[0]
+    metadata.loc[ndx, 'PeakOpt'] = True
     
     print(metadata)
     
@@ -106,9 +107,8 @@ def test__get_metadata_after_more_files_added(tmp_path):
     for subpath in P(tmp_path).rglob('*'):
         print(subpath)
         
-    metadata = T.get_metadata(wdir)
-
-    print(metadata)
+    # Make sure metadata is in the correct order
+    metadata = T.get_metadata(wdir).set_index('MS-file').sort_index()
 
     assert all(metadata.PeakOpt == [True, False, False, False])
     
