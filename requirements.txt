@@ -1,4 +1,4 @@
-ms-mint==0.2.2
+ms-mint==0.2.3
 xlsxwriter
 waitress
 dash
@@ -15,7 +15,7 @@ flask_wtf
 email_validator
 Flask-Caching==1.10.1
 beautifulsoup4
-pandas>=1.4,<1.5
+pandas
 packaging==21.3.0
 beautifulsoup4
 brotlipy
