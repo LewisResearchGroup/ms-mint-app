@@ -28,6 +28,10 @@ More information on how to install and run the program can be found in the [Docu
 - full extracted ion chromatogram (EIC or XIC)
 - feature to convert intensities to concentrations
 
+### 0.2.3
+- update to pandas 2.0
+- faster processing of mzML and mzXML files
+
 ### 0.2.2
 - version strings in GUI
 - fixed issues with QC figures
