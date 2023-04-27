@@ -785,3 +785,21 @@ def df_to_in_memory_excel_file(df):
 
 def has_na(df):
     return df.isna().sum().sum() > 0
+
+
+def fix_first_emtpy_line_after_upload_workaround(file_path):
+    logging.warning(f'Check if first line is empty in {file_path}.')
+
+    with open(file_path, 'r') as file:
+        lines = file.readlines()
+
+    if not lines:
+        return
+
+    # Check if the first line is an empty line (contains only newline character)
+    if lines[0] == "\n":
+        logging.warning(f'Empty first line detected in {file_path}. Removing it.')
+        lines.pop(0)
+        
+        with open(file_path, 'w') as file:
+            file.writelines(lines)

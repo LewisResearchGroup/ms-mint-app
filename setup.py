@@ -18,6 +18,11 @@ install_requires = [
     "urllib3",
     "dash_tabulator",
     "dash_uploader",
+    "beautifulsoup4",
+    "dask[diskcache]",
+    "h5py",
+    "hdf5plugin",
+    "werkzeug==2.2.3"
 ]
 
 

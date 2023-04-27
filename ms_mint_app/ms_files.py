@@ -107,6 +107,7 @@ _layout = html.Div(
                 upload_id=uuid.uuid1(),
                 max_files=10000,
                 max_file_size=50000,
+                chunk_size=1,
                 pause_button=True,
                 cancel_button=True,
                 text="Upload mzXML/mzML files.",
@@ -250,6 +251,7 @@ def callbacks(app, fsc, cache):
                 continue
             fn_new = P(ms_dir) / P(fn).name
             shutil.move(fn, fn_new)
+            T.fix_first_emtpy_line_after_upload_workaround(fn_new)
             logging.info(f"Move {fn} to {fn_new}")
         return dbc.Alert("Upload finished", color="success")
 

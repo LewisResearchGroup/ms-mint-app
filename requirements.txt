@@ -20,3 +20,5 @@ packaging==21.3.0
 beautifulsoup4
 brotlipy
 dash[diskcache]
+wget
+werkzeug==2.2.3  # Werkzeug2.3.1 destroys uploaded chunked files
