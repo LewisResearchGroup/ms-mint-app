@@ -11,7 +11,7 @@ import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output, State
 
-from . import tools as T
+from ... import tools as T
 
 graph_options = [
     {"label": "Histograms", "value": "hist"},

@@ -21,7 +21,22 @@ from dash_tabulator import DashTabulator
 
 import dash_uploader as du
 
-from . import tools as T
+from .. import tools as T
+from ..plugin_interface import PluginInterface
+
+
+class MsFilesPlugin(PluginInterface):
+    def __init__(self):
+        self._label = _label
+
+    def layout(self):
+        return _layout
+
+    def callbacks(self, app, fsc, cache):
+        callbacks(app, fsc, cache)
+    
+    def outputs(self):
+        return _outputs
 
 
 upload_root = os.getenv("MINT_DATA_DIR", tempfile.gettempdir())
@@ -172,7 +187,8 @@ def callbacks(app, fsc, cache):
     def ms_table(value, wdir, files_deleted, files_converted, workspace):
 
         ms_files = T.get_ms_fns(wdir)
-
+        logging.info(f'Files in {wdir} {workspace} {ms_files}')
+        
         data = pd.DataFrame(
             {
                 "MS-file": [os.path.basename(fn) for fn in ms_files],

@@ -3,12 +3,31 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
-from . import heatmap
-from . import pca
-from . import distributions
-from . import hierachical_clustering
-from . import plotting
-from . import tools as T
+from .analysis_tools import heatmap
+from .analysis_tools import pca
+from .analysis_tools import distributions
+from .analysis_tools import hierachical_clustering
+from .analysis_tools import plotting
+
+
+from .. import tools as T
+from ..plugin_interface import PluginInterface
+
+
+
+class AnalysisPlugin(PluginInterface):
+    def __init__(self):
+        self._label = _label
+
+    def layout(self):
+        return _layout
+
+    def callbacks(self, app, fsc, cache):
+        callbacks(app, fsc, cache)
+    
+    def outputs(self):
+        return _outputs
+    
 
 
 _modules = [heatmap, distributions, pca, hierachical_clustering, plotting]

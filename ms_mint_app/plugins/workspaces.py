@@ -9,9 +9,25 @@ from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 
+from .. import tools as T
+from ..plugin_interface import PluginInterface
 
-from . import tools as T
 
+
+class WorkspacesPlugin(PluginInterface):
+    def __init__(self):
+        self._label = _label
+
+    def layout(self):
+        return _layout
+
+    def callbacks(self, app, fsc, cache):
+        callbacks(app, fsc, cache)
+    
+    def outputs(self):
+        return _outputs
+        
+_label = "Workspaces"
 
 ws_table = html.Div(
     id="ws-table-container",
@@ -84,7 +100,7 @@ _layout = html.Div(
             id="ws-delete-popup",
         ),
     ]
-)
+)    
 
 
 _outputs = html.Div(
@@ -95,12 +111,6 @@ _outputs = html.Div(
         html.Div(id={"index": "ws-delete-output", "type": "output"}),
     ],
 )
-
-_label = "Workspaces"
-
-
-def layout():
-    return _layout
 
 
 def callbacks(app, fsc, cache):

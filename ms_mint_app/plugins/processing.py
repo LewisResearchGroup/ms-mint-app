@@ -13,7 +13,24 @@ from dash.dependencies import Input, Output, State
 
 from ms_mint.Mint import Mint
 
-from . import tools as T
+from .. import tools as T
+from ..plugin_interface import PluginInterface
+
+
+
+class ProcessingPlugin(PluginInterface):
+    def __init__(self):
+        self._label = _label
+
+    def layout(self):
+        return _layout
+
+    def callbacks(self, app, fsc, cache):
+        callbacks(app, fsc, cache)
+    
+    def outputs(self):
+        return _outputs
+    
 
 _label = "Processing"
 

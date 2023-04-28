@@ -10,7 +10,7 @@ import seaborn as sns
 plt.rcParams["figure.autolayout"] = False
 
 
-from . import tools as T
+from ... import tools as T
 
 
 _label = "Plotting"

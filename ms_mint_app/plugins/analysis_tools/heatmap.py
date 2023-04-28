@@ -8,7 +8,7 @@ import dash_bootstrap_components as dbc
 from ms_mint.Mint import Mint
 from ms_mint.plotly_tools import plotly_heatmap
 
-from . import tools as T
+from ... import tools as T
 
 _label = "Heatmap"
 

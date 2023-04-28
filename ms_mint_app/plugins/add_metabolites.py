@@ -5,13 +5,32 @@ from dash import html, dcc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 from dash_tabulator import DashTabulator
+from pkg_resources import resource_filename
 
 import dash_bootstrap_components as dbc
 
 from ms_mint.standards import M_PROTON
-from . import tools as T
 
-from pkg_resources import resource_filename
+
+from .. import tools as T
+from ..plugin_interface import PluginInterface
+
+
+
+class AddMetabolitesPlugin(PluginInterface):
+    def __init__(self):
+        self._label = _label
+
+    def layout(self):
+        return _layout
+
+    def callbacks(self, app, fsc, cache):
+        callbacks(app, fsc, cache)
+    
+    def outputs(self):
+        return _outputs
+
+
 
 CHEBI_CHEM_FN = os.path.abspath(
     resource_filename("ms_mint_app.static", "ChEBI-Chem.parquet")

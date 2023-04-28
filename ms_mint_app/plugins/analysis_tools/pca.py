@@ -10,7 +10,7 @@ import dash_bootstrap_components as dbc
 
 from ms_mint import Mint
 
-from . import tools as T
+from ... import tools as T
 
 options = [{"value": i, "label": i} for i in ["Standard scaling", "Corner"]]
 

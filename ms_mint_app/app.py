@@ -33,16 +33,6 @@ import ms_mint
 import ms_mint_app
 
 from . import tools as T
-
-#from . import workspaces
-#from . import ms_files
-#from . import metadata
-#from . import targets
-#from . import peak_optimization
-#from . import processing
-#from . import add_metab
-#from . import quality_control
-#from . import analysis
 from . import messages
 
 import dash_uploader as du
@@ -100,7 +90,8 @@ def load_plugins(plugin_dir, package_name):
     return plugins
 
 # Assuming 'plugins' is a subdirectory in the same directory as this script
-plugins = load_plugins(os.path.join(os.path.dirname(__file__), "plugins"), "ms_mint_app.plugins")
+plugin_manager = PluginManager()
+plugins = plugin_manager.plugins
 
 logging.info(f'Plugins: {plugins.keys()}')
 
@@ -125,6 +116,7 @@ _outputs = html.Div(
     style={"visibility": "hidden"},
 )
 
+logging.info(f'Outputs: {_outputs}')
 
 logout_button = (
     dbc.Button(
@@ -225,9 +217,8 @@ def register_callbacks(app, cache, fsc):
 
     messages.callbacks(app=app, fsc=fsc, cache=cache)
 
-    plugin_manager = PluginManager()
-    for plugin in plugin_manager.plugins.values():
-        logging.info(f"Loading plugin {plugin.label}")
+    for label, plugin in plugins.items():
+        logging.info(f"Loading callbacks of plugin {label}")
         plugin.callbacks(app=app, fsc=fsc, cache=cache)
 
     logging.info(f"Define clientside callbacks")

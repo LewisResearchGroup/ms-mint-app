@@ -10,7 +10,23 @@ from dash_tabulator import DashTabulator
 
 import dash_bootstrap_components as dbc
 
-from . import tools as T
+from .. import tools as T
+from ..plugin_interface import PluginInterface
+
+
+class TargetsPlugin(PluginInterface):
+    def __init__(self):
+        self._label = _label
+
+    def layout(self):
+        return _layout
+
+    def callbacks(self, app, fsc, cache):
+        callbacks(app, fsc, cache)
+    
+    def outputs(self):
+        return _outputs
+    
 
 from ms_mint.standards import TARGETS_COLUMNS
 
