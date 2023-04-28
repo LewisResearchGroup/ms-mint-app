@@ -1,6 +1,7 @@
 import os
 import tempfile
 import logging
+import importlib
 
 import pandas as pd
 
@@ -20,7 +21,8 @@ from dash.dcc import Download
 from dash_extensions.enrich import FileSystemCache
 from dash.long_callback import DiskcacheLongCallbackManager
 
-
+from .plugin_manager import PluginManager
+from .plugin_interface import PluginInterface
 
 import dash_bootstrap_components as dbc
 
@@ -32,15 +34,15 @@ import ms_mint_app
 
 from . import tools as T
 
-from . import workspaces
-from . import ms_files
-from . import metadata
-from . import targets
-from . import peak_optimization
-from . import processing
-from . import add_metab
-from . import quality_control
-from . import analysis
+#from . import workspaces
+#from . import ms_files
+#from . import metadata
+#from . import targets
+#from . import peak_optimization
+#from . import processing
+#from . import add_metab
+#from . import quality_control
+#from . import analysis
 from . import messages
 
 import dash_uploader as du
@@ -79,24 +81,47 @@ long_callback_manager = DiskcacheLongCallbackManager(
 
 pd.options.display.max_colwidth = 1000
 
+
+def load_plugins(plugin_dir, package_name):
+    logging.info('Loading plugins')
+    plugins = {}
+
+    for file in os.listdir(plugin_dir):
+        if file.endswith(".py") and not file.startswith("__"):
+            module_name = file[:-3]
+            module_path = f"{package_name}.{module_name}"
+            module = importlib.import_module(module_path)
+
+            for name, cls in module.__dict__.items():
+                if isinstance(cls, type) and issubclass(cls, PluginInterface) and cls is not PluginInterface:
+                    plugin_instance = cls()
+                    plugins[plugin_instance.label] = plugin_instance
+
+    return plugins
+
+# Assuming 'plugins' is a subdirectory in the same directory as this script
+plugins = load_plugins(os.path.join(os.path.dirname(__file__), "plugins"), "ms_mint_app.plugins")
+
+logging.info(f'Plugins: {plugins.keys()}')
+
 _modules = [
-    workspaces,
-    ms_files,
-    metadata,
-    targets,
-    add_metab,
-    peak_optimization,
-    processing,
-    quality_control,
-    analysis,
+#    workspaces,
+#    ms_files,
+#    metadata,
+#    targets,
+#    add_metab,
+#    peak_optimization,
+#    processing,
+#    quality_control,
+#    analysis,
 ]
 
-modules = {module._label: module for module in _modules}
+#modules = {module._label: module for module in _modules}
 
 # Collect outputs:
 _outputs = html.Div(
     id="outputs",
-    children=[module._outputs for module in _modules if module._outputs is not None],
+    children=[plugin.outputs() for plugin in plugins.values() if plugin.outputs is not None],
     style={"visibility": "hidden"},
 )
 
@@ -163,16 +188,17 @@ _layout = html.Div(
         ], style={'margin-top': '5px', "margin-bottom": "30px"}),
 
         html.Div(id="pko-creating-chromatograms"),
+
         dcc.Tabs(
             id="tab",
-            value=_modules[0]._label,
+            value=list(plugins.keys())[0],
             children=[
                 dcc.Tab(
-                    id=modules[key]._label,
-                    value=key,
-                    label=modules[key]._label,
+                    id=plugin_id,
+                    value=plugin_id,
+                    label=plugin_instance.label,
                 )
-                for key in modules.keys()
+                for plugin_id, plugin_instance in plugins.items()
             ],
         ),
 
@@ -199,11 +225,12 @@ def register_callbacks(app, cache, fsc):
 
     messages.callbacks(app=app, fsc=fsc, cache=cache)
 
-    for module in _modules:
-        func = module.callbacks
-        if func is not None:
-            func(app=app, fsc=fsc, cache=cache)
+    plugin_manager = PluginManager()
+    for plugin in plugin_manager.plugins.values():
+        logging.info(f"Loading plugin {plugin.label}")
+        plugin.callbacks(app=app, fsc=fsc, cache=cache)
 
+    logging.info(f"Define clientside callbacks")
     # Updates the current viewport
     app.clientside_callback(
         """
@@ -223,7 +250,7 @@ def register_callbacks(app, cache, fsc):
         State("wdir", "children"),
     )
     def render_content(tab, wdir):
-        func = modules[tab].layout
+        func = plugins[tab].layout
         if tab != "Workspaces" and wdir == "":
             return dbc.Alert(
                 "Please, create and activate a workspace.", color="warning"
@@ -253,11 +280,13 @@ def register_callbacks(app, cache, fsc):
             tmpdir = str(TMPDIR / "User" / username)
             return tmpdir, {"visibility": "visible"}
         return str(TMPDIR / "Local"), {"visibility": "hidden"}
+    logging.info("Done registering callbacks")
 
 
 def create_app(**kwargs):
-
-    logging.warning(f'ms-mint: {ms_mint.__version__}, ({ms_mint.__file__})')
+    logging.info('Create application')
+    logging.info(f'ms-mint: {ms_mint.__version__}, ({ms_mint.__file__})')
+    logging.info(f'ms-mint-app: {ms_mint_app.__version__}, ({ms_mint.__file__})')
 
     app = dash.Dash(
         __name__,
@@ -276,21 +305,12 @@ def create_app(**kwargs):
     upload_root = os.getenv("MINT_DATA_DIR", tempfile.gettempdir())
     CACHE_DIR = str(P(upload_root) / "MINT-Cache")
 
+    logging.info('Defining filesystem cache')
     cache = Cache(
         app.server, config={"CACHE_TYPE": "filesystem", "CACHE_DIR": CACHE_DIR}
     )
 
     fsc = FileSystemCache(str(CACHEDIR))
-
+    logging.info('Done creating app')
     return app, cache, fsc
 
-
-if __name__ == "__main__":
-    app, cache = create_app()
-    register_callbacks(app, cache)
-    app.run_server(
-        debug=True,
-        threaded=True,
-        dev_tools_hot_reload_interval=5000,
-        dev_tools_hot_reload_max_retry=30,
-    )

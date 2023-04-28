@@ -8,6 +8,7 @@ import argparse
 import pkg_resources
 import xlsxwriter
 import bs4
+import logging
 
 from waitress import serve
 from os.path import expanduser
@@ -133,6 +134,9 @@ if __name__ == "__main__":
         os.environ["MINT_SERVE_PATH"] = args.serve_path
 
     print(welcome)
+
+    root_logger = logging.getLogger()
+    root_logger.setLevel(logging.INFO)
 
     print("Loading app...")
 
