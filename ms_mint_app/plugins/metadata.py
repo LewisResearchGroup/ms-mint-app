@@ -16,6 +16,7 @@ from ..plugin_interface import PluginInterface
 class MetadataPlugin(PluginInterface):
     def __init__(self):
         self._label = _label
+        self._order = 3
 
     def layout(self):
         return _layout

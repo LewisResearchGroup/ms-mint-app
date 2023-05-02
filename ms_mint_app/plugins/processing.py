@@ -21,6 +21,7 @@ from ..plugin_interface import PluginInterface
 class ProcessingPlugin(PluginInterface):
     def __init__(self):
         self._label = _label
+        self._order = 7
 
     def layout(self):
         return _layout

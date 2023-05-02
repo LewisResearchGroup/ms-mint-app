@@ -91,23 +91,9 @@ def load_plugins(plugin_dir, package_name):
 
 # Assuming 'plugins' is a subdirectory in the same directory as this script
 plugin_manager = PluginManager()
-plugins = plugin_manager.plugins
+plugins = plugin_manager.get_plugins()
 
 logging.info(f'Plugins: {plugins.keys()}')
-
-_modules = [
-#    workspaces,
-#    ms_files,
-#    metadata,
-#    targets,
-#    add_metab,
-#    peak_optimization,
-#    processing,
-#    quality_control,
-#    analysis,
-]
-
-#modules = {module._label: module for module in _modules}
 
 # Collect outputs:
 _outputs = html.Div(

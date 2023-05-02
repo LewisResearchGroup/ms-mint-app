@@ -17,7 +17,9 @@ class PluginInterface(ABC):
     @abstractmethod
     def outputs(self):
         pass
-
+    
     @property
     def order(self):
-        pass    
+        return self._order
+    
+        

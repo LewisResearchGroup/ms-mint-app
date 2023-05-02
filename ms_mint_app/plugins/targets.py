@@ -17,6 +17,7 @@ from ..plugin_interface import PluginInterface
 class TargetsPlugin(PluginInterface):
     def __init__(self):
         self._label = _label
+        self._order = 4
 
     def layout(self):
         return _layout

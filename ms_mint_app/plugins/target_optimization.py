@@ -30,6 +30,7 @@ from ..plugin_interface import PluginInterface
 class TargetOptimizationPlugin(PluginInterface):
     def __init__(self):
         self._label = _label
+        self._order = 6
 
     def layout(self):
         return _layout

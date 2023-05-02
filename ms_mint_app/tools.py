@@ -220,12 +220,8 @@ def create_chromatograms(ms_files, targets, wdir):
                 create_chromatogram(fn, mz_mean, mz_width, fn_chro)
 
 
-def create_chromatogram(ms_file, mz_mean, mz_width, fn_out, verbose=False):
-    if verbose:
-        print("Creating chromatogram")
+def create_chromatogram(ms_file, mz_mean, mz_width, fn_out):
     df = ms_file_to_df(ms_file)
-    if verbose:
-        print("...file read")
     dirname = os.path.dirname(fn_out)
     if not os.path.isdir(dirname):
         os.makedirs(dirname)
@@ -235,8 +231,6 @@ def create_chromatogram(ms_file, mz_mean, mz_width, fn_out, verbose=False):
     chrom = chrom.groupby("scan_time").max().reset_index()
     with lock(fn_out):
         chrom[["scan_time", "intensity"]].to_feather(fn_out)
-    if verbose:
-        print("...done creating chromatogram.")
     return chrom
 
 
@@ -358,11 +352,9 @@ def get_metadata(wdir):
 
     df = df.groupby("MS-file").first().reindex(ms_files, ).reset_index()
     
-    print('NEW FILES:', new_files)
     if new_files :
         # Default for PeakOpt for new files should be False
         ndx = df[df['MS-file'].isin(new_files)].index
-        print('INDEX:', ndx)
         df.loc[ndx, 'PeakOpt'] = False
 
     if "PeakOpt" not in df.columns:
@@ -456,7 +448,6 @@ def format_columns(x):
         elif np.isnan(x):
             return None
     except:
-        print(type(x), x)
         assert False
     return f"{int(x):02.0f}"
 
@@ -679,7 +670,7 @@ def savefig(kind=None, wdir=None, label=None, format="png", dpi=150):
         with lock(fn):
             plt.savefig(fn, dpi=dpi, bbox_inches="tight")
     except:
-        print(f"Could not save figure {fn}, maybe no figure was created: {label}")
+        logging.error(f"Could not save figure {fn}, maybe no figure was created: {label}")
     return fn
 
 

@@ -20,6 +20,7 @@ from ..plugin_interface import PluginInterface
 class QualityControlPlugin(PluginInterface):
     def __init__(self):
         self._label = _label
+        self._order = 8
 
     def layout(self):
         return _layout

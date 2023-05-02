@@ -28,6 +28,7 @@ from ..plugin_interface import PluginInterface
 class MsFilesPlugin(PluginInterface):
     def __init__(self):
         self._label = _label
+        self._order = 2
 
     def layout(self):
         return _layout

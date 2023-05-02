@@ -17,6 +17,7 @@ from ..plugin_interface import PluginInterface
 class WorkspacesPlugin(PluginInterface):
     def __init__(self):
         self._label = _label
+        self._order = 0
 
     def layout(self):
         return _layout
