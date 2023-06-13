@@ -31,11 +31,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://github.com/lewisresearchgroup/ms-mint-app/jupyter/</loc>
-         <lastmod>2023-06-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://github.com/lewisresearchgroup/ms-mint-app/quickstart/</loc>
          <lastmod>2023-06-13</lastmod>
          <changefreq>daily</changefreq>
