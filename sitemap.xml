@@ -16,11 +16,6 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://github.com/sorenwacker/ms-mint/docker/</loc>
-         <lastmod>2023-06-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
          <loc>https://github.com/sorenwacker/ms-mint/gallery/</loc>
          <lastmod>2023-06-13</lastmod>
          <changefreq>daily</changefreq>
@@ -37,16 +32,6 @@
     </url>
     <url>
          <loc>https://github.com/sorenwacker/ms-mint/jupyter/</loc>
-         <lastmod>2023-06-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://github.com/sorenwacker/ms-mint/peak-detection/</loc>
-         <lastmod>2023-06-13</lastmod>
-         <changefreq>daily</changefreq>
-    </url>
-    <url>
-         <loc>https://github.com/sorenwacker/ms-mint/python/</loc>
          <lastmod>2023-06-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
