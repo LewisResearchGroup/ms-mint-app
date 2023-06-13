@@ -132,20 +132,16 @@ python3 -m twine upload --repository ms-mint dist/ms*mint-*
 <pre><code>mkdocs build &amp;&amp; mkdocs gh-deploy
 </code></pre>
 <h2 id="example-nginx-config">Example NGINX config</h2>
-<pre><code>location /mint/ {
-    client_max_body_size    10G;
-    proxy_pass       http://localhost:9999;
-    #rewrite ^/mint/(.*) /$1 break;
-
-    proxy_http_version 1.1;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header Host $host;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_read_timeout 86400;
+<pre><code>server {
+    ...
+    location / {
+        proxy_pass              http://localhost:8080;
+        client_max_body_size    100G;
+        proxy_set_header        X-Forwarded-Proto https;
+        proxy_set_header        Host $host;
+    }
 }
 </code></pre>
-<p>Then start MINT with <code>--serve-path='\mint\'</code>.</p>
 <h2 id="additional-packages">Additional packages</h2>
 <p>To run tests and code optimization you need the
 following packages:</p>
