@@ -126,7 +126,7 @@
 python3 -m twine upload --repository ms-mint dist/ms*mint-*
 </code></pre>
 <h2 id="windows-executables">Windows executables</h2>
-<pre><code>pyinstaller --onedir --noconfirm specfiles\Mint__onedir__.spec --additional-hooks-dir=hooks
+<pre><code>cd specfiles &amp;&amp; pyinstaller --noconfirm Mint.spec ..\scripts\Mint.py
 </code></pre>
 <h2 id="documentation-deployment">Documentation deployment</h2>
 <pre><code>mkdocs build &amp;&amp; mkdocs gh-deploy
