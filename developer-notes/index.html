@@ -110,10 +110,6 @@
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#additional-packages" class="nav-link">Additional packages</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -132,6 +128,7 @@ python3 -m twine upload --repository ms-mint dist/ms*mint-*
 <pre><code>mkdocs build &amp;&amp; mkdocs gh-deploy
 </code></pre>
 <h2 id="example-nginx-config">Example NGINX config</h2>
+<p>To run Mint on a remote server you need to setup a remote proxy. </p>
 <pre><code>server {
     ...
     location / {
@@ -141,11 +138,6 @@ python3 -m twine upload --repository ms-mint dist/ms*mint-*
         proxy_set_header        Host $host;
     }
 }
-</code></pre>
-<h2 id="additional-packages">Additional packages</h2>
-<p>To run tests and code optimization you need the
-following packages:</p>
-<pre><code>conda install flake8 pytest mkdocs
 </code></pre></div>
             </div>
         </div>
