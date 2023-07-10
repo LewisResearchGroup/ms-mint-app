@@ -4,7 +4,7 @@ lint:
 pyinstaller:
 	cd specfiles && pyinstaller --noconfirm Mint.spec ../scripts/Mint.py
 
-docs:
+doc:
 	mkdocs build && mkdocs gh-deploy
 
 devel:

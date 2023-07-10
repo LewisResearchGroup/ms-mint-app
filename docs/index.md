@@ -17,5 +17,3 @@ Check out the [Quickstart](quickstart.md) to jump right into it.
 ## What is it all about?
 What problem is MINT solving? Check out the [background](background.md) section.
 
-## How to use the Python API?
-Go to the [Jupyter](jupyter.md) section.

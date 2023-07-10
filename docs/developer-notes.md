@@ -6,30 +6,18 @@
     cd specfiles && pyinstaller --noconfirm Mint.spec ..\scripts\Mint.py
     
 ## Documentation deployment
-
     mkdocs build && mkdocs gh-deploy
 
 ## Example NGINX config
 
-    location /mint/ {
-        client_max_body_size    10G;
-        proxy_pass       http://localhost:9999;
-        #rewrite ^/mint/(.*) /$1 break;
+To run Mint on a remote server you need to setup a remote proxy. 
 
-        proxy_http_version 1.1;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $host;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection "upgrade";
-        proxy_read_timeout 86400;
+    server {
+        ...
+        location / {
+            proxy_pass              http://localhost:8080;
+            client_max_body_size    100G;
+            proxy_set_header        X-Forwarded-Proto https;
+            proxy_set_header        Host $host;
+        }
     }
-
-Then start MINT with `--serve-path='\mint\'`.
-
-
-## Additional packages
-
-To run tests and code optimization you need the
-following packages:
-
-    conda install flake8 pytest mkdocs

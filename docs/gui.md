@@ -48,18 +48,18 @@ Note that _mzXML_ and _mzML_ files will be deleted after convertion.
 Metadata for the individual files can be edited in the `Metadata` tab. This data can be used to group results e.g. by batch or by label as well as types.
 You want to edit metadata table to:
 
-## Peaklist
+## Targetlists
 
 - Import peaklist from CSV file or add new peaks manually
 - Rename peaks definitions or change parameters
 - Delete peak definitions
 
-![Peaklist](image/peaklist.png "Peaklist")
+![Targetlists](image/peaklist.png "Peaklist")
 
-Peaklists are collection of peak definitions for the extraction of MS intensities beloning to individual metabolites. 
-Peaklists can be provided as Excel or CSV files. Peaklists are explained in more detail [here](peaklists.md).
-Files can be uploaded via the drag and drop area or the selection tool. The peaklist can be edited in place or
-with the peak optimization tools.
+Targetlists are collection of peak definitions for the extraction of MS intensities beloning to individual metabolites. 
+Targetlists can be provided as Excel or CSV files. Targetlists are explained in more detail [here](targets.md).
+Files can be uploaded via the drag and drop area or the selection tool. The targetlists can be edited in place or
+with the optimization tools.
 
 ## Add Metabolites
 
@@ -117,7 +117,7 @@ When the results tables are present the results can be explored with the followi
 The generated results can be downloaded with the `DOWNLOAD` button.
 
 
-# Analysis
+## Analysis
 
 After running MINT the results can be downloaed or analysed using the provided tools.
 For quality control purposes histograms and boxplots can be generated in the 
