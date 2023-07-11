@@ -110,7 +110,7 @@ def callbacks(app, fsc, cache):
 
         sns.set_context("paper")
 
-        sort_by_col = "Batch"
+        sort_by_col = "plate"
         quant_col = "log(peak_max+1)"
 
         if sort_by_col is not None:

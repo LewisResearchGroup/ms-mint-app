@@ -313,7 +313,7 @@ def get_results_fn(wdir):
 def get_results(wdir):
     fn = get_results_fn(wdir)
     df = pd.read_csv(fn)
-    df["MS-file"] = [filename_to_label(fn) for fn in df["ms_file"]]
+    df["ms_file_label"] = [filename_to_label(fn) for fn in df["ms_file"]]
     return df
 
 
@@ -327,53 +327,55 @@ def get_metadata(wdir):
         os.makedirs(fn_path)
     if os.path.isfile(fn):
         df = pd.read_csv(fn)
-        if "MS-file" not in df.columns:
+        if "ms_file_label" not in df.columns:
             df = None
 
     if df is None or len(df) == 0:
         df = init_metadata(ms_files)
 
     for col in [
-        "Color",
-        "Column",
-        "Row",
-        "Batch",
-        "Label",
-        "InAnalysis",
-        "PeakOpt",
-        "MS-file",
+        "color",
+        "plate_column",
+        "plate_row",
+        "plate",
+        "label",
+        "in_analysis",
+        "use_for_optimization",
+        "ms_file_label",
+        "ms_column",
+        "ionization_mode",
     ]:
         if col not in df.columns:
             df[col] = None
 
-    df = df[df["MS-file"] != ""]
+    df = df[df["ms_file_label"] != ""]
 
-    new_files = [e for e in ms_files if e not in df['MS-file'].values]
+    new_files = [e for e in ms_files if e not in df['ms_file_label'].values]
 
-    df = df.groupby("MS-file").first().reindex(ms_files, ).reset_index()
+    df = df.groupby("ms_file_label").first().reindex(ms_files, ).reset_index()
     
     if new_files :
-        # Default for PeakOpt for new files should be False
-        ndx = df[df['MS-file'].isin(new_files)].index
-        df.loc[ndx, 'PeakOpt'] = False
+        # Default for use_for_optimization for new files should be False
+        ndx = df[df['ms_file_label'].isin(new_files)].index
+        df.loc[ndx, 'use_for_optimization'] = False
 
-    if "PeakOpt" not in df.columns:
-        df["PeakOpt"] = False
+    if "use_for_optimization" not in df.columns:
+        df["use_for_optimization"] = False
 
     else:
-        df["PeakOpt"] = df["PeakOpt"].astype(bool)
+        df["use_for_optimization"] = df["use_for_optimization"].astype(bool)
 
-    if "InAnalysis" not in df.columns:
-        df["InAnalysis"] = True
+    if "in_analysis" not in df.columns:
+        df["in_analysis"] = True
     else:
-        df["InAnalysis"] = df["InAnalysis"].astype(bool)
+        df["in_analysis"] = df["in_analysis"].astype(bool)
 
     if "index" in df.columns:
         del df["index"]
 
-    df["Column"] = df["Column"].apply(format_columns)
+    df["plate_column"] = df["plate_column"].apply(format_columns)
 
-    df["Type"] = df["Type"].fillna("Not set")
+    df["sample_type"] = df["sample_type"].fillna("Not set")
 
     df.reset_index(inplace=True)
 
@@ -383,16 +385,16 @@ def get_metadata(wdir):
 def init_metadata(ms_files):
     ms_files = list(ms_files)
     ms_files = [filename_to_label(fn) for fn in ms_files]
-    df = pd.DataFrame({"MS-file": ms_files})
-    df["InAnalysis"] = True
-    df["Label"] = ""
-    df["Color"] = None
-    df["Type"] = "Unknown"
-    df["RunOrder"] = ""
-    df["Batch"] = ""
-    df["Row"] = ""
-    df["Column"] = ""
-    df["PeakOpt"] = ""
+    df = pd.DataFrame({"ms_file_label": ms_files})
+    df["in_analysis"] = True
+    df["label"] = ""
+    df["color"] = None
+    df["sample_type"] = "Unknown"
+    df["run_order"] = ""
+    df["plate"] = ""
+    df["plate_row"] = ""
+    df["plate_column"] = ""
+    df["use_for_optimization"] = ""
     return df
 
 
@@ -463,14 +465,14 @@ def get_complete_results(
     resu = get_results(wdir)
 
     if not include_excluded:
-        meta = meta[meta["InAnalysis"]]
-    df = pd.merge(meta, resu, on=["MS-file"])
+        meta = meta[meta["in_analysis"]]
+    df = pd.merge(meta, resu, on=["ms_file_label"])
     if include_labels is not None and len(include_labels) > 0:
         df = df[df.peak_label.isin(include_labels)]
     if exclude_labels is not None and len(exclude_labels) > 0:
         df = df[~df.peak_label.isin(exclude_labels)]
     if file_types is not None and file_types != []:
-        df = df[df.Type.isin(file_types)]
+        df = df[df.sample_type.isin(file_types)]
     df["log(peak_max+1)"] = df.peak_max.apply(np.log1p)
     if "index" in df.columns:
         df = df.drop("index", axis=1)
@@ -492,11 +494,11 @@ def gen_tabulator_columns(
     col_names = list(col_names)
 
     standard_columns = [
-        "MS-file",
-        "InAnalysis",
-        "Color",
+        "ms_file_label",
+        "in_analysis",
+        "color",
         "index",
-        "PeakOpt",
+        "use_for_optimization",
     ]
 
     for col in standard_columns:
@@ -520,8 +522,8 @@ def gen_tabulator_columns(
     if add_ms_file_col:
         columns.append(
             {
-                "title": "MS-file",
-                "field": "MS-file",
+                "title": "ms_file_label",
+                "field": "ms_file_label",
                 "headerFilter": True,
                 "headerSort": True,
                 "editor": "input",
@@ -533,8 +535,8 @@ def gen_tabulator_columns(
     if add_color_col:
         columns.append(
             {
-                "title": "Color",
-                "field": "Color",
+                "title": "color",
+                "field": "color",
                 "headerFilter": False,
                 "editor": "input",
                 "formatter": "color",
@@ -546,8 +548,8 @@ def gen_tabulator_columns(
     if add_peakopt_col:
         columns.append(
             {
-                "title": "PeakOpt",
-                "field": "PeakOpt",
+                "title": "use_for_optimization",
+                "field": "use_for_optimization",
                 "headerFilter": False,
                 "formatter": "tickCross",
                 "width": "6px",
@@ -560,8 +562,8 @@ def gen_tabulator_columns(
     if add_ms_file_active_col:
         columns.append(
             {
-                "title": "InAnalysis",
-                "field": "InAnalysis",
+                "title": "in_analysis",
+                "field": "in_analysis",
                 "headerFilter": True,
                 "formatter": "tickCross",
                 "width": "6px",
@@ -605,7 +607,7 @@ def fig_to_src(dpi=100):
     return "data:image/png;base64,{}".format(encoded)
 
 
-def merge_metadata(old: pd.DataFrame, new: pd.DataFrame, index_col='MS-file') -> pd.DataFrame:
+def merge_metadata(old: pd.DataFrame, new: pd.DataFrame, index_col='ms_file_label') -> pd.DataFrame:
     """
     This function updates one existing dataframe 
     with information from a second dataframe.
@@ -642,7 +644,7 @@ def merge_metadata(old: pd.DataFrame, new: pd.DataFrame, index_col='MS-file') ->
 def file_colors(wdir):
     meta = get_metadata(wdir)
     colors = {}
-    for ndx, (fn, co) in meta[["MS-file", "Color"]].iterrows():
+    for ndx, (fn, co) in meta[["ms_file_label", "color"]].iterrows():
         if not (isinstance(co, str)):
             co = None
         colors[fn] = co
@@ -688,7 +690,7 @@ def get_ms_fns_for_peakopt(wdir):
     """Extract the filenames for peak optimization from
     the metadata table and recreate the complete filename."""
     df = get_metadata(wdir)
-    fns = df[df.PeakOpt.astype(bool) == True]["MS-file"]
+    fns = df[df.use_for_optimization.astype(bool) == True]["ms_file_label"]
     ms_files = get_ms_fns(wdir)
     mapping = {filename_to_label(fn): fn for fn in ms_files}
     fns = [mapping[fn] for fn in fns]

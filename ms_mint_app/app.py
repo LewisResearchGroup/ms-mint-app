@@ -102,7 +102,7 @@ _outputs = html.Div(
     style={"visibility": "hidden"},
 )
 
-logging.info(f'Outputs: {_outputs}')
+#logging.info(f'Outputs: {_outputs}')
 
 logout_button = (
     dbc.Button(
@@ -163,7 +163,7 @@ _layout = html.Div(
                     ]
                 , color='info', style={'text-align': 'center'}),
             ),
-        ], style={'margin-top': '5px', "margin-bottom": "30px"}),
+        ], style={'marginTop': '5px', "marginBottom": "30px"}),
 
         html.Div(id="pko-creating-chromatograms"),
 

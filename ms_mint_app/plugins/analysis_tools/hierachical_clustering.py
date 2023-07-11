@@ -95,10 +95,10 @@ def callbacks(app, fsc, cache):
             exclude_labels=exclude_labels,
             file_types=file_types,
         )
-
-        df["ms_file"] = df["MS-file"]
+    
+        df["ms_file"] = df["ms_file_label"]
         mint.results = df
-
+        mint.load_metadata(T.get_metadata_fn(wdir))
         mint.plot.hierarchical_clustering(
             figsize=(fig_size_x, fig_size_y), transposed="Transposed" in options
         )

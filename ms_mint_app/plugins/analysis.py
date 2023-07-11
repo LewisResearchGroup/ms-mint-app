@@ -36,16 +36,16 @@ _modules = [heatmap, distributions, pca, hierachical_clustering, plotting]
 modules = {module._label: module for module in _modules}
 
 groupby_options = [
-    {"label": "Batch", "value": "Batch"},
-    {"label": "Label", "value": "Label"},
-    {"label": "Type", "value": "Type"},
-    {"label": "Color", "value": "Color"},
+    {"label": "plate", "value": "plate"},
+    {"label": "label", "value": "label"},
+    {"label": "sample_type", "value": "sample_type"},
+    {"label": "color", "value": "color"},
 ]
 
 ana_normalization_cols = [
-    {"label": "Batch", "value": "Batch"},
+    {"label": "plate", "value": "plate"},
     {"label": "peak_label", "value": "peak_label"},
-    {"label": "ms_file", "value": "ms_file"},
+    {"label": "ms_file_id", "value": "ms_file_id"},
 ]
 
 _layout = html.Div(
@@ -148,7 +148,7 @@ def callbacks(app, fsc, cache):
         meta = T.get_metadata(wdir)
         if meta is None:
             raise PreventUpdate
-        file_types = meta["Type"].drop_duplicates().sort_values()
+        file_types = meta["sample_type"].drop_duplicates().sort_values()
         options = [{"value": str(i), "label": str(i)} for i in file_types]
         print(file_types, options)
         return options, file_types
@@ -163,8 +163,8 @@ def callbacks(app, fsc, cache):
         cols = T.get_metadata(wdir).dropna(how="all", axis=1).columns.to_list()
         if "index" in cols:
             cols.remove("index")
-        if "PeakOpt" in cols:
-            cols.remove("PeakOpt")
+        if "use_for_optimization" in cols:
+            cols.remove("use_for_optimization")
         options = [{"value": i, "label": i} for i in cols]
         return options, options
 

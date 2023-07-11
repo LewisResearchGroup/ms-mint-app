@@ -59,7 +59,7 @@ _layout = html.Div(
             id="pko-ms-selection",
             options=[
                 {
-                    "label": "Use selected files from metadata table (PeakOpt)",
+                    "label": "Use selected files from metadata table (use_for_optimization)",
                     "value": "peakopt",
                 },
                 {"label": "Use all files (may take a long time)", "value": "all"},
@@ -123,7 +123,7 @@ pko_layout_no_data = html.Div(
     [
         dcc.Markdown(
             """### No targets found.
-    You did not generate a targets yet.
+    You did not genefrate a targets yet.
     """
         )
     ]
@@ -400,7 +400,7 @@ def callbacks(app, fsc, cache, cpu=None):
         State("wdir", "children"),
     )
     def peak_preview(n_clicks, from_scratch, ms_selection, wdir):  # peak_opt, #set_rt,
-        logging.warning(f'Create peak previews {wdir}')
+        logging.info(f'Create peak previews {wdir}')
         if n_clicks is None:
             raise PreventUpdate
         # reset updating after 5 attempts
@@ -434,7 +434,7 @@ def callbacks(app, fsc, cache, cpu=None):
 
         if len(ms_files) == 0:
             return dbc.Alert(
-                'No files selected for peak optimization in Metadata tab. Please, select some files in column "PeakOpt".',
+                'No files selected for peak optimization in Metadata tab. Please, select some files in column "use_for_optimization".',
                 color="warning",
             )
         else:
@@ -572,6 +572,7 @@ def create_preview_peakshape(
     ms_files, mz_mean, mz_width, rt, rt_min, rt_max, image_label, wdir, peak_label, colors
 ):
     """Create peak shape previews."""
+    logging.info(f'Create_preview_peakshape {peak_label}')
     plt.figure(figsize=(2, 1), dpi=30)
     y_max = 0
     for fn in ms_files:
@@ -597,4 +598,5 @@ def create_preview_peakshape(
     plt.ylabel("Intensity")
     filename = T.savefig(kind="peak-preview", wdir=wdir, label=image_label)
     plt.close()
+    logging.info(f'Create_preview_peakshape {peak_label} done.')
     return filename

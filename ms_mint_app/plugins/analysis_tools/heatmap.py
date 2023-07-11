@@ -95,14 +95,15 @@ def callbacks(app, fsc, cache):
             return "No results yet. First run MINT."
 
         mint.results = df
-
+        mint.load_metadata(T.get_metadata_fn(wdir))
+        
         var_name = "peak_max"
         data = mint.crosstab(var_name)
         data.index = [T.Basename(i) for i in data.index]
 
         if ms_order is not None and len(ms_order) > 0:
             df = df.sort_values(ms_order)
-            ms_files = df["MS-file"].drop_duplicates()
+            ms_files = df["ms_file_id"].drop_duplicates()
             data = data.loc[ms_files]
 
         data.fillna(0, inplace=True)

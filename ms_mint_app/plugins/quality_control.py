@@ -117,7 +117,7 @@ def callbacks(app, fsc, cache):
             wdir
         )
 
-        return px.violin(data_frame=df, y='peak_mass_diff_50pc', color='Type')
+        return px.violin(data_frame=df, y='peak_mass_diff_50pc', color='sample_type')
         
     
     @app.callback(
@@ -139,7 +139,7 @@ def callbacks(app, fsc, cache):
         fig = px.scatter(data_frame=df, 
                          y='peak_mass_diff_50pc', 
                          x='peak_label',
-                         color='Type', 
+                         color='sample_type', 
                          hover_data=['ms_file'],
                          #facet_col_wrap=10, 
                          height=750
@@ -161,7 +161,7 @@ def callbacks(app, fsc, cache):
         if tab != "Quality Control":
             raise PreventUpdate
 
-        meta = T.get_metadata(wdir).set_index('MS-file')
+        meta = T.get_metadata(wdir).set_index('ms_file_label')
 
         mint = Mint()
         mint.load(T.get_results_fn(wdir))

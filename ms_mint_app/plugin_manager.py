@@ -28,7 +28,7 @@ class PluginManager:
         self.register_plugin("MS-Files", MsFilesPlugin())
         self.register_plugin("Metadata", MetadataPlugin())
         self.register_plugin("Targets", TargetsPlugin())
-        self.register_plugin("Add Metabolites", AddMetabolitesPlugin())
+        #self.register_plugin("Add Metabolites", AddMetabolitesPlugin())
         self.register_plugin("Optimization", TargetOptimizationPlugin())
         self.register_plugin("Processing", ProcessingPlugin())
         self.register_plugin("Quality Control", QualityControlPlugin())

@@ -68,8 +68,8 @@ columns = [
         "frozen": True,
     },
     {
-        "title": "MS-file",
-        "field": "MS-file",
+        "title": "ms_file",
+        "field": "ms_file",
         "headerFilter": True,
         "headerSort": True,
         "editor": None,
@@ -78,7 +78,7 @@ columns = [
         "frozen": True,
     },
     {
-        "title": "Size [MB]",
+        "title": "ms_file_size_mb",
         "field": "file_size",
         "headerFilter": True,
         "headerSort": True,
@@ -132,7 +132,7 @@ _layout = html.Div(
                 "textAlign": "center",
                 "width": "100%",
                 "padding": "0px",
-                "margin-bottom": "20px",
+                "marginBottom": "20px",
                 "display": "inline-block",
             },
         ),
@@ -142,6 +142,7 @@ _layout = html.Div(
                 dbc.Col(
                     [
                         dbc.Button("Convert selected files to Feather", id="ms-convert"),
+                        dbc.Button("Convert selected files to Parquet", id="ms-convert-parquet"),
                     ]
                 ),
                 dbc.Col(
@@ -192,7 +193,7 @@ def callbacks(app, fsc, cache):
         
         data = pd.DataFrame(
             {
-                "MS-file": [os.path.basename(fn) for fn in ms_files],
+                "ms_file": [os.path.basename(fn) for fn in ms_files],
                 "file_size": [
                     np.round(os.path.getsize(fn) / 1024 / 1024, 2) for fn in ms_files
                 ],
@@ -218,7 +219,7 @@ def callbacks(app, fsc, cache):
         target_dir = os.path.join(wdir, "ms_files")
         if n_clicks is None:
             raise PreventUpdate
-        fns = [row["MS-file"] for row in rows]
+        fns = [row["ms_file"] for row in rows]
         fns = [fn for fn in fns if not fn.endswith(".feather")]
         fns = [os.path.join(target_dir, fn) for fn in fns]
         n_total = len(fns)
@@ -240,7 +241,7 @@ def callbacks(app, fsc, cache):
             raise PreventUpdate
         target_dir = os.path.join(wdir, "ms_files")
         for row in rows:
-            fn = row["MS-file"]
+            fn = row["ms_file"]
             fn = P(target_dir) / fn
             os.remove(fn)
         return dbc.Alert(f"{len(rows)} files deleted", color="info")
