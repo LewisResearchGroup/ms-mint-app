@@ -596,12 +596,10 @@ def parse_table_content(content, filename):
     return df
 
 
-def fig_to_src(dpi=100):
+def fig_to_src(fig, dpi=100):
     out_img = io.BytesIO()
-
-    plt.savefig(out_img, format="jpeg", bbox_inches="tight", dpi=dpi)
-
-    plt.close("all")
+    fig.savefig(out_img, format="jpeg", bbox_inches="tight", dpi=dpi)
+    plt.close(fig)
     out_img.seek(0)  # rewind file
     encoded = base64.b64encode(out_img.read()).decode("ascii").replace("\n", "")
     return "data:image/png;base64,{}".format(encoded)
@@ -665,12 +663,12 @@ def clean_string(fn: str):
     return fn
 
 
-def savefig(kind=None, wdir=None, label=None, format="png", dpi=150):
+def savefig(fig, kind=None, wdir=None, label=None, format="png", dpi=150):
     path, fn = get_figure_fn(kind=kind, wdir=wdir, label=label, format=format)
     maybe_create(path)
     try:
         with lock(fn):
-            plt.savefig(fn, dpi=dpi, bbox_inches="tight")
+            fig.savefig(fn, dpi=dpi, bbox_inches="tight")
     except:
         logging.error(f"Could not save figure {fn}, maybe no figure was created: {label}")
     return fn

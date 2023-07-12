@@ -490,6 +490,6 @@ def callbacks(app, fsc, cache, cpu=None):
 
         g.tight_layout(w_pad=0)
 
-        src = T.fig_to_src(dpi=300 if "HQ" in options else None)
+        src = T.fig_to_src(g.fig, dpi=300 if "HQ" in options else None)
 
         return html.Img(src=src, style={"maxWidth": "80%"})

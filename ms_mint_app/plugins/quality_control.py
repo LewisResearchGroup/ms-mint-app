@@ -161,20 +161,14 @@ def callbacks(app, fsc, cache):
         if tab != "Quality Control":
             raise PreventUpdate
 
-        meta = T.get_metadata(wdir).set_index('ms_file_label')
-
         mint = Mint()
         mint.load(T.get_results_fn(wdir))
+        mint.load_metadata(T.get_metadata_fn(wdir))
+
         mint.pca.run(4)
 
-        ndx = mint.pca.results["df_projected"].index.to_list()
-        ndx = [P(e).with_suffix('').name for e in ndx]
-
-        labels = list(meta.loc[ndx].Type)
-
-
         fig = mint.pca.plot.pairplot(interactive=True, 
-                                     labels=labels,
+                                     hue='sample_type',
                                      height=1000, 
                                      width=1000, 
                                      diag='box')

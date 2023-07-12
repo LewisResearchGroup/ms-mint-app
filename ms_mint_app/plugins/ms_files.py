@@ -189,7 +189,7 @@ def callbacks(app, fsc, cache):
     def ms_table(value, wdir, files_deleted, files_converted, workspace):
 
         ms_files = T.get_ms_fns(wdir)
-        logging.info(f'Files in {wdir} {workspace} {ms_files}')
+        logging.info(f'# Files in {wdir} {workspace} {len(ms_files)}')
         
         data = pd.DataFrame(
             {

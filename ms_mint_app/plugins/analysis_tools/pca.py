@@ -25,6 +25,7 @@ _layout = html.Div(
             multi=True,
             placeholder="Scaling used before PCA",
         ),
+
         html.Label("Number of PCA components"),
         dcc.Slider(
             id="pca-nvars",
@@ -34,31 +35,29 @@ _layout = html.Div(
             step=1,
             marks={i: f"{i}" for i in range(2, 11)},
         ),
-        html.Label("Height of facets"),
-        dcc.Slider(
-            id="pca-facent-height",
-            value=2.5,
-            min=1,
-            max=5,
-            step=0.1,
-            marks={i: f"{i}" for i in np.arange(1, 5.5, 0.5)},
-        ),
-        html.H4("Cumulative explained variance"),
-        dcc.Loading(
-            html.Div(
-                id="pca-figure-explained-variance",
-                style={"margin": "auto", "text-align": "center"},
-            )
-        ),
+
         html.H4("Scatter plot of principal components"),
-        dcc.Loading(
-            html.Div(
-                id="pca-figure-pairplot",
-                style={"margin": "auto", "text-align": "center"},
-            )
-        ),
-        html.H4("Principal components compositions"),
-        dcc.Loading(dcc.Graph(id="pca-figure-contrib")),
+        html.Center([
+            dcc.Loading(
+                dcc.Graph(
+                    id="pca-figure-pairplot",
+                )
+            ),
+        ]),
+
+        html.H4("Cumulative explained variance"),
+        html.Center([
+            dcc.Loading(
+                dcc.Graph(
+                    id="pca-figure-explained-variance",
+                )
+            ),
+        ]),
+    
+        html.H4("PCA-Loadings"),
+        html.Center([
+            dcc.Loading(dcc.Graph(id="pca-figure-contrib")),
+        ]),
     ]
 )
 
@@ -71,12 +70,11 @@ def layout():
 
 def callbacks(app, fsc, cache):
     @app.callback(
-        Output("pca-figure-explained-variance", "children"),
-        Output("pca-figure-pairplot", "children"),
+        Output("pca-figure-pairplot", "figure"),
+        Output("pca-figure-explained-variance", "figure"),
         Output("pca-figure-contrib", "figure"),
         Input("pca-update", "n_clicks"),
         State("pca-nvars", "value"),
-        State("pca-facent-height", "value"),
         State("ana-groupby", "value"),
         State("ana-peak-labels-include", "value"),
         State("ana-peak-labels-exclude", "value"),
@@ -88,7 +86,6 @@ def callbacks(app, fsc, cache):
     def create_pca(
         n_clicks,
         n_components,
-        facet_height,
         groupby,
         include_labels,
         exclude_labels,
@@ -110,11 +107,11 @@ def callbacks(app, fsc, cache):
         )
 
         if file_types is not None and len(file_types) > 0:
-            df = df[df["Type"].isin(file_types)]
+            df = df[df["sample_type"].isin(file_types)]
 
         if groupby is not None and len(groupby) > 0:
             labels = (
-                df[["ms_file", groupby]].drop_duplicates().set_index("ms_file")
+                df[["ms_file_label", groupby]].drop_duplicates().set_index("ms_file_label")
             )
         else:
             labels = None
@@ -143,40 +140,29 @@ def callbacks(app, fsc, cache):
         figures = []
         mint = Mint()
         mint.results = df
+        mint.load_metadata(T.get_metadata_fn(wdir))
+
         mint.pca.run(n_components=n_components)
 
-        ndx = mint.pca.results["df_projected"].index.to_list()
-        mint.pca.plot.cumulative_variance()
-
-        src = T.fig_to_src()
-
-        figures.append(html.Img(src=src))
-
-        if labels is not None:
-            labels = labels.loc[ndx].values
-
-        with sns.plotting_context("paper"):
-            mint.pca.plot.pairplot(
+        fig_scattermatrix = mint.pca.plot.pairplot(
                 n_components=n_components,
-                labels=labels,
-                height=facet_height,
-                corner="Corner" in options,
+                hue=groupby,
+                interactive=True,
+                height=n_components*200+100,
+                width=n_components*200+100,
+                title='Principal components scatter plot',
+                diag='box'
             )
 
-        src = T.fig_to_src()
-        figures.append(html.Img(src=src))
+        fig_cumvar = mint.pca.plot.cumulative_variance(interactive=True, width=n_components*20+500)
 
-        contrib = mint.pca.results["feature_contributions"]
+        fig_contrib = mint.pca.plot.loadings(interactive=True, 
+                                             height=n_components*200+100, 
+                                             width=len(mint.targets)*20+500,
+                                             title='Principal component loadings')
 
-        fig_contrib = px.bar(
-            data_frame=contrib,
-            x="peak_label",
-            y="Coefficient",
-            facet_col="PC",
-            facet_col_wrap=1,
-            height=200 * n_components + 200,
-        )
-
+        fig_scattermatrix.update_layout(autosize=True)
+        fig_cumvar.update_layout(autosize=True)        
         fig_contrib.update_layout(autosize=True)
 
-        return figures[0], figures[1], fig_contrib
+        return fig_scattermatrix, fig_cumvar, fig_contrib

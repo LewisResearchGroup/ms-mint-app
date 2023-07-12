@@ -137,50 +137,59 @@ def callbacks(app, fsc, cache):
 
             # if len(grp) < 1:
             #    continue
-
             if "hist" in kinds:
-                sns.displot(data=grp, x=quant_col, height=3, hue=groupby, aspect=1)
-                plt.title(peak_label)
+                # define your figure and axis
+                fig, ax = plt.subplots(figsize=(3, 3))
+                
+                sns.histplot(data=grp, x=quant_col, hue=groupby, ax=ax)
+                ax.set_title(peak_label)
                 fig_label = f"by-{groupby}__{quant_col}__{peak_label}"
-                T.savefig(kind="hist", wdir=wdir, label=fig_label)
-                src = T.fig_to_src(dpi=150)
+                #T.savefig(fig, kind="hist", wdir=wdir, label=fig_label)
+                src = T.fig_to_src(fig, dpi=150)
                 figures.append(html.Img(src=src, style={"width": "300px"}))
 
             if "density" in kinds:
-                sns.displot(
-                    data=grp,
-                    x=quant_col,
-                    hue=groupby,
-                    kind="kde",
-                    common_norm=False,
-                    height=3,
-                    aspect=1,
-                )
-                plt.title(peak_label)
+                # define your figure and axis
+                fig, ax = plt.subplots(figsize=(3, 3))
+
+                for label, group_df in grp.groupby(groupby):
+                    sns.kdeplot(
+                        data=group_df,
+                        x=quant_col,
+                        ax=ax,
+                        label=label,
+                        common_norm=False,
+                    )
+                ax.set_title(peak_label)
+                ax.legend()
                 fig_label = f"by-{groupby}__{quant_col}__{peak_label}"
-                T.savefig(kind="density", wdir=wdir, label=fig_label)
-                src = T.fig_to_src(dpi=150)
+                #T.savefig(fig, kind="density", wdir=wdir, label=fig_label)
+                src = T.fig_to_src(fig, dpi=150)
                 figures.append(html.Img(src=src, style={"width": "300px"}))
 
             if "boxplot" in kinds:
                 n_groups = len(grp[groupby].drop_duplicates())
                 aspect = max(1, n_groups / 10)
-                sns.catplot(
+                
+                # define your figure and axis
+                fig, ax = plt.subplots(figsize=(aspect*3, 3))
+
+                sns.boxplot(
                     data=grp,
                     y=quant_col,
                     x=groupby,
-                    height=3,
-                    kind="box",
-                    aspect=aspect,
                     color="w",
+                    ax=ax
                 )
+
                 if quant_col in ["peak_max", "peak_area"]:
-                    plt.gca().ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-                plt.title(peak_label)
+                    ax.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
+
+                ax.set_title(peak_label)
                 plt.xticks(rotation=90)
                 fig_label = f"by-{groupby}__{quant_col}__{peak_label}"
-                T.savefig(kind="boxplot", wdir=wdir, label=fig_label)
-                src = T.fig_to_src(dpi=150)
+                #T.savefig(fig, kind="boxplot", wdir=wdir, label=fig_label)
+                src = T.fig_to_src(fig, dpi=150)
                 figures.append(html.Img(src=src, style={"width": "300px"}))
 
             if not "Dense" in options:

@@ -14,17 +14,43 @@ _options = ["Transposed"]
 
 options = [{"value": x, "label": x} for x in _options]
 
+metrics_options = [{"value": x, "label": x.capitalize()} for x in [
+    'braycurtis', 'canberra', 'chebyshev', 'cityblock', 'correlation', 'cosine',
+    'dice', 'euclidean', 'hamming', 'jaccard', 'jensenshannon', 'kulsinski',
+    'mahalanobis', 'matching', 'minkowski', 'rogerstanimoto', 'russellrao',
+    'seuclidean', 'sokalmichener', 'sokalsneath', 'sqeuclidean', 'yule']
+]
+
+
+
 _layout = html.Div(
     [
         html.H3(_label),
-        dcc.Input(
-            id="hc-figsize-x", placeholder="Figure size x", value=8, type="number"
-        ),
-        dcc.Input(
-            id="hc-figsize-y", placeholder="Figure size x", value=8, type="number"
-        ),
-        dcc.Dropdown(id="hc-options", options=options, value=[]),
+        dbc.Row([
+            dbc.Col([
+                dbc.Row([
+                    dbc.Label('Figure width'),
+                    dcc.Input(
+                        id="hc-figsize-x", placeholder="Figure size x", value=8, type="number"
+                    ),
+                    dbc.Label('Figure height'),
+                    dcc.Input(
+                        id="hc-figsize-y", placeholder="Figure size x", value=8, type="number"
+                    ),
+                    dbc.Label('Options'), 
+                    dcc.Dropdown(id="hc-options", options=options, value=[]),
+                ]),
+
+            ]),      
+            
+            dbc.Col([
+                dbc.Row([dbc.Label('Metric X'), dcc.Dropdown(id='hc-metric-x', options=metrics_options, value='cosine')]),
+                dbc.Row([dbc.Label('Metric Y'), dcc.Dropdown(id='hc-metric-y', options=metrics_options, value='cosine')]),
+            ]),            
+        ]),
+
         dbc.Button("Update", id="hc-update"),
+
         dcc.Loading(
             html.Div(
                 id="hc-figures",
@@ -50,6 +76,8 @@ def callbacks(app, fsc, cache):
     @app.callback(
         Output("hc-figures", "children"),
         Input("hc-update", "n_clicks"),
+        State("hc-metric-x", "value"),
+        State("hc-metric-y", "value"),        
         State("hc-figsize-x", "value"),
         State("hc-figsize-y", "value"),
         State("hc-options", "value"),
@@ -61,6 +89,8 @@ def callbacks(app, fsc, cache):
     )
     def create_figure(
         n_clicks,
+        metrix_x,
+        metrix_y,
         fig_size_x,
         fig_size_y,
         options,
@@ -77,8 +107,6 @@ def callbacks(app, fsc, cache):
         if options is None: 
             options = []
         
-        print(options)
-
         mint = Mint()
 
         if fig_size_x is None:
@@ -99,10 +127,11 @@ def callbacks(app, fsc, cache):
         df["ms_file"] = df["ms_file_label"]
         mint.results = df
         mint.load_metadata(T.get_metadata_fn(wdir))
-        mint.plot.hierarchical_clustering(
-            figsize=(fig_size_x, fig_size_y), transposed="Transposed" in options
+
+        fig = mint.plot.hierarchical_clustering(
+            figsize=(fig_size_x, fig_size_y), transposed="Transposed" in options, metric=(metrix_x, metrix_y)
         )
 
-        src = T.fig_to_src()
+        src = T.fig_to_src(fig.figure)
 
         return html.Img(src=src, style={"maxWidth": "80%"})

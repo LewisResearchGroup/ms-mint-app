@@ -97,7 +97,7 @@ _layout = html.Div(
             dbc.Col(dbc.Button("Set RT to current view", id="pko-set-rt", style={"width": "100%"})),
             dbc.Col(dbc.Button("Detect rt_min,rt_max", id="pko-detect-rtmin-rtmax", style={"width": "100%"})),
             dbc.Col(dbc.Button("Confirm retention time", id="pko-confirm-rt", style={"width": "100%"})),
-            dbc.Col(dbc.Button("Remove Peak", id="pko-delete", style={"width": "100%"}, color='danger')),
+            dbc.Col(dbc.Button("Remove target", id="pko-delete", style={"width": "100%"}, color='danger')),
         ]),
 
         dcc.Loading(dcc.Graph("pko-figure")),
@@ -288,9 +288,9 @@ def callbacks(app, fsc, cache, cpu=None):
             ms_files = T.get_ms_fns(wdir)
 
         mint = Mint()
-        mint.targets = targets.reset_index()
+        mint.targets = targets
         mint.ms_files = ms_files
-        mint.opt.rt_min_max(sigma=1000)       
+        mint.opt.rt_min_max(rel_height=0.8)       
         new_targets = mint.targets
 
         T.write_targets(new_targets, wdir)
@@ -559,9 +559,9 @@ def callbacks(app, fsc, cache, cpu=None):
         mint = Mint()
         mint.targets = targets
         mint.ms_files = ms_files
-        mint.opt.rt_min_max(peak_labels=[peak_label])
+        mint.opt.rt_min_max(peak_labels=[peak_label], rel_height=0.8)
         new_targets = mint.targets
-        new_targets.to_csv(T.get_targets_fn(wdir), index=False)
+        T.write_targets(new_targets, wdir)
 
         return dbc.Alert(
             f"Done optimize rt_min rt_max for {peak_label}", color="info"
@@ -573,7 +573,7 @@ def create_preview_peakshape(
 ):
     """Create peak shape previews."""
     logging.info(f'Create_preview_peakshape {peak_label}')
-    plt.figure(figsize=(2, 1), dpi=30)
+    fig, ax = plt.subplots(figsize=(2, 1), dpi=30)
     y_max = 0
     for fn in ms_files:
         color = colors[T.filename_to_label(fn)]
@@ -583,20 +583,21 @@ def create_preview_peakshape(
         fn_chro = fn_chro[
             (rt_min < fn_chro["scan_time"]) & (fn_chro["scan_time"] < rt_max)
         ]
-        plt.plot(fn_chro["scan_time"], fn_chro["intensity"], lw=1, color=color)
+        ax.plot(fn_chro["scan_time"], fn_chro["intensity"], lw=1, color=color)
         y_max = max(y_max, fn_chro["intensity"].max())
     if (not np.isnan(rt)) and not (np.isnan(rt_max)) and not (np.isnan(rt_min)):
         x = max(min(rt, rt_max), rt_min)
         rt_mean = np.mean([rt_min, rt_max])
         color_value = np.abs(rt_mean - rt) / 10
         color = T.float_to_color(color_value, vmin=0, vmax=1, cmap="coolwarm")
-        plt.vlines(x, 0, y_max, lw=3, color=color)
+        ax.vlines(x, 0, y_max, lw=3, color=color)
     title = f'{peak_label[:30]}\nm/z={mz_mean:.2f}'
-    plt.gca().set_title(title, y=1.0, pad=15)
-    plt.gca().ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-    plt.xlabel("Scan Time [s]")
-    plt.ylabel("Intensity")
-    filename = T.savefig(kind="peak-preview", wdir=wdir, label=image_label)
-    plt.close()
+    ax.set_title(title, y=1.0, pad=15)
+    ax.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
+    ax.set_xlabel("Scan Time [s]")
+    ax.set_ylabel("Intensity")
+    filename = T.savefig(fig, kind="peak-preview", wdir=wdir, label=image_label)
+    plt.close(fig)
     logging.info(f'Create_preview_peakshape {peak_label} done.')
     return filename
+
