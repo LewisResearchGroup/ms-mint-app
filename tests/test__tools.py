@@ -6,7 +6,7 @@ from ms_mint_app import tools as T
 def test__merge_metadata():
     # Define the old DataFrame
     old_data = {
-      "MS-file": ["file1", "file2", "file3"],
+      "ms_file_label": ["file1", "file2", "file3"],
       "col1": [1, 2, 3],
       "col2": ["a", "b", "c"],
       "col3": ["x", "y", "z"]
@@ -15,7 +15,7 @@ def test__merge_metadata():
 
     # Define the new DataFrame
     new_data = {
-      "MS-file": ["file1", "file2", "file3", "not-in-old"],
+      "ms_file_label": ["file1", "file2", "file3", "not-in-old"],
       "col1": [1, 2, 6, 7],
       "col2": ["d", "b", "f", "g"],
       "new_col": ['i', 'j', 'k', 'l']
@@ -24,7 +24,7 @@ def test__merge_metadata():
 
     # Define the new DataFrame
     expected = {
-      "MS-file": ["file1", "file2", "file3"],
+      "ms_file_label": ["file1", "file2", "file3"],
       "col1": [1, 2, 6],
       "col2": ["d", "b", "f"],
       "col3": ["x", "y", "z"],
@@ -67,11 +67,11 @@ def test__get_metadata(tmp_path):
     
     print(metadata)
     
-    for e in metadata['MS-file']:
+    for e in metadata['ms_file_label']:
         print(f'"{e}"')
     
-    assert 'F1' in list(metadata['MS-file']), metadata
-    assert 'F2' in list(metadata['MS-file']), metadata
+    assert 'F1' in list(metadata['ms_file_label']), metadata
+    assert 'F2' in list(metadata['ms_file_label']), metadata
         
     
 
@@ -93,8 +93,8 @@ def test__get_metadata_after_more_files_added(tmp_path):
     
     metadata = T.get_metadata(wdir)
 
-    ndx = metadata[metadata['MS-file']=='F1'].index[0]
-    metadata.loc[ndx, 'PeakOpt'] = True
+    ndx = metadata[metadata['ms_file_label']=='F1'].index[0]
+    metadata.loc[ndx, 'use_for_optimization'] = True
     
     print(metadata)
     
@@ -108,8 +108,8 @@ def test__get_metadata_after_more_files_added(tmp_path):
         print(subpath)
         
     # Make sure metadata is in the correct order
-    metadata = T.get_metadata(wdir).set_index('MS-file').sort_index()
+    metadata = T.get_metadata(wdir).set_index('ms_file_label').sort_index()
 
-    assert all(metadata.PeakOpt == [True, False, False, False])
+    assert all(metadata.use_for_optimization == [True, False, False, False])
     
     
