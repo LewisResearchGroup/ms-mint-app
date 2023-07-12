@@ -1,4 +1,4 @@
-ms-mint==0.2.3
+ms-mint==0.3.0
 xlsxwriter
 waitress
 dash
