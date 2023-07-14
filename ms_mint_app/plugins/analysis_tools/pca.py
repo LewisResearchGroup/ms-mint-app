@@ -1,3 +1,5 @@
+import logging
+
 import numpy as np
 import seaborn as sns
 import plotly.express as px
@@ -13,7 +15,7 @@ from ms_mint.standards import MINT_RESULTS_COLUMNS
 
 from ... import tools as T
 
-options = [{"value": i, "label": i} for i in ["Standard scaling", "Corner"]]
+options = []
 
 _layout = html.Div(
     [
@@ -79,6 +81,8 @@ def callbacks(app, fsc, cache):
         State("ana-var-name", "value"),
         State("ana-colorby", "value"),
         State("ana-groupby", "value"),
+        State("ana-scaler", "value"),
+        State("ana-apply", "value"),
         State("ana-peak-labels-include", "value"),
         State("ana-peak-labels-exclude", "value"),
         State("ana-file-types", "value"),
@@ -92,6 +96,8 @@ def callbacks(app, fsc, cache):
         var_name,
         colorby,
         groupby,
+        scaler,
+        apply,
         include_labels,
         exclude_labels,
         file_types,
@@ -121,7 +127,14 @@ def callbacks(app, fsc, cache):
 
         n_peak_labels = len(mint.results.peak_label.drop_duplicates())
 
-        mint.pca.run(var_name=var_name, n_components=n_components, groupby=groupby, scaler='standard')
+        desc = T.describe_transformation(var_name=var_name, apply=apply, groupby=groupby, scaler=scaler)
+        desc_short = desc.split(" (")[0]
+
+        try:
+            mint.pca.run(var_name=var_name, n_components=n_components, groupby=groupby, scaler=scaler, apply=apply)
+        except RuntimeWarning as e:
+            logging.error(e)
+            return dbc.Alert(str(e), color="warning")
 
         fig_scattermatrix = mint.pca.plot.pairplot(
                 n_components=n_components,

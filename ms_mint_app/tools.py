@@ -801,6 +801,7 @@ def fix_first_emtpy_line_after_upload_workaround(file_path):
 
 
 def describe_transformation(var_name, apply, groupby, scaler):
+
     # Only apply the function if it's provided
     if apply is not None:
         apply_desc = transformations[apply]['description']
@@ -812,8 +813,11 @@ def describe_transformation(var_name, apply, groupby, scaler):
     if groupby is None or scaler is None:
         return apply_desc
 
+    if not scaler:
+        return apply_desc
+
     # Define human-readable names for known scalers
-    scaler_mapping = {"standard": "Standard scaling", "robust": "Robust scaling"}  # expand as needed
+    scaler_mapping = {"standard": "Standard scaling", "robust": "Robust scaling", '': ''}  # expand as needed
     if isinstance(scaler, str):
         scaler_description = scaler_mapping.get(scaler.lower(), scaler)
     else:
@@ -833,6 +837,6 @@ log2p1 = lambda x: np.log2(1 + x)
 log1p = np.log1p
 
 transformations = {
-    "log1p": {'function': log1p, 'description': 'log10(1 + x)'},
-    "log2p1": {'function': log2p1, 'description': 'log2(1 + x)'}
+    "log1p":  {'function': log1p,  'description': 'log10(x + 1)'},
+    "log2p1": {'function': log2p1, 'description': 'log2(x + 1)' }
 }

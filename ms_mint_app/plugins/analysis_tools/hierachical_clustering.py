@@ -84,11 +84,12 @@ def callbacks(app, fsc, cache):
         State("hc-options", "value"),
         State("ana-var-name", "value"),
         State("ana-colorby", "value"),
-        State("ana-groupby", "value"),        
+        State("ana-groupby", "value"),
+        State("ana-scaler", "value"),
+        State("ana-apply", "value"),
         State("ana-file-types", "value"),
         State("ana-peak-labels-include", "value"),
         State("ana-peak-labels-exclude", "value"),
-        State("ana-ms-order", "value"),
         State("wdir", "children"),
     )
     def create_figure(
@@ -101,10 +102,11 @@ def callbacks(app, fsc, cache):
         var_name,
         colorby,
         groupby,
+        scaler,
+        apply,
         file_types,
         include_labels,
         exclude_labels,
-        ms_order,
         wdir,
     ):
 
@@ -139,7 +141,8 @@ def callbacks(app, fsc, cache):
             transposed="Transposed" in options, 
             metric=(metrix_x, metrix_y), 
             groupby=groupby, 
-            scaler='standard'
+            scaler=scaler,
+            apply=apply
         )
 
         src = T.fig_to_src(fig.figure)

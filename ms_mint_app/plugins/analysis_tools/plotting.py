@@ -1,3 +1,5 @@
+import logging
+
 from dash import html, dcc
 from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
@@ -9,9 +11,11 @@ import seaborn as sns
 
 plt.rcParams["figure.autolayout"] = False
 
+from ms_mint.Mint import Mint
+from ms_mint.standards import MINT_RESULTS_COLUMNS
 
 from ... import tools as T
-
+import pandas as pd
 
 _label = "Plotting"
 
@@ -237,16 +241,15 @@ _layout = html.Div(
                     html.Label("Facet width (inches):"),
                     dcc.Input( id="plot-fig-height", placeholder="Facet height", value=2.5, type="number"),
                     html.Label("Facet aspect ratio:"),
-                    dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=1, type="number"),   
+                    dcc.Input( id="plot-fig-aspect", placeholder="Facet aspect", value=2, type="number"),   
                 ]),
 
                 html.Label("Column wrap"),
-                dcc.Slider(id="plot-col-wrap", step=1, min=0, max=30, value=3),                 
+                dcc.Slider(id="plot-col-wrap", step=1, min=0, max=20, value=3),                 
             ]),
             dbc.Col([                
-                              
                 html.Label("x- and y-axes"),
-                dcc.Dropdown(id="plot-x", options=[{"value": "MS-file", "label": "MS-file"}], value=None, placeholder="X"),
+                dcc.Dropdown(id="plot-x", options=[{"value": "peak_label", "label": "peak_label"}], value='peak_label', placeholder="X"),
                 dcc.Dropdown(id="plot-y", options=[{"value": "peak_area_top3", "label": "peak_area_top3"}], value="peak_area_top3", placeholder="Y"),  
 
                 html.Label("Row and column facets:"),
@@ -255,7 +258,6 @@ _layout = html.Div(
 
             ]),
             dbc.Col([
-
                 html.Label("Marker style and size:"),
                 dcc.Dropdown(id="plot-style", options=[], value=None, placeholder="Style"),
                 dcc.Dropdown(id="plot-size", options=[], value=None, placeholder="Size"),       
@@ -265,7 +267,6 @@ _layout = html.Div(
                 dcc.Dropdown(id="plot-palette", options=palette_options, value=None, placeholder="Palette (Colors)",),
             ]),
             dbc.Col([                
-
                 html.Label("Figure title"),
                 dcc.Input(id="plot-title", placeholder="Figure title", value=None, style={'width': '100%'}),                  
             ]),
@@ -273,6 +274,8 @@ _layout = html.Div(
         html.Label("Options"),
         dcc.Dropdown(id="plot-options", value=["sci", "share-x", "rot-x-ticks", "log-y"], options=options, multi=True),    
         dbc.Button("Update", id="plot-update"),
+
+        html.Center(html.H4("", id='plot-description'), style={'marginTop': "200px"}),
         dcc.Loading(
             html.Div(
                 id="plot-figures",
@@ -312,12 +315,14 @@ def callbacks(app, fsc, cache, cpu=None):
             raise PreventUpdate
         results = T.get_complete_results(wdir)
         results = results.dropna(axis=1, how="all")
-        cols = results.columns
+        cols = results.columns.to_list()
+        cols.append('x')
         options = [{"value": x, "label": x} for x in cols]
         return [options] * 7
 
     @app.callback(
         Output("plot-figures", "children"),
+        Output("plot-description", "children"),
         Input("plot-update", "n_clicks"),
         State("plot-kind", "value"),
         State("plot-fig-height", "value"),
@@ -334,6 +339,10 @@ def callbacks(app, fsc, cache, cpu=None):
         State("ana-file-types", "value"),
         State("ana-peak-labels-include", "value"),
         State("ana-peak-labels-exclude", "value"),
+        State("ana-var-name", "value"),
+        State("ana-groupby", "value"),
+        State("ana-scaler", "value"),
+        State("ana-apply", "value"),
         State("ana-ms-order", "value"),
         State("plot-palette", "value"),
         State("plot-options", "value"),
@@ -357,6 +366,10 @@ def callbacks(app, fsc, cache, cpu=None):
         file_types,
         include_labels,
         exclude_labels,
+        var_name,
+        groupby,
+        scaler,
+        apply,
         ms_order,
         palette,
         options,
@@ -378,6 +391,9 @@ def callbacks(app, fsc, cache, cpu=None):
         else:
             sns.set_context("paper")
 
+        if row is not None:
+            col_wrap = None
+
         height = min(float(height), 100)
         height = max(height, 1)
         aspect = max(0.01, float(aspect))
@@ -389,6 +405,17 @@ def callbacks(app, fsc, cache, cpu=None):
             exclude_labels=exclude_labels,
             file_types=file_types,
         )
+
+        mint = Mint()
+        mint.results = df[MINT_RESULTS_COLUMNS]
+        mint.load_metadata(T.get_metadata_fn(wdir))
+
+        df_2 = mint.crosstab(var_name=var_name, apply=apply, groupby=groupby, scaler=scaler)
+        df_2 = df_2.stack().to_frame().reset_index().rename(columns={0: 'x'})
+
+        desc = T.describe_transformation(var_name=var_name, apply=apply, groupby=groupby, scaler=scaler)
+
+        df = pd.merge(df, df_2, how='outer')
 
         df = df[(df.peak_n_datapoints > 0) & (df.peak_max > 0)]
 
@@ -461,6 +488,7 @@ def callbacks(app, fsc, cache, cpu=None):
                 **kwargs
             )
         except Exception as e:
+            logging.error(e)
             return dbc.Alert(str(e), color="danger")
 
         g.fig.subplots_adjust(top=0.9)
@@ -492,4 +520,4 @@ def callbacks(app, fsc, cache, cpu=None):
 
         src = T.fig_to_src(g.fig, dpi=300 if "HQ" in options else None)
 
-        return html.Img(src=src, style={"maxWidth": "80%"})
+        return html.Img(src=src, style={"maxWidth": "80%"}), f"x = {desc}"
