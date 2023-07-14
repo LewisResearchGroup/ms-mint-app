@@ -4,6 +4,7 @@ from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
 from ms_mint.notebook import Mint
+from ms_mint.standards import MINT_RESULTS_COLUMNS
 
 from ... import tools as T
 
@@ -81,6 +82,9 @@ def callbacks(app, fsc, cache):
         State("hc-figsize-x", "value"),
         State("hc-figsize-y", "value"),
         State("hc-options", "value"),
+        State("ana-var-name", "value"),
+        State("ana-colorby", "value"),
+        State("ana-groupby", "value"),        
         State("ana-file-types", "value"),
         State("ana-peak-labels-include", "value"),
         State("ana-peak-labels-exclude", "value"),
@@ -94,6 +98,9 @@ def callbacks(app, fsc, cache):
         fig_size_x,
         fig_size_y,
         options,
+        var_name,
+        colorby,
+        groupby,
         file_types,
         include_labels,
         exclude_labels,
@@ -124,12 +131,15 @@ def callbacks(app, fsc, cache):
             file_types=file_types,
         )
     
-        df["ms_file"] = df["ms_file_label"]
-        mint.results = df
+        mint.results = df[MINT_RESULTS_COLUMNS]
         mint.load_metadata(T.get_metadata_fn(wdir))
 
         fig = mint.plot.hierarchical_clustering(
-            figsize=(fig_size_x, fig_size_y), transposed="Transposed" in options, metric=(metrix_x, metrix_y)
+            figsize=(fig_size_x, fig_size_y), 
+            transposed="Transposed" in options, 
+            metric=(metrix_x, metrix_y), 
+            groupby=groupby, 
+            scaler='standard'
         )
 
         src = T.fig_to_src(fig.figure)

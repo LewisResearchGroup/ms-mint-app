@@ -35,6 +35,10 @@ from datetime import date
 from .filelock import FileLock
 
 
+def list_to_options(x):
+    return [{"label": e, "value": e} for e in x]
+
+
 def lock(fn):
     return FileLock(f"{fn}.lock", timeout=1)
 
@@ -794,3 +798,41 @@ def fix_first_emtpy_line_after_upload_workaround(file_path):
         
         with open(file_path, 'w') as file:
             file.writelines(lines)
+
+
+def describe_transformation(var_name, apply, groupby, scaler):
+    # Only apply the function if it's provided
+    if apply is not None:
+        apply_desc = transformations[apply]['description']
+        apply_desc = apply_desc.replace('x', var_name)
+    else:
+        apply_desc = var_name
+    
+    # If scaler or groupby is None, no scaling applied so return just the transformed variable
+    if groupby is None or scaler is None:
+        return apply_desc
+
+    # Define human-readable names for known scalers
+    scaler_mapping = {"standard": "Standard scaling", "robust": "Robust scaling"}  # expand as needed
+    if isinstance(scaler, str):
+        scaler_description = scaler_mapping.get(scaler.lower(), scaler)
+    else:
+        scaler_description = scaler.__name__
+    
+    # Groupby can be a list or a string, so make sure it's a list for consistent handling
+    if isinstance(groupby, str):
+        groupby = [groupby]
+    
+    groupby_description = ", ".join(groupby)
+    
+    # Scaling was applied, so return the description in < >
+    return f"<{apply_desc}> ({scaler_description}, grouped by {groupby_description})"
+
+
+log2p1 = lambda x: np.log2(1 + x)
+log1p = np.log1p
+
+transformations = {
+    "log1p": {'function': log1p, 'description': 'log10(1 + x)'},
+    "log2p1": {'function': log2p1, 'description': 'log2(1 + x)'}
+}

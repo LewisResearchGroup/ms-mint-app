@@ -3,6 +3,8 @@ from dash.dependencies import Input, Output, State
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
+from ms_mint.standards import RESULTS_COLUMNS
+
 from .analysis_tools import heatmap
 from .analysis_tools import pca
 from .analysis_tools import distributions
@@ -35,18 +37,23 @@ _modules = [heatmap, distributions, pca, hierachical_clustering, plotting]
 
 modules = {module._label: module for module in _modules}
 
-groupby_options = [
-    {"label": "plate", "value": "plate"},
+colorby_options = [
     {"label": "label", "value": "label"},
+    {"label": "plate", "value": "plate"},
     {"label": "sample_type", "value": "sample_type"},
-    {"label": "color", "value": "color"},
 ]
 
-ana_normalization_cols = [
-    {"label": "plate", "value": "plate"},
-    {"label": "peak_label", "value": "peak_label"},
-    {"label": "ms_file_id", "value": "ms_file_id"},
+apply_options = [{"label": "log10(x+1)", "value": "log1p"}, 
+                 {"label": "log2(x+1)" , "value": "log2p1"}]
+
+var_name_options = T.list_to_options(RESULTS_COLUMNS)
+
+scaler_options = [
+    {"value": "standard", "label": "Standard Scaling (z-scores)"},
+    #{"value": "minmax", "label": "MinMax Scaling"},
+    {"value": "robust", "label": "Robust Scaling"}
 ]
+
 
 _layout = html.Div(
     [
@@ -82,27 +89,46 @@ _layout = html.Div(
                     placeholder="Exclude peak_labels",
                     multi=True,
                 ),
+                dcc.Dropdown(
+                    id="ana-var-name",
+                    options=var_name_options,
+                    value='peak_max',
+                    placeholder="Variable to plot",
+                )
             ]),
             dbc.Col([
                 dcc.Dropdown(
                     id="ana-ms-order", options=[], placeholder="MS-file sorting", multi=True
                 ),
                 dcc.Dropdown(
-                    id="ana-groupby",
-                    options=groupby_options,
+                    id="ana-colorby",
+                    options=colorby_options,
                     value=None,
-                    placeholder="Group by column",
+                    placeholder="Color by",
                 ),
                 dcc.Dropdown(
-                    id="ana-normalization-cols",
-                    options=ana_normalization_cols,
+                    id="ana-apply",
+                    options=apply_options,
+                    value=None,
+                    placeholder="Transformation",
+                    multi=False,
+                ),  
+                dcc.Dropdown(
+                    id="ana-groupby",
+                    options=[],
                     value=None,
                     placeholder="Normalize by",
                     multi=True,
                 ),
+                dcc.Dropdown(
+                    id="ana-scaler",
+                    options=scaler_options,
+                    value=[],
+                    placeholder="Scaler",
+                    multi=False,
+                ),                                 
             ]),
         ]),
-
         html.Div(id="ana-secondary-tab-content"),
     ]
 )
@@ -165,8 +191,10 @@ def callbacks(app, fsc, cache):
             cols.remove("index")
         if "use_for_optimization" in cols:
             cols.remove("use_for_optimization")
-        options = [{"value": i, "label": i} for i in cols]
-        return options, options
+        options_without_peak_label = [{"value": i, "label": i} for i in cols]
+        cols.append('peak_label')
+        options_with_peak_label = [{"value": i, "label": i} for i in cols]
+        return options_without_peak_label, options_with_peak_label
 
     @app.callback(
         Output("ana-peak-labels-include", "options"),

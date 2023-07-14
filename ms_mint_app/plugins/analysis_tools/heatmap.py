@@ -7,6 +7,7 @@ import dash_bootstrap_components as dbc
 
 from ms_mint.Mint import Mint
 from ms_mint.plotly_tools import plotly_heatmap
+from ms_mint.standards import MINT_RESULTS_COLUMNS
 
 from ... import tools as T
 
@@ -14,13 +15,11 @@ _label = "Heatmap"
 
 
 heatmap_options = [
-    {"label": "Normalized by biomarker", "value": "normed_by_cols"},
     {"label": "Cluster", "value": "clustered"},
     {"label": "Dendrogram", "value": "add_dendrogram"},
     {"label": "Transposed", "value": "transposed"},
     {"label": "Correlation", "value": "correlation"},
     {"label": "Show in new tab", "value": "call_show"},
-    {"label": "log1p", "value": "log1p"},
 ]
 
 
@@ -30,7 +29,7 @@ _layout = html.Div(
         dbc.Button("Update", id="heatmap-update"),
         dcc.Dropdown(
             id="heatmap-options",
-            value=["normed_by_cols"],
+            value=[],
             options=heatmap_options,
             multi=True,
         ),
@@ -62,6 +61,10 @@ def callbacks(app, fsc, cache):
     @app.callback(
         Output("heatmap-figure", "figure"),
         Input("heatmap-update", "n_clicks"),
+        State("ana-var-name", "value"),
+        State("ana-groupby", "value"),
+        State("ana-scaler", "value"),
+        State("ana-apply", "value"),
         State("ana-file-types", "value"),
         State("ana-peak-labels-include", "value"),
         State("ana-peak-labels-exclude", "value"),
@@ -72,6 +75,10 @@ def callbacks(app, fsc, cache):
     )
     def heat_heatmap(
         n_clicks,
+        var_name,
+        groupby,
+        scaler,
+        apply,
         file_types,
         include_labels,
         exclude_labels,
@@ -94,36 +101,29 @@ def callbacks(app, fsc, cache):
         if len(df) == 0:
             return "No results yet. First run MINT."
 
-        mint.results = df
+        mint.results = df[MINT_RESULTS_COLUMNS]
         mint.load_metadata(T.get_metadata_fn(wdir))
         
-        var_name = "peak_max"
-        data = mint.crosstab(var_name)
-        data.index = [T.Basename(i) for i in data.index]
+        df = mint.crosstab(var_name=var_name, apply=apply, groupby=groupby, scaler=scaler)
 
-        if ms_order is not None and len(ms_order) > 0:
-            df = df.sort_values(ms_order)
-            ms_files = df["ms_file_id"].drop_duplicates()
-            data = data.loc[ms_files]
+        if ms_order:
+            # ms_order might contain 'ms_file_label' which is the index of the dataframe
+            ndx = mint.meta.reset_index().sort_values(ms_order).set_index('ms_file_label').index.to_list()
+            df = df.reindex(ndx)
 
-        data.fillna(0, inplace=True)
-
-        name = var_name
-        if "log1p" in options:
-            data = data.apply(np.log1p)
-            name = f"log( {var_name}+1 )"
+        desc = T.describe_transformation(var_name=var_name, apply=apply, groupby=groupby, scaler=scaler)
 
         fig = plotly_heatmap(
-            data,
+            df,
             height=height,
             width=width,
-            normed_by_cols="normed_by_cols" in options,
+            #normed_by_cols="normed_by_cols" in options,
             transposed="transposed" in options,
             clustered="clustered" in options,
             add_dendrogram="add_dendrogram" in options,
             correlation="correlation" in options,
             call_show="call_show" in options,
-            name=name,
+            name=desc,
         )
 
         return fig

@@ -11,7 +11,10 @@ import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 from dash.dependencies import Input, Output, State
 
+from ms_mint.Mint import Mint
+from ms_mint.standards import MINT_RESULTS_COLUMNS
 from ... import tools as T
+
 
 graph_options = [
     {"label": "Histograms", "value": "hist"},
@@ -23,7 +26,7 @@ _label = "Distributions"
 
 _layout = html.Div(
     [
-        html.H3("Quality Control"),
+        html.H3("Distributions"),
         dbc.Button("Update", id="dist-update"),
         dcc.Dropdown(
             id="dist-graphs",
@@ -37,6 +40,7 @@ _layout = html.Div(
             options=[{"label": "Dense", "value": "Dense"}],
             value=["Dense"],
         ),
+        html.Center(html.H4("", id='description'), style={'marginTop': "200px"}),
         html.Div(id="dist-figures", style={"float": "center"}),
     ]
 )
@@ -62,9 +66,14 @@ def layout():
 def callbacks(app, fsc, cache):
     @app.callback(
         Output("dist-figures", "children"),
+        Output("description", "children"),
         Input("dist-update", "n_clicks"),
         State("tab", "value"),
+        State("ana-var-name", "value"),
+        State("ana-colorby", "value"),
         State("ana-groupby", "value"),
+        State("ana-scaler", "value"),
+        State("ana-apply", "value"),
         State("dist-graphs", "value"),
         State("dist-select", "value"),
         State("ana-file-types", "value"),
@@ -75,7 +84,11 @@ def callbacks(app, fsc, cache):
     def qc_figures(
         n_clicks,
         tab,
+        var_name,
+        colorby,
         groupby,
+        scaler,
+        apply,
         kinds,
         options,
         file_types,
@@ -94,30 +107,15 @@ def callbacks(app, fsc, cache):
             file_types=file_types,
         )
 
-        if len(df) == 0:
-            return "No results yet. First run MINT."
+        mint = Mint()
+        mint.results = df[MINT_RESULTS_COLUMNS]
+        mint.load_metadata(T.get_metadata_fn(wdir))
 
-        if "boxplot" in kinds:
-            if groupby is None or len(groupby) == 0:
-                return dbc.Alert(
-                    'For boxplots a "Group-by" column has to be set', color="info"
-                )
-            if len(df[groupby].drop_duplicates()) <= 1:
-                return dbc.Alert(
-                    'For boxplots at least two groups have to be defined in selected "Group-by" column in metadata sheet.',
-                    color="info",
-                )
+        df = mint.crosstab(var_name=var_name, index=['ms_file_label', colorby], 
+                           groupby=groupby, apply=apply, scaler=scaler).stack().to_frame().reset_index().rename(columns={0: var_name})
 
-        sns.set_context("paper")
-
-        sort_by_col = "plate"
-        quant_col = "log(peak_max+1)"
-
-        if sort_by_col is not None:
-            df = df.sort_values(["peak_label", sort_by_col])
-
-        if options is None:
-            options = []
+        desc = T.describe_transformation(var_name=var_name, apply=apply, groupby=groupby, scaler=scaler)
+        desc_short = desc.split(" (")[0]
 
         figures = []
         n_total = len(df.peak_label.drop_duplicates())
@@ -131,19 +129,13 @@ def callbacks(app, fsc, cache):
                 )
             fsc.set("progress", int(100 * (i + 1) / n_total))
 
-            # Sorting to ensure similar legends
-            if sort_by_col is not None:
-                grp = grp.sort_values(sort_by_col).reset_index(drop=True)
-
-            # if len(grp) < 1:
-            #    continue
             if "hist" in kinds:
-                # define your figure and axis
                 fig, ax = plt.subplots(figsize=(3, 3))
                 
-                sns.histplot(data=grp, x=quant_col, hue=groupby, ax=ax)
+                sns.histplot(data=grp, x=var_name, hue=colorby, ax=ax)
+                ax.set_xlabel(desc_short)
                 ax.set_title(peak_label)
-                fig_label = f"by-{groupby}__{quant_col}__{peak_label}"
+                fig_label = f"by-{colorby}__{var_name}__{peak_label}"
                 #T.savefig(fig, kind="hist", wdir=wdir, label=fig_label)
                 src = T.fig_to_src(fig, dpi=150)
                 figures.append(html.Img(src=src, style={"width": "300px"}))
@@ -152,23 +144,24 @@ def callbacks(app, fsc, cache):
                 # define your figure and axis
                 fig, ax = plt.subplots(figsize=(3, 3))
 
-                for label, group_df in grp.groupby(groupby):
+                for label, group_df in grp.groupby(colorby):
                     sns.kdeplot(
                         data=group_df,
-                        x=quant_col,
+                        x=var_name,
                         ax=ax,
                         label=label,
                         common_norm=False,
                     )
+                ax.set_xlabel(desc_short)
                 ax.set_title(peak_label)
                 ax.legend()
-                fig_label = f"by-{groupby}__{quant_col}__{peak_label}"
+                fig_label = f"by-{colorby}__{var_name}__{peak_label}"
                 #T.savefig(fig, kind="density", wdir=wdir, label=fig_label)
                 src = T.fig_to_src(fig, dpi=150)
                 figures.append(html.Img(src=src, style={"width": "300px"}))
 
             if "boxplot" in kinds:
-                n_groups = len(grp[groupby].drop_duplicates())
+                n_groups = len(grp[colorby].drop_duplicates())
                 aspect = max(1, n_groups / 10)
                 
                 # define your figure and axis
@@ -176,18 +169,18 @@ def callbacks(app, fsc, cache):
 
                 sns.boxplot(
                     data=grp,
-                    y=quant_col,
-                    x=groupby,
+                    y=var_name,
+                    x=colorby,
                     color="w",
                     ax=ax
                 )
 
-                if quant_col in ["peak_max", "peak_area"]:
+                if var_name in ["peak_max", "peak_area"]:
                     ax.ticklabel_format(axis="y", style="sci", scilimits=(0, 0))
-
+                ax.set_ylabel(desc_short)
                 ax.set_title(peak_label)
                 plt.xticks(rotation=90)
-                fig_label = f"by-{groupby}__{quant_col}__{peak_label}"
+                fig_label = f"by-{colorby}__{var_name}__{peak_label}"
                 #T.savefig(fig, kind="boxplot", wdir=wdir, label=fig_label)
                 src = T.fig_to_src(fig, dpi=150)
                 figures.append(html.Img(src=src, style={"width": "300px"}))
@@ -195,6 +188,4 @@ def callbacks(app, fsc, cache):
             if not "Dense" in options:
                 figures.append(dcc.Markdown("---"))
 
-            # if i == 3: break
-
-        return figures
+        return figures, desc

@@ -9,6 +9,7 @@ from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
 from ms_mint import Mint
+from ms_mint.standards import MINT_RESULTS_COLUMNS
 
 from ... import tools as T
 
@@ -75,29 +76,36 @@ def callbacks(app, fsc, cache):
         Output("pca-figure-contrib", "figure"),
         Input("pca-update", "n_clicks"),
         State("pca-nvars", "value"),
+        State("ana-var-name", "value"),
+        State("ana-colorby", "value"),
         State("ana-groupby", "value"),
         State("ana-peak-labels-include", "value"),
         State("ana-peak-labels-exclude", "value"),
-        State("ana-normalization-cols", "value"),
         State("ana-file-types", "value"),
         State("pca-options", "value"),
+        State("viewport-container", "children"),
         State("wdir", "children"),
     )
     def create_pca(
         n_clicks,
         n_components,
+        var_name,
+        colorby,
         groupby,
         include_labels,
         exclude_labels,
-        norm_cols,
         file_types,
         options,
+        viewport,
         wdir,
     ):
+        
+        width, height = [int(e) for e in viewport.split(",")]
+
         if n_clicks is None:
             raise PreventUpdate
-        if norm_cols is None:
-            norm_cols = []
+        if groupby is None:
+            groupby = []
 
         df = T.get_complete_results(
             wdir,
@@ -106,60 +114,31 @@ def callbacks(app, fsc, cache):
             file_types=file_types,
         )
 
-        if file_types is not None and len(file_types) > 0:
-            df = df[df["sample_type"].isin(file_types)]
-
-        if groupby is not None and len(groupby) > 0:
-            labels = (
-                df[["ms_file_label", groupby]].drop_duplicates().set_index("ms_file_label")
-            )
-        else:
-            labels = None
-            groupby = None
-
-        if len(norm_cols) != 0:
-            if ("peak_label" in norm_cols) and ("ms_file" in norm_cols):
-                return dbc.Alert(
-                    "'peak_label' and 'ms_file' should not be used together for normalization!",
-                    color="danger",
-                )
-
-            df = df[df.Batch.notna()]
-            cols = ["peak_max"]
-            df.loc[:, cols] = (
-                (
-                    df[cols]
-                    - df[cols + norm_cols]
-                    .groupby(norm_cols)
-                    .transform("median")[cols]
-                    .values
-                )
-                / df[cols + norm_cols].groupby(norm_cols).transform("std")[cols].values
-            ).reset_index()
-
         figures = []
         mint = Mint()
-        mint.results = df
+        mint.results = df[MINT_RESULTS_COLUMNS]
         mint.load_metadata(T.get_metadata_fn(wdir))
 
-        mint.pca.run(n_components=n_components)
+        n_peak_labels = len(mint.results.peak_label.drop_duplicates())
+
+        mint.pca.run(var_name=var_name, n_components=n_components, groupby=groupby, scaler='standard')
 
         fig_scattermatrix = mint.pca.plot.pairplot(
                 n_components=n_components,
-                hue=groupby,
+                hue=colorby,
                 interactive=True,
-                height=n_components*200+100,
-                width=n_components*200+100,
-                title='Principal components scatter plot',
+                height=min(n_components*200+100, width),
+                width=min(n_components*200+100, width),
+                title=f'Principal components scatter plot ({var_name})',
                 diag='box'
             )
 
-        fig_cumvar = mint.pca.plot.cumulative_variance(interactive=True, width=n_components*20+500)
+        fig_cumvar = mint.pca.plot.cumulative_variance(interactive=True, width=min(n_components*20+500, width))
 
         fig_contrib = mint.pca.plot.loadings(interactive=True, 
                                              height=n_components*200+100, 
-                                             width=len(mint.targets)*20+500,
-                                             title='Principal component loadings')
+                                             width=min(n_peak_labels*50+350, width),
+                                             title=f'Principal component loadings ({var_name})')
 
         fig_scattermatrix.update_layout(autosize=True)
         fig_cumvar.update_layout(autosize=True)        
