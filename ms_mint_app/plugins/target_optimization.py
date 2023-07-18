@@ -79,7 +79,7 @@ _layout = html.Div(
 
         html.Div(
             id="pko-peak-preview-images",
-            style={"maxHeight": "600px", "overflowX": "scroll", "padding": "auto"},
+            style={"maxHeight": "700px", "overflowX": "scroll", "padding": "auto"},
 
         ),
         dcc.Markdown("---"),
