@@ -773,7 +773,7 @@ def df_to_in_memory_excel_file(df):
     def to_xlsx(bytes_io):
         xslx_writer = pd.ExcelWriter(bytes_io, engine="xlsxwriter")
         df.to_excel(xslx_writer, index=True, sheet_name="sheet1")
-        xslx_writer.save()
+        xslx_writer.close()
 
     return to_xlsx
 
