@@ -16,7 +16,7 @@ More information on how to install and run the program can be found in the [Docu
 
 ## Release notes
 
-### 0.3.0 Milestones
+### 0.3.2 Milestones
 - Be able to share a workspace with another user
 - Be able to rename a workspace
 - Explanation of expected metadata in app
@@ -27,6 +27,10 @@ More information on how to install and run the program can be found in the [Docu
 - total ion chromatogram (TIC)
 - full extracted ion chromatogram (EIC or XIC)
 - feature to convert intensities to concentrations
+
+### 0.3.1.
+- User can select property to extract for dense download
+- `ms_file_label` used for dense downloads
 
 ### 0.2.3
 - update to pandas 2.0
