@@ -142,7 +142,7 @@ _layout = html.Div(
                 dbc.Col(
                     [
                         dbc.Button("Convert selected files to Feather", id="ms-convert"),
-                        dbc.Button("Convert selected files to Parquet", id="ms-convert-parquet"),
+                        # dbc.Button("Convert selected files to Parquet", id="ms-convert-parquet"),
                     ]
                 ),
                 dbc.Col(

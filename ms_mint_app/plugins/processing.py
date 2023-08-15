@@ -15,7 +15,9 @@ from ms_mint.Mint import Mint
 
 from .. import tools as T
 from ..plugin_interface import PluginInterface
+from dash import dcc
 
+from ms_mint.standards import RESULTS_COLUMNS
 
 
 class ProcessingPlugin(PluginInterface):
@@ -35,6 +37,7 @@ class ProcessingPlugin(PluginInterface):
 
 _label = "Processing"
 
+_property_options = T.list_to_options(RESULTS_COLUMNS)
 
 _layout = html.Div(
     [
@@ -42,7 +45,12 @@ _layout = html.Div(
         dbc.Row([
             dbc.Col(dbc.Button("Run MINT", id="run-mint", style={"width": "100%"})),
             dbc.Col(dbc.Button("Download all results", id="res-download", style={"width": "100%"}, color='secondary')),
-            dbc.Col(dbc.Button("Download dense peak_max", id="res-download-peakmax", style={"width": "100%"}, color='secondary')),
+            dbc.Col(html.Div([
+                        dbc.Button("Download dense matrix", id="res-download-peakmax", style={"width": "100%"}, color='secondary'),
+                        dcc.Dropdown(id='proc-download-property', options=_property_options, value='peak_area_top3'),
+                        dcc.Checklist(id='proc-download-options', options=['Transposed']),
+                    ])
+            ),
             dbc.Col(dbc.Button("Delete results", id="res-delete", style={"width": "100%"}, color='danger')),
         ])
     ]
@@ -84,10 +92,12 @@ def callbacks(app, fsc, cache):
             Output("res-download-data", "data"),
             Input("res-download", "n_clicks"),
             Input("res-download-peakmax", "n_clicks"),
+            State("proc-download-property", "value"),
+            State('proc-download-options', 'value'),
             State("wdir", "children"),
         ]
     )
-    def download_results(n_clicks, n_clicks_peakmax, wdir):
+    def download_results(n_clicks, n_clicks_peakmax, property, options, wdir):
         if (n_clicks is None) and (n_clicks_peakmax is None):
             raise PreventUpdate
         ctx = dash.callback_context
@@ -98,18 +108,19 @@ def callbacks(app, fsc, cache):
             fn = T.get_results_fn(wdir)
             workspace = os.path.basename(wdir)
             return [
-                send_file(fn, filename=f"{T.today()}-MINT__{workspace}__results.csv")
+                send_file(fn, filename=f"{T.today()}-MINT__{workspace}-long.csv")
             ]
 
         elif prop_id == "res-download-peakmax.n_clicks":
             workspace = os.path.basename(wdir)
             results = T.get_results(wdir)
-            df = results.pivot_table("peak_max", "peak_label", "ms_file")
-            df.columns = [P(x).with_suffix("") for x in df.columns]
+            df = results.pivot_table(property, "ms_file_label", "peak_label")
+            if options is not None and 'Transposed' in options:
+                df = df.T
             buffer = T.df_to_in_memory_excel_file(df)
             return [
                 send_bytes(
-                    buffer, filename=f"{T.today()}-MINT__{workspace}__results_peak-max.xlsx"
+                    buffer, filename=f"{T.today()}-MINT__{workspace}__results_{property}.xlsx"
                 )
             ]
 
