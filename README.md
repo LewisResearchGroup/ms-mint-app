@@ -2,6 +2,9 @@
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/5178/badge)](https://bestpractices.coreinfrastructure.org/projects/5178)
 ![](images/coverage.svg)
 [![Docker Image CI](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/docker-image.yml/badge.svg)](https://github.com/LewisResearchGroup/ms-mint-app/actions/workflows/docker-image.yml)
+![PyPI](https://img.shields.io/pypi/v/ms-mint-app?label=pypi%20package)
+![PyPI - Downloads](https://img.shields.io/pypi/dm/ms-mint-app)
+
 
 ![](docs/image/MINT-logo.jpg)
 
