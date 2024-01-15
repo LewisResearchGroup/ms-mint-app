@@ -20,4 +20,4 @@ packaging==21.3.0
 beautifulsoup4
 brotlipy
 wget
-werkzeug==2.2.3  # Werkzeug2.3.1 destroys uploaded chunked files
+werkzeug==3.0.1  # Werkzeug2.3.1 destroys uploaded chunked files

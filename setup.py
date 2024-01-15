@@ -22,7 +22,7 @@ install_requires = [
     "dask[diskcache]",
     "h5py",
     "hdf5plugin",
-    "werkzeug==2.2.3"
+    "werkzeug==3.0.1"
 ]
 
 
