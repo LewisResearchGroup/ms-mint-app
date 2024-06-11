@@ -225,11 +225,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../quickstart/" class="md-nav__link">
+      <a href="../install/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Quickstart
+    Installation
   </span>
   
 
@@ -245,11 +245,11 @@
   
   
     <li class="md-nav__item">
-      <a href="../install/" class="md-nav__link">
+      <a href="../quickstart/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    Installation
+    Quickstart
   </span>
   
 
@@ -351,9 +351,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#building-and-uploading-the-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and Uploading the Package
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#windows-executables" class="md-nav__link">
     <span class="md-ellipsis">
-      Windows executables
+      Windows Executables
     </span>
   </a>
   
@@ -362,16 +371,16 @@
         <li class="md-nav__item">
   <a href="#documentation-deployment" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation deployment
+      Documentation Deployment
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-nginx-config" class="md-nav__link">
+  <a href="#example-nginx-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Example NGINX config
+      Example NGINX Configuration
     </span>
   </a>
   
@@ -432,9 +441,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#building-and-uploading-the-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Building and Uploading the Package
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#windows-executables" class="md-nav__link">
     <span class="md-ellipsis">
-      Windows executables
+      Windows Executables
     </span>
   </a>
   
@@ -443,16 +461,16 @@
         <li class="md-nav__item">
   <a href="#documentation-deployment" class="md-nav__link">
     <span class="md-ellipsis">
-      Documentation deployment
+      Documentation Deployment
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#example-nginx-config" class="md-nav__link">
+  <a href="#example-nginx-configuration" class="md-nav__link">
     <span class="md-ellipsis">
-      Example NGINX config
+      Example NGINX Configuration
     </span>
   </a>
   
@@ -474,27 +492,59 @@
 
 
 <h1 id="developer-notes">Developer Notes</h1>
-<pre><code>python3 setup.py sdist bdist_wheel
-python3 -m twine upload --repository ms-mint dist/ms*mint-*
+<h2 id="building-and-uploading-the-package">Building and Uploading the Package</h2>
+<p>To build the source distribution and wheel for <code>ms-mint-app</code>, follow these steps:</p>
+<ol>
+<li>Navigate to the root directory of the project.</li>
+<li>Run the following command to create the source distribution (<code>sdist</code>) and wheel (<code>bdist_wheel</code>):</li>
+</ol>
+<pre><code class="language-bash">python3 setup.py sdist bdist_wheel
 </code></pre>
-<h2 id="windows-executables">Windows executables</h2>
-<pre><code>cd specfiles &amp;&amp; pyinstaller --noconfirm Mint.spec ..\scripts\Mint.py
+<p>This will generate distribution archives in the <code>dist</code> directory.</p>
+<ol>
+<li>To upload the built package to the <code>ms-mint</code> repository, use <code>twine</code>. Ensure you have <code>twine</code> installed (<code>pip install twine</code> if not). Then, run:</li>
+</ol>
+<pre><code class="language-bash">python3 -m twine upload --repository ms-mint dist/ms*mint-*
 </code></pre>
-<h2 id="documentation-deployment">Documentation deployment</h2>
-<pre><code>mkdocs build &amp;&amp; mkdocs gh-deploy
+<p>This command will upload all matching distribution files to the specified repository.</p>
+<h2 id="windows-executables">Windows Executables</h2>
+<p>To create Windows executables for the <code>ms-mint</code> application, use <code>pyinstaller</code>. Follow these steps:</p>
+<ol>
+<li>Navigate to the <code>specfiles</code> directory.</li>
+<li>Run the <code>pyinstaller</code> command with the provided specification file:</li>
+</ol>
+<pre><code class="language-bash">cd specfiles &amp;&amp; pyinstaller --noconfirm Mint.spec ..\scripts\Mint.py
 </code></pre>
-<h2 id="example-nginx-config">Example NGINX config</h2>
-<p>To run Mint on a remote server you need to setup a remote proxy. </p>
+<p>This will generate a standalone executable for Windows based on the <code>Mint.spec</code> file.</p>
+<h2 id="documentation-deployment">Documentation Deployment</h2>
+<p>To build and deploy the documentation using <code>mkdocs</code>, follow these steps:</p>
+<ol>
+<li>Ensure you have <code>mkdocs</code> installed (<code>pip install mkdocs</code> if not).</li>
+<li>Run the following commands to build the documentation and deploy it to GitHub Pages:</li>
+</ol>
+<pre><code class="language-bash">mkdocs build &amp;&amp; mkdocs gh-deploy
+</code></pre>
+<p>The <code>mkdocs build</code> command generates the static site in the <code>site</code> directory, and <code>mkdocs gh-deploy</code> pushes it to the <code>gh-pages</code> branch of your GitHub repository.</p>
+<h2 id="example-nginx-configuration">Example NGINX Configuration</h2>
+<p>To run <code>ms-mint</code> on a remote server, you need to set up a reverse proxy using NGINX. Here is an example configuration:</p>
 <pre><code>server {
     ...
     location / {
-        proxy_pass              http://localhost:8080;
+        proxy_pass              http://localhost:8000;
         client_max_body_size    100G;
         proxy_set_header        X-Forwarded-Proto https;
         proxy_set_header        Host $host;
     }
 }
 </code></pre>
+<p>Explanation:</p>
+<ul>
+<li><code>proxy_pass http://localhost:8000;</code>: Forwards all requests to the <code>ms-mint</code> application running on port 8000.</li>
+<li><code>client_max_body_size 100G;</code>: Increases the maximum allowed size of client request bodies to 100GB.</li>
+<li><code>proxy_set_header X-Forwarded-Proto https;</code>: Sets the <code>X-Forwarded-Proto</code> header to <code>https</code>.</li>
+<li><code>proxy_set_header Host $host;</code>: Ensures the <code>Host</code> header from the original request is passed to the proxied server.</li>
+</ul>
+<p>Then start ms-mint via the <code>entrypoint.sh</code> script.</p>
 
 
 
