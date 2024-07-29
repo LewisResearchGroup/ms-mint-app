@@ -41,7 +41,7 @@ dependencies = [
   "dask[diskcache]",
   "h5py",
   "hdf5plugin",
-  "werkzeug>=3.0.1",
+  "werkzeug==2.2.2",
   "packaging==21.3.0"
 ]
 dynamic = ["version"]
