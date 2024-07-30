@@ -512,11 +512,26 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pca" class="md-nav__link">
+  <a href="#principal-component-analysis-pca" class="md-nav__link">
     <span class="md-ellipsis">
-      PCA
+      Principal Component Analysis (PCA)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Principal Component Analysis (PCA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-pca-colored-by-sample-label-ie-biological-organism-using-z-scores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: PCA colored by sample label (i.e. biological organism) using z-scores
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -568,6 +583,21 @@
       Plotting
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Plotting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-compare-z-scaled-peak_area_top3-for-between-lc-columns-for-all-metabolites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Compare z-scaled peak_area_top3 for between LC columns for all metabolites.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -867,11 +897,26 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#pca" class="md-nav__link">
+  <a href="#principal-component-analysis-pca" class="md-nav__link">
     <span class="md-ellipsis">
-      PCA
+      Principal Component Analysis (PCA)
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Principal Component Analysis (PCA)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-pca-colored-by-sample-label-ie-biological-organism-using-z-scores" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: PCA colored by sample label (i.e. biological organism) using z-scores
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -923,6 +968,21 @@
       Plotting
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Plotting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example-compare-z-scaled-peak_area_top3-for-between-lc-columns-for-all-metabolites" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example: Compare z-scaled peak_area_top3 for between LC columns for all metabolites.
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1130,12 +1190,29 @@ For example, the analysis can be limited to only the biological samples if such 
 type has been defined in the type column of the metadata table. </p>
 <p>The checkbox can be used to create a dense view. If the box is unchecked the output will be visually grouped into an individual section for each metabolite.</p>
 <p>The plots are interactive. You can switch off labels, zoom in on particular areas of interest, or hover the mouse cursor over a datapoint to get more information about underlying sample and/or target.</p>
-<h2 id="pca">PCA</h2>
+<h2 id="principal-component-analysis-pca">Principal Component Analysis (PCA)</h2>
 <ul>
 <li>Perform Principal Component Analysis (PCA)</li>
 <li>Plot projections to first N principal components</li>
 <li>Contributions of original variables to each component.</li>
 </ul>
+<p>Principal Component Analysis (PCA) is a statistical technique used to reduce the dimensionality of a dataset while preserving as much variability (information) as possible. It transforms the original data into a new coordinate system where the greatest variances by any projection of the data come to lie on the first coordinates called principal components.</p>
+<p><strong>Principal Components</strong></p>
+<ul>
+<li><strong>Definition</strong>: Principal components are the new set of axes in the transformed feature space. They are linear combinations of the original features.</li>
+<li><strong>Purpose</strong>: These components are ordered by the amount of variance they explain from the data. The first principal component explains the most variance, the second the second most, and so on.</li>
+</ul>
+<p><strong>Cumulative Explained Variance</strong></p>
+<ul>
+<li><strong>Definition</strong>: The cumulative explained variance is the sum of the explained variances of the principal components up to a given component. It indicates the proportion of the total variance in the dataset that is accounted for by the principal components.</li>
+<li><strong>Purpose</strong>: This helps in deciding how many principal components to keep by showing how much of the total variance is captured as you include more components.</li>
+</ul>
+<p><strong>PCA Loadings</strong></p>
+<ul>
+<li><strong>Definition</strong>: PCA loadings represent the coefficients of the linear combination of the original variables that define each principal component. They indicate the contribution of each original feature to the principal components.</li>
+<li><strong>Purpose</strong>: Loadings help in understanding the importance of each feature in the principal components and how they contribute to the variance explained by each component.</li>
+</ul>
+<h3 id="example-pca-colored-by-sample-label-ie-biological-organism-using-z-scores">Example: PCA colored by sample label (i.e. biological organism) using z-scores</h3>
 <p><img alt="PCA" src="../image/pca.png" title="Principal Components Analysis" /></p>
 <h2 id="hierarchical-clustering">Hierarchical clustering</h2>
 <p>Hierarchical clustering is a technique for cluster analysis that seeks to build a hierarchy of clusters. It can be divided into two main types: <strong>agglomerative</strong> and <strong>divisive</strong>.  MINT uses agglomerative hierarchical clustering, also known as bottom-up clustering, starts with each data point as a separate cluster and iteratively merges the closest clusters until all points are in a single cluster or a stopping criterion is met.</p>
@@ -1160,9 +1237,8 @@ type has been defined in the type column of the metadata table. </p>
 <li>Scatter plots</li>
 <li>and more...</li>
 </ul>
-<p><img alt="Plot setting" src="../image/plotting_settings.png" title="Plot settings" /></p>
-<p><img alt="Bar plot" src="../image/plotting_results_bar.png" title="Bar plot" /></p>
-<p><img alt="Boxen plot" src="../image/plotting_results_boxen.png" title="Boxen plot" /></p>
+<h3 id="example-compare-z-scaled-peak_area_top3-for-between-lc-columns-for-all-metabolites">Example: Compare z-scaled peak_area_top3 for between LC columns for all metabolites.</h3>
+<p><img alt="" src="../image/plotting-example-1.png" /></p>
 
 
 
