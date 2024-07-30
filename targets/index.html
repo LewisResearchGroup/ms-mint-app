@@ -20,7 +20,7 @@
       
       
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.30">
     
     
       
@@ -28,7 +28,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.6543a935.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
       
       
 
@@ -476,12 +476,13 @@
 </blockquote>
 <p>The input files contains a number of columns headers in the target list should contain:</p>
 <ul>
-<li><strong>peak_label</strong> : A <strong>unique</strong> identifier such as the biomarker name or ID. Even if multiple peaklist files are used, the label have to be unique across all the files.</li>
+<li><strong>peak_label</strong> : A <strong>unique</strong> identifier such as the biomarker name or ID.</li>
 <li><strong>mz_mean</strong> : The target mass (m/z-value) in [Da].</li>
 <li><strong>mz_width</strong> : The width of the peak in the m/z-dimension in units of ppm. The window will be <em>mz_mean</em> +/- (mz_width * mz_mean * 1e-6). Usually, a values between 5 and 10 are used.</li>
-<li><strong>rt</strong> : Estimated retention time in [min] (optional, see above).</li>
-<li><strong>rt_min</strong> : The start of the retention time for each peak in [min].</li>
-<li><strong>rt_max</strong> : The end of the retention time for each peak in [min].</li>
+<li><strong>rt</strong> : Estimated retention time (optional, see above), for reference and used in automated peak optimization.</li>
+<li><strong>rt_min</strong> : The start of the retention time for each peak.</li>
+<li><strong>rt_max</strong> : The end of the retention time for each peak.</li>
+<li><strong>rt_unit</strong> : Time unit can be <code>min</code> (minutes) or <code>s</code> (seconds), Mint will always convert the values to seconds. </li>
 <li><strong>intensity_threshold</strong> : A threshold that is applied to filter noise for each window individually. Can be set to 0 or any positive value.</li>
 </ul>
 <h4 id="example-file">Example file</h4>
@@ -490,7 +491,11 @@
 Biomarker-A,151.0605,10,4.65,5.2,0
 Biomarker-B,151.02585,10,4.18,4.53,0
 </code></pre>
-<p>A template can be created using the <a href="../gui/">GUI</a>.</p>
+<p>A template can be created using the <a href="../gui/">GUI</a>: </p>
+<ol>
+<li>Go to the targets tab.</li>
+<li>Click on <code>EXPORT</code> to download a <code>target.csv</code> file with all necessary columns.</li>
+</ol>
 
 
 
@@ -600,7 +605,7 @@ Biomarker-B,151.02585,10,4.18,4.53,0
     <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>
