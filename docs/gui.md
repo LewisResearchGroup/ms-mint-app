@@ -237,12 +237,30 @@ The checkbox can be used to create a dense view. If the box is unchecked the out
 
 The plots are interactive. You can switch off labels, zoom in on particular areas of interest, or hover the mouse cursor over a datapoint to get more information about underlying sample and/or target.
 
-## PCA
+## Principal Component Analysis (PCA)
 
  - Perform Principal Component Analysis (PCA)
  - Plot projections to first N principal components
  - Contributions of original variables to each component.
 
+Principal Component Analysis (PCA) is a statistical technique used to reduce the dimensionality of a dataset while preserving as much variability (information) as possible. It transforms the original data into a new coordinate system where the greatest variances by any projection of the data come to lie on the first coordinates called principal components.
+
+**Principal Components**
+
+  - **Definition**: Principal components are the new set of axes in the transformed feature space. They are linear combinations of the original features.
+  - **Purpose**: These components are ordered by the amount of variance they explain from the data. The first principal component explains the most variance, the second the second most, and so on.
+
+**Cumulative Explained Variance**
+
+  - **Definition**: The cumulative explained variance is the sum of the explained variances of the principal components up to a given component. It indicates the proportion of the total variance in the dataset that is accounted for by the principal components.
+  - **Purpose**: This helps in deciding how many principal components to keep by showing how much of the total variance is captured as you include more components.
+
+**PCA Loadings**
+
+  - **Definition**: PCA loadings represent the coefficients of the linear combination of the original variables that define each principal component. They indicate the contribution of each original feature to the principal components.
+  - **Purpose**: Loadings help in understanding the importance of each feature in the principal components and how they contribute to the variance explained by each component.
+
+### Example: PCA colored by sample label (i.e. biological organism) using z-scores
 ![PCA](image/pca.png "Principal Components Analysis")
 
 
