@@ -532,9 +532,9 @@ Start the app via:</p>
 <pre><code>docker pull msmint/msmint:latest
 </code></pre>
 <p>The image can be started with:</p>
-<pre><code>docker run -p 9999:9999 -it msmint/msmint:latest  -v /data/:/data/
+<pre><code>docker run -p 9999:9999 -v /data/:/data/  msmint/msmint:latest Mint --data-dir /data --no-browser --host 0.0.0.0
 </code></pre>
-<p>Then the tool is available in the browser at http://localhost:9999.</p>
+<p>Then the tool is available in the browser at http://localhost:8000.</p>
 <h2 id="installation-from-source">Installation from source</h2>
 <p>We recommend using <a href="https://docs.anaconda.com/free/miniconda/">conda</a> or <a href="https://conda-forge.org/miniforge/">mamba</a> to create a virtual environment before installing <code>ms-mint-app</code>.</p>
 <pre><code class="language-bash"># Create conda environment
