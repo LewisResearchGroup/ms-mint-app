@@ -34,38 +34,47 @@ class QualityControlPlugin(PluginInterface):
 
 _label = "Quality Control"
 
+_info = """
+**peak_mass_diff_50pc**: This observable represents the median difference in mass between expected and observed values, normalized to the mass of the compound and expressed in ppm. 
+"""
+
+_markdown_style = {'max-width': '700px'}
+
 _layout = html.Div([
     html.H1('Quality Control'),
-    html.H2('m/z drift'),
-    html.H3('Overall'),
+    html.H3('Peak Mass Difference'),
+    dcc.Markdown(_info, style=_markdown_style),
+    html.H4('Overall Peak Mass Difference'),
     dcc.Loading(
-        dcc.Graph(
-            id="qc-fig-mz-drift-overall",
-            style={
-                "margin": "auto",
-                "marginTop": "10%",
-                "text-align": "center",
-                "maxWidth": "900px",
-            },
-        ),
+        html.Div(
+            dcc.Graph(
+                id="qc-fig-mz-drift-overall",
+                style={
+                    "marginTop": "10%",
+                    "text-align": "left",
+                    "maxWidth": "900px",
+                },
+            ),
+            style={'width': '100%', 'text-align': 'left'}
+        )
     ),
-    html.H4('By target'),
+    html.H4('Peak Mass Difference by target'),
     dcc.Loading(
         dcc.Graph(
             id="qc-fig-mz-drift-by-target",
             style={
                 "margin": "auto",
                 "marginTop": "10%",
-                "text-align": "center",
+                "text-align": "left",
                 "maxWidth": "100%",
             },
         )
     ),
 
-    html.H3('PCA'),
+    html.H3('Principal Components Analysis'),
+    dcc.Markdown('This graph visualizes differences between the different sample types set in `sample_type` column in the Metadata tab.', style=_markdown_style),
     dcc.Loading(
         html.Div(
-
             dcc.Graph(
                 id="qc-fig-pca",
                 style={
@@ -76,11 +85,12 @@ _layout = html.Div([
                     "minWidth": "100%",
                 },
             ),
-            style={'width': '50%', 'margin': 'auto'}
+            style={'width': '100%', 'margin': 'auto'}
         ),
     ),       
     
     html.H3('Peak shapes'),
+    dcc.Markdown('This graph visualizes the peak shapes for all targets. If too many files are present, a random sample of 30 files is selected. To show a different sample, you can reload the tab.', style=_markdown_style),    
     dcc.Loading(
         html.Div(
             dcc.Graph(
@@ -95,8 +105,9 @@ _layout = html.Div([
             ),
             style={'width': '100%', 'margin': 'auto'}
         ),
-    ),    
-], style={'width': '100%', "text-align": "left"})
+    ),
+], style={'width': '100%', "text-align": "left"}
+)
 
 _outputs = html.Div()
 
@@ -117,8 +128,7 @@ def callbacks(app, fsc, cache):
             wdir
         )
 
-        return px.violin(data_frame=df, y='peak_mass_diff_50pc', color='sample_type')
-        
+        return px.violin(data_frame=df, y='peak_mass_diff_50pc', color='sample_type', title='Peak Mass Difference')
     
     @app.callback(
         Output("qc-fig-mz-drift-by-target", "figure"),
