@@ -49,9 +49,9 @@ apply_options = [{"label": "log10(x+1)", "value": "log1p"},
 var_name_options = T.list_to_options(RESULTS_COLUMNS)
 
 scaler_options = [
-    {"value": "standard", "label": "Standard Scaling (z-scores)"},
-    #{"value": "minmax", "label": "MinMax Scaling"},
-    {"value": "robust", "label": "Robust Scaling"}
+    {"value": "standard", "label": "Standard scaling (z-scores)"},
+    {"value": "minmax", "label": "Min-Max scaling"},
+    {"value": "robust", "label": "Robust scaling"}
 ]
 
 
@@ -92,7 +92,7 @@ _layout = html.Div(
                 dcc.Dropdown(
                     id="ana-var-name",
                     options=var_name_options,
-                    value='peak_max',
+                    value='peak_area_top3',
                     placeholder="Variable to plot",
                 )
             ]),
@@ -117,14 +117,14 @@ _layout = html.Div(
                     id="ana-groupby",
                     options=[],
                     value=None,
-                    placeholder="Normalize by",
+                    placeholder="Scaling group(s)",
                     multi=True,
                 ),
                 dcc.Dropdown(
                     id="ana-scaler",
                     options=scaler_options,
-                    value=[],
-                    placeholder="Scaler",
+                    value=None,
+                    placeholder="Scaling method",
                     multi=False,
                 ),                                 
             ]),

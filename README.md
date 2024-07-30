@@ -18,18 +18,25 @@ More information on how to install and run the program can be found in the [Docu
 
 ![Screenshot](docs/gallery/MINT-interface-1.png)
 
+## News
+Starting with version 1.0.0, we have updated the installation setup to use pyproject.toml. Additionally, the main script to start Mint has been changed from Mint.py to Mint. Furthermore, each release of the repository will now be assigned a DOI to facilitate citation of the software.
+
+## Publications that used Mint
+1. Brown K, Thomson CA, Wacker S, Drikic M, Groves R, Fan V, et al. [Microbiota alters the metabolome in an age- and sex- dependent manner in mice.](https://pubmed.ncbi.nlm.nih.gov/36906623/) Nat Commun. 2023;14: 1348.
+
+2. Ponce LF, Bishop SL, Wacker S, Groves RA, Lewis IA. [SCALiR: A Web Application for Automating Absolute Quantification of Mass Spectrometry-Based Metabolomics Data. Anal Chem.](https://pubs.acs.org/doi/10.1021/acs.analchem.3c04988) 2024;96: 6566–6574.
+
 ## Installation
 You can find installation instructions [here](https://lewisresearchgroup.github.io/ms-mint-app/install/)
 
 ## Contributions
-All contributions, bug reports, code reviews, bug fixes, documentation improvements, enhancements, and ideas are welcome.
-Before you modify the code please reach out to us using the [issues](https://github.com/LewisResearchGroup/ms-mint/issues) page.
+All contributions, bug reports, code reviews, bug fixes, documentation improvements, enhancements, and ideas are welcome. This includes recommendations for software architecture, code design, and efficiency improvements. 
 
 ## Code standards
 The project follows PEP8 standard and uses Black and Flake8 to ensure a consistent code format throughout the project.
 
 ## Get in touch
-Open an [issue](https://github.com/LewisResearchGroup/ms-mint-app/issues) or join the [slack](https://ms-mint.slack.com/) channel.
+To get in touch, please open a GitHub [issue](https://github.com/LewisResearchGroup/ms-mint-app/issues).
 
 ## Acknowledgements
 This project would not be possible without the help of the open-source community. 

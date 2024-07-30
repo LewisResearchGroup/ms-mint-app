@@ -10,12 +10,13 @@ The target list is the determining protocol for the data processing step. You ca
 
 The input files contains a number of columns headers in the target list should contain:
 
-- **peak_label** : A __unique__ identifier such as the biomarker name or ID. Even if multiple peaklist files are used, the label have to be unique across all the files.
+- **peak_label** : A __unique__ identifier such as the biomarker name or ID.
 - **mz_mean** : The target mass (m/z-value) in [Da].
 - **mz_width** : The width of the peak in the m/z-dimension in units of ppm. The window will be *mz_mean* +/- (mz_width * mz_mean * 1e-6). Usually, a values between 5 and 10 are used.
-- **rt** : Estimated retention time in [min] (optional, see above).
-- **rt_min** : The start of the retention time for each peak in [min].
-- **rt_max** : The end of the retention time for each peak in [min].
+- **rt** : Estimated retention time (optional, see above), for reference and used in automated peak optimization.
+- **rt_min** : The start of the retention time for each peak.
+- **rt_max** : The end of the retention time for each peak.
+- **rt_unit** : Time unit can be `min` (minutes) or `s` (seconds), Mint will always convert the values to seconds. 
 - **intensity_threshold** : A threshold that is applied to filter noise for each window individually. Can be set to 0 or any positive value.
 
 #### Example file
@@ -27,4 +28,7 @@ Biomarker-B,151.02585,10,4.18,4.53,0
 ```
 
 
-A template can be created using the [GUI](gui.md).
+A template can be created using the [GUI](gui.md): 
+
+1. Go to the targets tab.
+2. Click on `EXPORT` to download a `target.csv` file with all necessary columns.

@@ -469,7 +469,7 @@ def callbacks(app, fsc, cache, cpu=None):
                 sharex="share-x" in options,
                 sharey="share-y" in options,
                 dodge="no-dodge" not in options,
-                facet_kws=dict(legend_out=True),
+                #facet_kws=dict(legend_out=True),
             )
         
         try:
@@ -488,8 +488,8 @@ def callbacks(app, fsc, cache, cpu=None):
                 **kwargs
             )
         except Exception as e:
-            logging.error(e)
-            return dbc.Alert(str(e), color="danger")
+            logging.error(f"Failed to generate plot: {e}\nwith arguments:\n{kwargs}")
+            return "" #dbc.Alert(str(e), color="danger")
 
         g.fig.subplots_adjust(top=0.9)
         g.set_titles(col_template="{col_name}", row_template="{row_name}", y=1.05)

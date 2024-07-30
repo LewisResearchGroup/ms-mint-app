@@ -63,6 +63,8 @@ with the optimization tools.
 
 ## Add Metabolites
 
+> Since version 1.0.0 this functionality has been removed and will be provided as an optional plugin.
+
 - Search for metabolites from ChEBI three stars database
 - Add selected metabolites to peaklist (without RT estimation)
 
@@ -94,7 +96,6 @@ identifes the closest peak with respect to the expected RT which is displayed as
   - Remove peaks from peaklist
   - Set expected retention time
 
-
 ![Manual peak optimization](image/manual-peak-optimization.png "Manual peak optimization")
 
 When a peak is selected in the drop down box the chromatograms for the particular mass windows
@@ -110,23 +111,35 @@ to the current view and updated the peaklist accordingly.
 
 ![Processing](image/processing.png "Processing")
 
-
 When all peaks look good the data can be processed using `RUN MINT`. This will apply
 the current peaklist to the MS-files in the workspace and extract additional properties.
 When the results tables are present the results can be explored with the following tabs. 
 The generated results can be downloaded with the `DOWNLOAD` button.
 
+- `RUN MINT`: Will process all files in the workspace using the current target list. The progress is displayed in the progress bar on the top.
+- `DOWNLOAD ALL RESULTS`: The generated results can be downloaded in tidy format.
+- `DOWNLOAD DENSE MATRIX`: This will download a dense data table with targets as rows and files as columns. The observable used for the cells can be selected in the drop down menu. Optionllay, you can transpose the table, by checking the `Transposed` checkbox.
+- `DELETE RESULTS`: Delete results file if present, and start from scratch.
+
+## Quality Control
+Analytical visualizations to display a few quality metrics and comparisons. The `m/z drift` compares the observed m/z values with the ones set in the target list. This value will always be lower than the `mz_width` set in the target list for each target. It is one way of evaluating how well the machine is calibrated. Generally speaking, values between [-5, 5] are acceptible, but it depends on the specific assay and experiment.  
+
+The graphs are categorized by `sample_type` set in the Metadata tab. You should have some quality control, or calibration samples with known metabolite composition, to be able to make judgements about the quality.
+
+The second plot breaks down the `m/z drift` by target, to see how the calibration varies between targets.
+
+The PCA (Principal Components Analysis) plot shows a PCA using `peak_area_top3`. You can compare different groups of samples as set in the `sample_types` column in the Metadata tab.
+
+The final plot displays peak shapes of a random sample of files for all targets. To change the sample, you can refresh this page. 
 
 ## Analysis
-
 After running MINT the results can be downloaed or analysed using the provided tools.
 For quality control purposes histograms and boxplots can be generated in the 
 quality control tab. The interactive heatmap tool can be used to explore the results data after `RUN MINT`
 has been exectuted. The tool allows to explore the generated data in from of heatmaps.
 
 
-## General selection elements
-
+## Selections and transformations
   - Include/exclude file types (based on `Type` column in metadata)
   - Include/exclude peak labels for analysis
   - Set file sorting (e.g. by name, by batch etc.)
@@ -134,22 +147,71 @@ has been exectuted. The tool allows to explore the generated data in from of hea
 
 ![Selections](image/general-selection-elements.png "Selections")
 
+- `Types of files to include`: Uses the `sample_types` column in the Metadata tab to select files. If nothing is selected, all files are included. 
+- `Include peak_labels`: Targets to include. If nothing is selected all targets are included.
+- `Exclude peak_labels`: Targets to exclude. If nothing is selected no target is excluded.
+- `Variable to plot`: This determines which column to run the analysis on. For example, you can set this to `peak_mass_diff_50pc` to analyse the instrument calibration. The default is `peak_area_top3`.
+- `MS-file sorting`: Before plotting sets the order of the MS-files in the underlying dataframe. This will change the order of files in some plots.
+- `Color by`: PCA and `Plotting` tool can use a categoric or numeric column to color code samples. Some plots (e.g. Hierarchical clustering tool are unaffected).
+- `Transformation`: The values can be log transformed before subjected to normalization. If nothing is selected, the raw values are used.
+- `Scaling group(s)`: Column or selection of columns to group the data and apply the normalization function in the dropdown menu for each group. If you want to z-scores for each target, you need to select `peak_label` here, and in the dropdown menu 'Standard scaling`.
+- `Scaling technique`: You can choose between standard scaling, min-max scaling, or robust scaling, or no scaling (if nothing is selected).
+
+### Scaling Techniques
+
+#### 1. Standard Scaling
+
+**Standard scaling** (also known as z-score normalization) transforms the data such that the mean of each feature becomes 0 and the standard deviation becomes 1. This is useful when the features have different units or magnitudes, as it ensures they are on the same scale.
+
+The formula for standard scaling is:
+
+    z = (x - mean) / standard_deviation
+
+Where:
+- `x` is the original value.
+- `mean` is the mean of the feature.
+- `standard_deviation` is the standard deviation of the feature.
+
+#### 2. Robust Scaling
+
+**Robust scaling** is used to scale features using statistics that are robust to outliers. This scaling technique uses the median and the interquartile range (IQR) instead of the mean and standard deviation, making it more suitable for datasets with outliers.
+
+The formula for robust scaling is:
+
+    x_scaled = (x - median) / IQR
+
+Where:
+- `x` is the original value.
+- `median` is the median of the feature.
+- `IQR` is the interquartile range of the feature (IQR = Q3 - Q1).
+
+#### 3. Min-Max Scaling
+
+**Min-max scaling** (also known as normalization) transforms the data to fit within a the range [0, 1]. This scaling techique is useful when you want to preserve the relationships within the data, but want to adjust the scale.
+
+The formula for min-max scaling is:
+
+    x_scaled = (x - x_min) / (x_max - x_min)
+
+Where:
+- `x` is the original value.
+- `x_min` is the minimum value of the feature.
+- `x_max` is the maximum value of the feature.
+
 
 ## Heatmap
-
 ![Heatmap](image/heatmap.png "Heatmap")
 
 The first dropdown menu allows to include certain file types e.g. biological samples rather than quality control samples.
 The second dropdown menu distinguishes the how the heatmap is generated. 
 
-- Normalized by biomarer: devide values by column maxium.
-- Cluster: Cluster rows with hierachical clustering.  
-- Dendrogram: Plots a dendrogram instead of row labels.
-- Transpose: Switch columns and rows.
-- Correlation: Calculate pearson correlation between columns.
-- Show in new tab: The figure will be generated in a new independent tab. That way multiple heatmaps can be generated at the same time.
+- `Cluster`: Cluster rows with hierachical clustering.  
+- `Dendrogram`: Plots a dendrogram instead of row labels (only in combination with `Cluster`).
+- `Transpose`: Switch columns and rows.
+- `Correlation`: Calculate pearson correlation between columns.
+- `Show in new tab`: The figure will be generated in a new independent tab. That way multiple heatmaps can be generated at the same time. This may only work when you serve MINT locally, since the plot is served on a different port. If the app becomes unresponsive to changes, reload the tab. 
 
-### Correlation of (scaled) peak_max
+### Example: Plot correlation between metabolites using scaled peak_area_top3 values
 
 ![Heatmap](image/heatmap-correlation.png "Correlation")
 
@@ -160,6 +222,8 @@ The second dropdown menu distinguishes the how the heatmap is generated.
   - Density distributions
   - Boxplots
 
+### Example: Box-plot of scaled peak_area_top3 values by metabolite
+
 ![Quality Control](image/distributions.png "Quality Control")
 
 The MS-files can be grouped based on the values in the metadata table. If nothing
@@ -169,9 +233,9 @@ to generate. The third dropdown menu allows to include certain file types.
 For example, the analysis can be limited to only the biological samples if such a 
 type has been defined in the type column of the metadata table. 
 
-The checkbox can be used to create a dense view. If the box is unchecked the output will be
-visually grouped into an individual section for each metabolite.
+The checkbox can be used to create a dense view. If the box is unchecked the output will be visually grouped into an individual section for each metabolite.
 
+The plots are interactive. You can switch off labels, zoom in on particular areas of interest, or hover the mouse cursor over a datapoint to get more information about underlying sample and/or target.
 
 ## PCA
 
@@ -183,20 +247,30 @@ visually grouped into an individual section for each metabolite.
 
 
 ## Hierarchical clustering
+Hierarchical clustering is a technique for cluster analysis that seeks to build a hierarchy of clusters. It can be divided into two main types: **agglomerative** and **divisive**.  MINT uses agglomerative hierarchical clustering, also known as bottom-up clustering, starts with each data point as a separate cluster and iteratively merges the closest clusters until all points are in a single cluster or a stopping criterion is met.
 
-![Hierarchical clustering](image/hierarchical_clustering.png "Hierarchical clustering")
+### Steps for Agglomerative Clustering
+1. **Initialization**: Start with each data point as its own cluster.
+2. **Distance Calculation**: Compute the pairwise distance between all clusters.
+3. **Merge Closest Clusters**: Find the two closest clusters and merge them into a single cluster.
+4. **Update Distances**: Recalculate the distances between the new cluster and all other clusters.
+5. **Repeat**: Repeat steps 3 and 4 until all data points are in a single cluster or the desired number of clusters is achieved.
 
+### Dendrogram
+
+The output of hierarchical clustering is often visualized using a dendrogram, which is a tree-like diagram that shows the arrangement of clusters and their hierarchical relationships. Each branch of the dendrogram represents a merge or split, and the height of the branches indicates the distance or dissimilarity between clusters.
+
+### Example: Hirarchical clustering with different metrics using z-scores (for each metabolite)
+![Hierarchical clustering](image/hierarchical-clustering.png "Hierarchical clustering")
 
 ## Plotting
+With great power comes great responsibility. The plotting tool can generate impressive, and very complex plots, but it can be a bit overwhelming in the beginning. It uses the [Seaborn](http://seaborn.pydata.org/) library under the hood. Familiarity, with this library can help understanding what the different settings are doing. We recommend starting with a basic plot and then increase its complexity stepwisely.
 
-MINT comes with a flexible and powerful plotting interface that is based on the powerful [Seaborn](http://seaborn.pydata.org/) library.
-
-  - Bar plots
-  - Violin plots
-  - Boxen plot
-  - Scatter plots
-  - and more...
-
+- Bar plots
+- Violin plots
+- Boxen plot
+- Scatter plots
+- and more...
 
 ![Plot setting](image/plotting_settings.png "Plot settings")
 
