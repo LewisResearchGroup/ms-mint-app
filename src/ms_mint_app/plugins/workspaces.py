@@ -243,7 +243,7 @@ def callbacks(app, fsc, cache):
             raise PreventUpdate
         elif ws_name == "":
             return dbc.Alert("Name cannot be empty", color="warning"), True
-        elif not re.match("^[\w_-]+$", ws_name):
+        elif not re.match(r"^[\w_-]+$", ws_name):
             return (
                 dbc.Alert(
                     "Name can only contain: a-z, A-Z, 0-9, -,  _ and no blanks.",

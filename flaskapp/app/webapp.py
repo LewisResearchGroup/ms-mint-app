@@ -7,7 +7,8 @@ from flask_login import current_user
 from flask_login import login_required
 from flask_login import login_user
 from flask_login import logout_user
-from werkzeug.urls import url_parse
+from urllib.parse import urlparse as url_parse
+
 
 from app.extensions import db
 from app.forms import LoginForm

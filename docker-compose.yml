@@ -1,0 +1,16 @@
+
+services:
+  mint-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/data
+    env_file:
+      - .env
+    environment:
+      - SQLALCHEMY_DATABASE_URI=sqlite://./data/mint.db
+      - MINT_DATA_DIR=./data/
+    restart: no

@@ -33,7 +33,7 @@ COPY . /app
 WORKDIR /app
 
 # Install Python dependencies
-RUN pip install -e . && pip list
+RUN pip install . && pip list
 
 # Make the entrypoint script executable and run it
 CMD ["./entrypoint.sh"]
