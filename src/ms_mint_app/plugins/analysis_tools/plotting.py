@@ -231,6 +231,7 @@ options = [
 _layout = html.Div(
     [
         html.H3(_label),
+        dcc.Markdown('**Note**: If you want to use the transformed/scaled variable from the selection forms above. Select `x` in the dropdown menues.'),
         dbc.Row([
             dbc.Col([
               

@@ -15,13 +15,13 @@ or follow the instruction [here](https://lewisresearchgroup.github.io/ms-mint-ap
 Then start the application with
 
 ```
-Mint.py
+Mint
 ```
 
 or, if you have a prefered directory for data you can specify it with `--data-dir` e.g.:
 
 ```
-Mint.py --data-dir /data
+Mint --data-dir /data
 ```
 
 The application will take a while until it starts up. In the mean time the browser window will show
@@ -183,3 +183,5 @@ This way you can look at the whole dataset at once, sliced by `Batch` and `Label
 ## Exercise: Try to create the following plot:
 
 ![](quickstart/05-demo-plot.png)
+
+[Read more](gui.md)

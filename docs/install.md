@@ -18,7 +18,7 @@ Should download and install all necessary dependencies and Mint.
 Start the app via:
 
 ```
-Mint.py
+Mint
 ```
 
 ## Docker
@@ -30,7 +30,8 @@ The following command can be used to pull the latest image from docker hub.
 
 The image can be started with:
 
-    docker run -p 9999:9999 -it msmint/msmint:latest  -v /data/:/data/
+    docker run -p 9999:9999 -v /data/:/data/  msmint/msmint:latest Mint --data-dir /data --no-browser --host 0.0.0.0
+
 
 Then the tool is available in the browser at http://localhost:9999.
 
@@ -54,11 +55,11 @@ pip install -e .
 ```
 
 ## Options
-After installation `Mint` can be started by running `Mint.py`.
+After installation Mint can be started by running `Mint`.
 
 ```console
-Mint.py --help
-usage: Mint.py [-h] [--no-browser] [--version] [--data-dir DATA_DIR] [--debug] [--port PORT] [--serve-path SERVE_PATH]
+Mint --help
+usage: Mint [-h] [--no-browser] [--version] [--data-dir DATA_DIR] [--debug] [--port PORT] [--serve-path SERVE_PATH]
 
 MINT frontend.
 

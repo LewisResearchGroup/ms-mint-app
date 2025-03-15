@@ -16,7 +16,7 @@ or for the identification of pathogens such as methicillin resistant _Staphyloco
 More information on how to install and run the program can be found in the [Documentation](https://LewisResearchGroup.github.io/ms-mint-app/) or check out the 
 [Tutorial](https:///LewisResearchGroup.github.io/ms-mint-app/quickstart/) to jump right into it.
 
-![Screenshot](docs/gallery/MINT-interface-1.png)
+![Screenshot](https://lewisresearchgroup.github.io/ms-mint-app/image/hierarchical-clustering.png)
 
 ## News
 Starting with version 1.0.0, we have updated the installation setup to use pyproject.toml. Additionally, the main script to start Mint has been changed from Mint.py to Mint. Furthermore, each release of the repository will now be assigned a DOI to facilitate citation of the software.

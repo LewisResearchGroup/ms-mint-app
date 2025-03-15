@@ -54,7 +54,7 @@ You want to edit metadata table to:
 - Rename peaks definitions or change parameters
 - Delete peak definitions
 
-![Targetlists](image/peaklist.png "Peaklist")
+![Targetlists](image/targets.png "Peaklist")
 
 Targetlists are collection of peak definitions for the extraction of MS intensities beloning to individual metabolites. 
 Targetlists can be provided as Excel or CSV files. Targetlists are explained in more detail [here](targets.md).
@@ -71,7 +71,7 @@ with the optimization tools.
 ![Add metabolites](image/add-metabolites.png "Add metabolites")
 
 
-## Peak Optimization
+## Optimization
 
  - Optimize retention times for all peaks or individual peaks
  - Preview all peakshapes with quality indicator
@@ -81,8 +81,7 @@ Additionally, aging of the column leads to drifts in RT that have to be accounte
 The tools in the peak optimization tab can be used to quickly review all  peak definitions in 
 the presently loaded peaklist. 
 
-![Peak optimization](image/peak-optimization.png "Peak optimization")
-
+![Target optimization](image/target-optimization.png)
 
 The `GENERATE PEAK PREVIEWS` generates a preview of all peak definitions and plots the
 coresponding chromatograms for all files. The peaks can be reviewed and modified one by one

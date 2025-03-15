@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ms-mint-app"
-description = "Metabolomics Integrator (Mint)"
+description = "Metabolomics Integrator Interactive Web-Application (Mint)"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {file = "LICENSE"}
@@ -42,14 +42,15 @@ dependencies = [
   "dask[diskcache]",
   "h5py",
   "hdf5plugin",
-  "werkzeug==2.2.2",
-  "packaging==21.3.0"
+  "werkzeug==3.0.6",
+  "packaging==21.3.0",
+  "email-validator"
 ]
 dynamic = ["version"]
 
 [project.urls]
 Homepage = "https://github.com/LewisResearchGroup/ms-mint-app"
-Documentation = "https://github.com/LewisResearchGroup/ms-mint-app#readme"
+Documentation = "https://lewisresearchgroup.github.io/ms-mint-app/"
 Repository = "https://github.com/LewisResearchGroup/ms-mint-app.git"
 "Bug Tracker" = "https://github.com/LewisResearchGroup/ms-mint-app/issues"
 

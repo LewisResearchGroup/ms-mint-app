@@ -21,4 +21,5 @@ data.sqlite
 app.db
 docs/_*
 *_version.py
+*/tmp/*
 
