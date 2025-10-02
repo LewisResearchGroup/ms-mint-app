@@ -5,21 +5,27 @@
 To build the source distribution and wheel for `ms-mint-app`, follow these steps:
 
 1. Navigate to the root directory of the project.
-2. Run the following command to create the source distribution (`sdist`) and wheel (`bdist_wheel`):
+2. Ensure you have `build` and `twine` installed:
 
 ```bash
-python3 setup.py sdist bdist_wheel
+pip install build twine
 ```
 
-   This will generate distribution archives in the `dist` directory.
-
-3. To upload the built package to the `ms-mint` repository, use `twine`. Ensure you have `twine` installed (`pip install twine` if not). Then, run:
+3. Build the package using `pyproject.toml`:
 
 ```bash
-python3 -m twine upload --repository ms-mint dist/ms*mint-*
+python -m build
 ```
 
-   This command will upload all matching distribution files to the specified repository.
+   This will generate distribution archives in the `dist` directory (both `.tar.gz` and `.whl` files).
+
+4. To upload the built package to PyPI, use `twine`:
+
+```bash
+python -m twine upload dist/*
+```
+
+   This command will upload all distribution files to PyPI.
 
 ## Windows Executables
 

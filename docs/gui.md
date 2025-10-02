@@ -40,7 +40,7 @@ Note that _mzXML_ and _mzML_ files will be deleted after convertion.
 - Select samples used for peak optimization by setting values in the column `PeakOpt` to `True`.
 - Add batch labels to analyse for possible batch effects.
 - Add labels to analyse for differences of different groups (e.g. treatment and control)
-- Add types for different files e.g. biological sample, quality control sample, standards etc in order to include ore exclude certain types during analysis.
+- Add types for different files e.g. biological sample, quality control sample, standards etc in order to include or exclude certain types during analysis.
 - Add other types of metadata. 
 
 ![Metadata](image/metadata.png "Metadata")
@@ -56,7 +56,7 @@ You want to edit metadata table to:
 
 ![Targetlists](image/targets.png "Peaklist")
 
-Targetlists are collection of peak definitions for the extraction of MS intensities beloning to individual metabolites. 
+Targetlists are collection of peak definitions for the extraction of MS intensities belonging to individual metabolites. 
 Targetlists can be provided as Excel or CSV files. Targetlists are explained in more detail [here](targets.md).
 Files can be uploaded via the drag and drop area or the selection tool. The targetlists can be edited in place or
 with the optimization tools.
@@ -84,9 +84,9 @@ the presently loaded peaklist.
 ![Target optimization](image/target-optimization.png)
 
 The `GENERATE PEAK PREVIEWS` generates a preview of all peak definitions and plots the
-coresponding chromatograms for all files. The peaks can be reviewed and modified one by one
-with the interactive tool. `FIND CLOSED PEAKS` iterates through all peak definitions and
-identifes the closest peak with respect to the expected RT which is displayed as black vertical line.
+corresponding chromatograms for all files. The peaks can be reviewed and modified one by one
+with the interactive tool. `FIND CLOSEST PEAKS` iterates through all peak definitions and
+identifies the closest peak with respect to the expected RT which is displayed as black vertical line.
 
 ### Manual (interactive) peak optimization
 

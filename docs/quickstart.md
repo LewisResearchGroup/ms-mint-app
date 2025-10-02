@@ -1,56 +1,56 @@
 
-# Quickstart Guide for ms-mint-app
-Welcome to the ms-mint-app quickstart guide! This guide will help you get up and running with the application, allowing you to start analyzing mass spectrometry data efficiently. Follow the steps below to install the app, create a workspace, and begin processing your data.
+# Quickstart Guide
 
-## 1. Install `ms-mint-app`
+Welcome to the MINT quickstart guide! This tutorial walks you through processing a complete LC-MS metabolomics dataset—from installation to analysis—in under 30 minutes. You'll learn the core MINT workflow using demo data from bacterial samples.
 
-If you know how to use `pip` run:
+## 1. Install MINT
 
-```
+**Quick install with pip:**
+```bash
 pip install ms-mint-app
 ```
 
-or follow the instruction [here](https://lewisresearchgroup.github.io/ms-mint-app/install/).
+For other installation methods (conda, Docker, Windows installer), see the [Installation Guide](install.md).
 
-Then start the application with
-
-```
+**Start MINT:**
+```bash
 Mint
 ```
 
-or, if you have a prefered directory for data you can specify it with `--data-dir` e.g.:
-
+**Optional:** Specify a custom data directory:
+```bash
+Mint --data-dir /path/to/your/data
 ```
-Mint --data-dir /data
-```
 
-The application will take a while until it starts up. In the mean time the browser window will show
-
-> This site can’t be reached
-
-Just wait a bit until the terminal shows `INFO:waitress:Serving on http://127.0.0.1:9999` and refresh the page.
-The application is now served on port `9999` of your local machine.
+**First launch:**
+- MINT may take 10–30 seconds to start
+- Your browser will open automatically to `http://localhost:9999`
+- If you see "This site can't be reached," wait for the terminal to show `INFO:waitress:Serving on http://127.0.0.1:9999`, then refresh
+- On first launch, you won't have any workspaces yet
 
 ![](quickstart/first-start.png)
 
-If you have never started the application before, you will not have any workspaces yet.
+## 2. Create a Workspace
 
-## 2. Create a workspace
+A **workspace** is a container for all files related to a single project. Each workspace stores MS files, metadata, target lists, and results separately.
 
-In the `Workspaces` tab click on the blue button with the label `CREATE WORKSPACE`. A dialogue opens asking you for the name of the future workspace. Type `DEMO` into the text field and click on `CREATE`.
+**Steps:**
+1. Navigate to the **Workspaces** tab
+2. Click **CREATE WORKSPACE**
+3. Enter `DEMO` as the workspace name
+4. Click **CREATE**
 
 ![Create workspace](quickstart/create-workspace.png)
 
-Now you have created your first workspace, but it is empty. We will need some input files to populate it.
-You can see which workspace is activated in the light-blue info box:
+Your workspace is now active (shown in the blue info box at the top):
 
-![Worspace active](quickstart/workspace-activated.png)
+![Workspace active](quickstart/workspace-activated.png)
 
-## 3. Download the demo files
+## 3. Download Demo Data
 
-Some demo files are available for download on the `ms-mint` Google-Drive. Go on and download the files from [Google Drive](https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link) and extract the archive.
+Download the demo dataset from [Google Drive](https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link) and extract the archive.
 
-You will find two `csv` files and 12 `mzXML` and/or `mzML` files. 
+**Dataset contents:** 
 
 ```
 .
@@ -76,28 +76,48 @@ You will find two `csv` files and 12 `mzXML` and/or `mzML` files.
 4 directories, 15 files
 ```
 
-- A folder with 12 mass-spectrometry (MS) files from microbial samples. We have four files for each _Staphylococcus aureus_ (SA), _Escherichia coli_ (EC), and _Candida albicans_ (CA).
-Each file belongs to one of four batches (B1-B4). 
-- `metadata.csv` contains this information in tabular format. Setting up the metadata for your project is essential. 
-- `targets.csv` contains the extraction lists. The identification of the metabolites has been done before, so we know where the metabolites appear in the MS data.
+**What's in the demo data?**
 
-## 4. Upload LCMS files 
+- **12 LC-MS files** (mzXML/mzML format) from three bacterial species:
+  - _Staphylococcus aureus_ (SA) - 4 replicates
+  - _Escherichia coli_ (EC) - 4 replicates
+  - _Candida albicans_ (CA) - 4 replicates
+  - Each replicate from one of four batches (B1–B4)
 
-Switch to `MS-Files` tab and upload the 12 MS files, by either using the Explorer/Finder to the Upload field, or by clicking on the upload field and selecting the files in the dialogue box that opens. Wait until all files are uploaded:
+- **metadata.csv** - Sample information including organism labels, batches, and experimental conditions
+
+- **targets.csv** - Target list with metabolite m/z values and retention times (metabolites were previously identified)
+
+## 4. Upload LC-MS Files
+
+**Steps:**
+1. Navigate to the **MS-Files** tab
+2. Drag and drop all 12 MS files into the upload area (or click to browse)
+3. Wait for upload to complete
 
 ![](quickstart/ms-files-uploaded.png)
 
-To speed up future processing you can now convert these files to the `.feather` format, by selecting all files and clicking on "CONVERT SELECTED FILES TO FEATHER".
+**Optional but recommended:** Convert files to Feather format for faster processing:
+- Select all files
+- Click **CONVERT SELECTED FILES TO FEATHER**
+- This creates optimized `.feather` files and removes the original mzML/mzXML files
 
-## 5. Add metadata
+## 5. Add Metadata
 
-Switch to `Metadata` and upload `metadata.csv`. This will populate the table with important information.
+Metadata links your MS files to experimental conditions (sample groups, batches, quality control designations, etc.). This is **essential** for meaningful analysis.
+
+**Steps:**
+1. Navigate to the **Metadata** tab
+2. Upload `metadata.csv`
+3. Review the populated table
 
 ![](quickstart/metadata-added.png)
 
-This file contains critical information about your samples, and setting up the metadata accurately and meticulously is essential. 
-The metadata table is a cornerstone for downstream processes in `ms-mint` and should not be omitted. 
-Properly configured metadata enhances the quality and precision of your results, making it a vital component of your workflow.
+**Why metadata matters:**
+- Enables grouping and coloring in visualizations
+- Controls which samples are used for optimization
+- Tracks batch effects and quality control samples
+- Powers statistical comparisons between groups
 
 | Column Name           | Description                                                                                                                                   |
 |-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
@@ -115,73 +135,138 @@ Properly configured metadata enhances the quality and precision of your results,
 | `ionization_mode`     | Mode of ionization used in the mass spectrometry.                                                                                             |
 
 
-## 5. Add targets (metabolites)
-Switch to `Targets` and upload `MINT-targets.csv`.
+## 6. Add Targets (Metabolites)
+
+The **target list** defines which metabolites to extract from your LC-MS data. Each target specifies an m/z value and retention time window.
+
+**Steps:**
+1. Navigate to the **Targets** tab
+2. Upload `targets.csv` (or `MINT-targets.csv`)
+3. Review the target table
+
 ![](quickstart/targets-table.png)
 
-This is the data extraction protocol. This determines what data is extracted from the files. The same protocol is applied to all files. No fitting or peak optimization is done. 
-MINT therefore requires a very stable chromatographic column and stable retention times for all files in a workspace. 
+**Important notes:**
+- The same extraction protocol is applied to all files
+- MINT is designed for **targeted** analysis (not untargeted peak picking)
+- Requires stable chromatography and consistent retention times
+- See [Target Lists documentation](targets.md) for target file format details 
 
-## 6. Optimize retention times
-Switch to `Peak Optimization` tab and select `Use all files` in the `File selection` menu. Normally, especially for large datasets, you should select a small representative set of samples including standards (with known concentrations of the target metabolites). The peak optimization takes longer the more files are used for it and the more targets are defined. 'Click on `UPDATE PEAK PREVIEWS`. 
+## 7. Optimize Retention Times
+
+Retention times can drift between runs due to column aging or temperature variations. MINT's optimization tools help you verify and adjust retention time windows.
+
+**Steps:**
+1. Navigate to the **Peak Optimization** tab
+2. In **File selection**, choose `Use all files` (for this small demo dataset)
+   - *For large datasets:* Select a representative subset including QC/standard samples
+3. Click **UPDATE PEAK PREVIEWS**
 
 ![](quickstart/peak-preview.png)
 
-This will show you the shapes of the data in the selected regions as an overview. This is a great way to validate that your target parameters are correct. 
-However, you have to make sure that the metabolite you are looking for is present in the files. That is why you should always add some standard samples.
-The colors in the plots correspond to the colors in the metadata table.
+**What you're seeing:**
+- Peak shapes for all targets across selected files
+- Colors match those in your metadata table
+- Validates that targets are correctly defined and present in your samples
 
-You can use the interactive tool below to optimize the retention time for each target manually. You can do that by zooming in towards the area that you want to select as peak and then click on `SET RT TO CURRENT VIEW`. The green area is what is currently selected as retention time (RT) range. The black bar is the expected retention time of the peak maximum that you usually know from former experiments. This way you can compare the peak with older experiments. To set the expected RT to the middle of the current window press `CONFIRM RETENTION TIME`. If the target is not present in any of the files, you can and should remove it from the target list by clicking on `REMOVE TARGET`. 
+**Manual optimization (optional):**
+
+Use the interactive tool below the previews to fine-tune individual targets:
 
 ![](quickstart/peak-optimization.png)
 
-- if you are happy with the peak shapes you can proceed to `Processing`.
+- **Zoom** to the region of interest
+- **SET RT TO CURRENT VIEW** - Updates the retention time window (green box)
+- **CONFIRM RETENTION TIME** - Sets expected RT to center of current view
+- **REMOVE TARGET** - Delete targets not present in your samples
 
-## 7. Process the data
+The black vertical line shows the expected RT from your target list for comparison with previous experiments.
 
-Switch to `Processing` and start the data extraction with `Run MINT`
+When satisfied with all peak shapes, proceed to **Processing**.
+
+## 8. Process the Data
+
+Now run the full data extraction across all samples and targets.
+
+**Steps:**
+1. Navigate to the **Processing** tab
+2. Click **RUN MINT**
+3. Wait for the progress bar to complete
+4. A green notification will appear: `Finished running MINT`
 
 ![](quickstart/run-mint.png)
 
-The extraction process is done when you get a green notification `Finished running MINT`.
-Now, you can download the results in long-format or the dense peak_max values. 
-The tidy format contains all results, while the `DENSE PEAK_MAX` only contians the `peak_max` values as a matrix. 
+**Download results:**
+- **DOWNLOAD ALL RESULTS** - Complete dataset in tidy (long) format
+- **DOWNLOAD DENSE MATRIX** - Peak values in matrix format (samples × metabolites)
+  - Select which metric to export (e.g., `peak_max`, `peak_area`)
+  - Option to transpose the matrix
 
 
-## 8. Analyze the results.
+## 9. Analyze the Results
 
-Once the results are generated the 'Heatmap` tab will show an interactive heatmap.
-You can change the size of the heatmap by changing your browser window and `UPDATE` the plot.
-The heatmap shows the `peak_max` values. The dropdown menu provides some options.
+Once processing completes, you can explore your data with MINT's built-in visualization tools.
 
-## 9. Switch to `Analysis/Plotting`
+### Heatmap
 
-The plotting tool is very powerful, but requires some practise. It is a wrapper of the powerful seaborn API. 
-Let's create a few simple visualizations.
+Navigate to the **Heatmap** tab to see an interactive heatmap of your results.
+
+**Customization options:**
+- Cluster rows/columns
+- Show dendrograms
+- Transpose matrix
+- Calculate correlations between metabolites
+- Filter by sample type
+
+Resize your browser window and click **UPDATE** to regenerate the plot.
+
+### Analysis/Plotting Tool
+
+The **Analysis/Plotting** tab provides a powerful interface for creating custom visualizations using [Seaborn](https://seaborn.pydata.org/).
+
+**Let's create a simple bar plot:**
+
+1. Navigate to **Analysis/Plotting**
+2. Default settings create a basic bar plot showing average peak intensities:
 
 ![](quickstart/01-demo-plot.png)
 
-
-And click on `Update`. A very simple bar-graph is shown, and we will gradually make it more complex. 
-This simple bar graph shows the average `peak_max` value across the whole dataset for all targets. 
-
-### a) select `peak_label` for the `X` axis.
-### b) set aspect-ratio to 5.
-### c) select `Logarithmic y-scale` in the dropdown options.
-### d) click on `UPDATE`.
+3. **Improve the plot step-by-step:**
+   - Set **X axis** to `peak_label`
+   - Set **Aspect ratio** to `5`
+   - Enable **Logarithmic y-scale**
+   - Click **UPDATE**
 
 ![](quickstart/02-demo-plot.png)
 
-### e) set figure height to `1.5` and aspect ratio to `2`.
-### e) set `Column` to `Label`.
-### f) set `Row` to `Batch`.
+4. **Create faceted plots by group:**
+   - Set **Figure height** to `1.5`
+   - Set **Aspect ratio** to `2`
+   - Set **Column** to `Label` (organism)
+   - Set **Row** to `Batch`
+   - Click **UPDATE**
 
 ![](quickstart/03-demo-plot.png)
 
-This way you can look at the whole dataset at once, sliced by `Batch` and `Label`
+This creates a grid showing all metabolites across all organisms and batches simultaneously!
 
-## Exercise: Try to create the following plot:
+**Challenge:** Try to recreate this plot:
 
 ![](quickstart/05-demo-plot.png)
 
-[Read more](gui.md)
+*Hint: Experiment with different plot types (violin, box, strip) and color/hue settings.*
+
+## Next Steps
+
+Congratulations! You've completed the MINT quickstart tutorial. You now know how to:
+- ✅ Install and launch MINT
+- ✅ Create workspaces and upload data
+- ✅ Define targets and optimize retention times
+- ✅ Process LC-MS data
+- ✅ Visualize and analyze results
+
+**Learn more:**
+- [GUI Documentation](gui.md) - Complete interface reference
+- [Target Lists](targets.md) - Target file format details
+- [GitHub Issues](https://github.com/LewisResearchGroup/ms-mint-app/issues) - Report bugs or request features
+- [Lewis Research Group Software](https://www.lewisresearchgroup.org/software) - Other metabolomics tools

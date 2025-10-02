@@ -1,76 +1,132 @@
-   
-# Installation notes
-## Windows Installer
-For Windows 10/11 a build is provided [here](https://github.com/soerendip/ms-mint/releases/latest). 
-The installer generates an icon in the windows start menu. There will be a terminal be shown, 
-with potentially some errors due to missing files which can be ignored. Give it some time until
-the server is running and then navigate to [http://localhost:9999](http://localhost:9999) 
-in the browser.
 
-## Installation with `pip`
-The latest release of the program can easily be installed 
-in a standard Python 3 (>= 3.7) environment using the widely used
-package manager `pip`:
+# Installation Guide
 
-    pip install ms-mint-app
+MINT can be installed via multiple methods. Choose the one that best fits your environment.
 
-Should download and install all necessary dependencies and Mint.
-Start the app via:
+## Windows Installer (Recommended for Windows Users)
 
+A standalone Windows installer is available for Windows 10 and 11.
+
+**Download:** [Latest Windows Installer](https://github.com/LewisResearchGroup/ms-mint-app/releases/latest)
+
+**Installation:**
+1. Download and run the installer
+2. An icon will be added to your Start Menu
+3. Launch MINT from the Start Menu
+4. A terminal window will appear (you may see harmless error messages—these can be ignored)
+5. Wait for the server to start (10–30 seconds)
+6. Your browser will open automatically to [http://localhost:9999](http://localhost:9999)
+   - If it doesn't, open the URL manually once the terminal shows `Serving on http://127.0.0.1:9999`
+
+## Installation with pip (Recommended for Python Users)
+
+The easiest way to install MINT is via `pip`. This works on Windows, macOS, and Linux.
+
+**Requirements:**
+- Python 3.9 or higher
+
+**Installation:**
+```bash
+pip install ms-mint-app
 ```
+
+This installs MINT and all dependencies.
+
+**Launch MINT:**
+```bash
 Mint
 ```
 
-## Docker
-MINT is now available on DockerHub in containerized format. A container is a standard unit of software that packages up code and all its dependencies, so the application runs quickly and reliably from one computing environment to another. In contrast to a virtual machine (VM), a Docker container image is a lightweight, standalone, executable package of software that includes everything needed to run an application: code, runtime, system tools, system libraries and settings. This allows to run MINT on any computer that can run Docker.
+**Options:**
+- `--data-dir /path/to/data` - Specify custom data directory (default: `~/MINT`)
+- `--port 8080` - Change the port (default: 9999)
+- `--no-browser` - Don't open browser automatically
+- `--debug` - Enable debug mode with auto-reload
+- `--help` - Show all options
 
-The following command can be used to pull the latest image from docker hub.
-
-    docker pull msmint/msmint:latest
-
-The image can be started with:
-
-    docker run -p 9999:9999 -v /data/:/data/  msmint/msmint:latest Mint --data-dir /data --no-browser --host 0.0.0.0
-
-
-Then the tool is available in the browser at http://localhost:9999.
-
-## Installation from source
-We recommend using [conda](https://docs.anaconda.com/free/miniconda/) or [mamba](https://conda-forge.org/miniforge/) to create a virtual environment before installing `ms-mint-app`.
-
+**Example with custom data directory:**
 ```bash
-# Create conda environment
-mamba create -n ms-mint pip
-mamba activate ms-mint
+Mint --data-dir /data/metabolomics
+```
 
-# Get the code
+## Docker (For Server Deployments)
+
+MINT is available as a Docker container, ideal for server deployments or reproducible environments.
+
+**Pull the latest image:**
+```bash
+docker pull msmint/msmint:latest
+```
+
+**Run MINT:**
+```bash
+docker run -p 9999:9999 -v /path/to/data:/data msmint/msmint:latest Mint --data-dir /data --no-browser --host 0.0.0.0
+```
+
+**Access MINT:**
+Open your browser to [http://localhost:9999](http://localhost:9999)
+
+**What this command does:**
+- `-p 9999:9999` - Maps port 9999 from container to host
+- `-v /path/to/data:/data` - Mounts your local data directory into the container
+- `--no-browser` - Prevents auto-opening browser (useful for remote servers)
+- `--host 0.0.0.0` - Allows external connections (important for containers)
+
+## Installation from Source (For Developers)
+
+For development or to use the latest unreleased features, install from source.
+
+**Recommended:** Use [conda](https://docs.anaconda.com/free/miniconda/) or [mamba](https://conda-forge.org/miniforge/) to create a virtual environment.
+
+**Steps:**
+```bash
+# Create and activate conda environment
+conda create -n ms-mint python=3.9 pip
+conda activate ms-mint
+
+# Clone the repository
 git clone https://github.com/LewisResearchGroup/ms-mint-app
 cd ms-mint-app
 
-# Install the package normally
-pip install .
-
-# Or, install the package in development mode
+# Install in development mode (editable)
 pip install -e .
+
+# Or install normally
+pip install .
 ```
 
-## Options
-After installation Mint can be started by running `Mint`.
+**Development mode (`-e`)** allows you to edit the source code and see changes without reinstalling.
 
-```console
-Mint --help
-usage: Mint [-h] [--no-browser] [--version] [--data-dir DATA_DIR] [--debug] [--port PORT] [--serve-path SERVE_PATH]
+## Troubleshooting
 
-MINT frontend.
+### Browser doesn't open automatically
+- Wait for the terminal to show: `INFO:waitress:Serving on http://127.0.0.1:9999`
+- Manually open [http://localhost:9999](http://localhost:9999)
 
-optional arguments:
-  -h, --help            show this help message and exit
-  --no-browser          do not start the browser
-  --version             print current version
-  --data-dir            target directory for MINT data
-  --debug               start MINT server in debug mode
-  --port                change the port
-  --serve-path          serve app at a different path e.g. '/mint/' to serve the app at 'localhost:9999/mint/'
+### Port already in use
+Change the port with `--port`:
+```bash
+Mint --port 8080
 ```
 
-If the browser does not open automatically open it manually and navigate to `http://localhost:9999`. The app's frontend is build using [Plotly-Dash](https://plot.ly/dash/) and runs locally in a browser. Thought, the Python functions provided can be imported and used in any Python project independently. The GUI is under active development and may be optimized in the future.
+### Permission errors on Windows
+Run the installer or terminal as Administrator.
+
+### Python version issues
+MINT requires Python 3.9 or higher. Check your version:
+```bash
+python --version
+```
+
+## Next Steps
+
+Once installed, proceed to the [Quickstart Tutorial](quickstart.md) to learn how to use MINT.
+
+## Technical Details
+
+- **Frontend**: Built with [Plotly Dash](https://dash.plotly.com/)
+- **Backend**: Python with the [ms-mint](https://github.com/LewisResearchGroup/ms-mint) library
+- **Server**: Runs locally using Waitress WSGI server
+- **Data Storage**: Files stored in `~/MINT` by default (configurable with `--data-dir`)
+
+The MINT GUI is under active development. For programmatic access, you can import and use functions from the `ms-mint` Python library directly in your own scripts.

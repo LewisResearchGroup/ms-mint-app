@@ -1,13 +1,16 @@
-site_name: ms-mint-app
-site_url: https://github.com/lewisresearchgroup/ms-mint-app
-site_author: Soren Wacker 
+site_name: MINT - Metabolomics Integrator
+site_url: https://lewisresearchgroup.github.io/ms-mint-app/
+site_author: Soren Wacker
+repo_url: https://github.com/LewisResearchGroup/ms-mint-app
+repo_name: LewisResearchGroup/ms-mint-app
 nav:
   - Home: 'index.md'
-  - Installation: 'install.md' 
+  - Installation: 'install.md'
   - Quickstart: 'quickstart.md'
   - GUI: 'gui.md'
   - Target lists: 'targets.md'
   - Developer Notes: 'developer-notes.md'
+  - Contributing: '../CONTRIBUTING.md'
   - Gallery: 'gallery.md'
 extra:
   analytics:

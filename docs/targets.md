@@ -1,12 +1,12 @@
 # Target lists
-A target list contains the definitions of peaks to be extracted in terms of retention time and mz value. The important parameters for MINT are `rt_min` and `rt_max`. The `rt` value is only used as an estimate and used for comparison. You should know, from former identification runs, at what retention time to expect a certain metabolite. This is what `rt` is for. For the final extraction process however `rt_min` and `rt_max` are used. Before you process the MS files, you should check that all targts have `rt_min` and `rt_max` properly set. 
+A target list contains the definitions of peaks to be extracted in terms of retention time and m/z value. The important parameters for MINT are `rt_min` and `rt_max`. The `rt` value is only used as an estimate and used for comparison. You should know, from former identification runs, at what retention time to expect a certain metabolite. This is what `rt` is for. For the final extraction process however `rt_min` and `rt_max` are used. Before you process the MS files, you should check that all targets have `rt_min` and `rt_max` properly set. 
 
 
 ### Target list format
 
 The target list is the determining protocol for the data processing step. You can reproduce all results using this list as input. A target list can be provided as `csv` (comma separated values) or `xlsx` (Microsoft Excel) file. 
 
-> If the preaklist is provided as multi-sheet xlsx file the target list should be the first sheet.
+> If the peaklist is provided as multi-sheet xlsx file the target list should be the first sheet.
 
 The input files contains a number of columns headers in the target list should contain:
 
