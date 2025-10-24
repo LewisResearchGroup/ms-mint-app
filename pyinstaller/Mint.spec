@@ -4,7 +4,7 @@ from PyInstaller.utils.hooks import collect_submodules
 
 src_dir = os.path.abspath(os.path.join(SPECPATH, os.pardir))
 hooks_dir = os.path.join(src_dir, 'pyinstaller', 'hooks')
-script = os.path.join(src_dir, 'scripts', 'Mint.py')
+script = os.path.join(src_dir, 'src', 'ms_mint_app', 'scripts', 'Mint.py')
 
 
 all_hidden_imports = (

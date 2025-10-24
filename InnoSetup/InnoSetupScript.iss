@@ -2,10 +2,15 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "MINT"
-#define MyAppVersion "0.2.1"
+#ifndef MyAppVersion
+  #define MyAppVersion "0.2.1"
+#endif
 #define MyAppPublisher "Lewis Research Group (University of Calgary)"
 #define MyAppURL "https://github.com/LewisResearchGroup/ms-mint-app"
 #define MyAppExeName "Mint.exe"
+#ifndef SourcePath
+  #define SourcePath "C:\Users\soere\workspace\ms-mint-app"
+#endif
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
@@ -20,12 +25,13 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=C:\Users\soere\workspace\ms-mint-app\LICENSE
-InfoBeforeFile=C:\Users\soere\workspace\ms-mint-app\README.md
+LicenseFile={#SourcePath}\LICENSE
+InfoBeforeFile={#SourcePath}\README.md
 ; Remove the following line to run in administrative install mode (install for all users.)
 PrivilegesRequired=lowest
-OutputBaseFilename=mysetup
-SetupIconFile=C:\Users\soere\workspace\ms-mint-app\ms_mint_app\static\logo\logo.ico
+OutputDir={#SourcePath}\InnoSetup\Output
+OutputBaseFilename=MINT-{#MyAppVersion}-Setup
+SetupIconFile={#SourcePath}\src\ms_mint_app\static\logo\logo.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -37,8 +43,8 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
 
 [Files]
-Source: "C:\Users\soere\workspace\ms-mint-app\pyinstaller\dist\Mint\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\Users\soere\workspace\ms-mint-app\pyinstaller\dist\Mint\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "{#SourcePath}\pyinstaller\dist\Mint\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "{#SourcePath}\pyinstaller\dist\Mint\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
