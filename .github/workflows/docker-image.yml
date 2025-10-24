@@ -13,6 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    if: github.event_name != 'release' || github.event.release.prerelease == false
 
     steps:
     - uses: actions/checkout@v3

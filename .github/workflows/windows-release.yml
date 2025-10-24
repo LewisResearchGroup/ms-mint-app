@@ -67,11 +67,10 @@ jobs:
         ls -la InnoSetup/Output/
 
     - name: Upload Installer to Release
-      uses: actions/upload-release-asset@v1
+      shell: bash
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./InnoSetup/Output/MINT-${{ steps.get_version.outputs.version }}-Setup.exe
-        asset_name: MINT-${{ steps.get_version.outputs.version }}-Setup.exe
-        asset_content_type: application/octet-stream
+      run: |
+        gh release upload ${{ github.event.release.tag_name }} \
+          ./InnoSetup/Output/MINT-${{ steps.get_version.outputs.version }}-Setup.exe \
+          --clobber
