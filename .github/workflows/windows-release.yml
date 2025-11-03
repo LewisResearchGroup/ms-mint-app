@@ -2,7 +2,7 @@ name: Build Windows Installer
 
 on:
   release:
-    types: [created, published, prereleased]
+    types: [published]
 
 jobs:
   build-windows:
@@ -11,12 +11,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-depth: 1
 
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: '3.11'
+        cache: 'pip'
 
     - name: Get version from tag
       id: get_version
@@ -28,6 +29,13 @@ jobs:
         VERSION="${VERSION#v}"
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "Version: $VERSION"
+
+    - name: Cache Inno Setup
+      id: cache-innosetup
+      uses: actions/cache@v4
+      with:
+        path: C:\Program Files (x86)\Inno Setup 6
+        key: innosetup-6
 
     - name: Install dependencies
       env:
@@ -48,6 +56,7 @@ jobs:
         ls -la pyinstaller/dist/Mint/
 
     - name: Install Inno Setup
+      if: steps.cache-innosetup.outputs.cache-hit != 'true'
       run: |
         choco install innosetup -y
 

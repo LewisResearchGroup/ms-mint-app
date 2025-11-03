@@ -7,14 +7,21 @@ hooks_dir = os.path.join(src_dir, 'pyinstaller', 'hooks')
 script = os.path.join(src_dir, 'src', 'ms_mint_app', 'scripts', 'Mint.py')
 
 
+# Only collect submodules for packages that PyInstaller typically misses
+# For large packages like sklearn, scipy, pyarrow - let PyInstaller's
+# automatic detection handle them. This is much faster.
 all_hidden_imports = (
-    collect_submodules('sklearn')
-    + collect_submodules('bs4')
-    + collect_submodules('scipy')
-    + collect_submodules('pyarrow')
-    + collect_submodules('ms_mint_app')
-    + collect_submodules('packaging')
-    + collect_submodules('brotli')
+    collect_submodules('ms_mint_app')  # Our own package - always include
+    + [
+        # Add specific hidden imports only if needed
+        'bs4',
+        'bs4.builder._htmlparser',
+        'packaging',
+        'packaging.version',
+        'packaging.specifiers',
+        'packaging.requirements',
+        'brotli',
+    ]
 )
 
 
