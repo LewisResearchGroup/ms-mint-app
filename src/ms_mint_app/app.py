@@ -114,6 +114,20 @@ logout_button = html.A(href="/logout", children=logout_button)
 
 _layout = html.Div(
     [
+        # Header with logo
+        html.Div([
+            html.Img(
+                src="/assets/MINT-logo-header.png",
+                style={
+                    "height": "60px",
+                    "marginBottom": "10px",
+                    "display": "block",
+                    "marginLeft": "auto",
+                    "marginRight": "auto"
+                }
+            ),
+        ], style={"textAlign": "center", "marginBottom": "10px"}),
+
         html.Div(logout_button),
         dcc.Interval(
             id="progress-interval", n_intervals=0, interval=2000, disabled=False
