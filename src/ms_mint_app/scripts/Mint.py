@@ -143,14 +143,43 @@ def main():
     # Open browser after app is configured and ready
     if not args.no_browser:
         if sys.platform in ["win32", "nt"]:
-            os.startfile(url)
+            # Try to open Chrome/Edge in app mode first, fallback to default browser
+            browser_paths = [
+                # Chrome paths
+                (os.path.expandvars(r"%ProgramFiles%\Google\Chrome\Application\chrome.exe"), f"--app={url}"),
+                (os.path.expandvars(r"%ProgramFiles(x86)%\Google\Chrome\Application\chrome.exe"), f"--app={url}"),
+                (os.path.expandvars(r"%LocalAppData%\Google\Chrome\Application\chrome.exe"), f"--app={url}"),
+                # Edge paths (pre-installed on Windows 10+)
+                (os.path.expandvars(r"%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe"), f"--app={url}"),
+                (os.path.expandvars(r"%ProgramFiles%\Microsoft\Edge\Application\msedge.exe"), f"--app={url}"),
+            ]
+            opened = False
+            for browser_path, flag in browser_paths:
+                if os.path.exists(browser_path):
+                    try:
+                        subprocess.Popen([browser_path, flag])
+                        opened = True
+                        break
+                    except:
+                        pass
+            if not opened:
+                # Fallback to default browser
+                os.startfile(url)
         elif sys.platform == "darwin":
-            subprocess.Popen(["open", url])
-        else:
+            # Try Chrome app mode on macOS, fallback to default
             try:
-                subprocess.Popen(["xdg-open", url])
+                subprocess.Popen(["open", "-a", "Google Chrome", "--args", f"--app={url}"])
+            except:
+                subprocess.Popen(["open", url])
+        else:
+            # Linux: try Chrome app mode, fallback to default
+            try:
+                subprocess.Popen(["google-chrome", f"--app={url}"])
             except OSError:
-                print("Please open a browser on: ", url)
+                try:
+                    subprocess.Popen(["xdg-open", url])
+                except OSError:
+                    print("Please open a browser on: ", url)
     else:
         print(f"Server starting at {url}")
 
