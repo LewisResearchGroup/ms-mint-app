@@ -1,6 +1,6 @@
 # MINT - Metabolomics Integrator
 
-MINT is a web-based post-processing tool for **liquid chromatography-mass spectrometry (LC-MS)** based metabolomics. It provides an intuitive browser interface for extracting, visualizing, and analyzing targeted metabolomics data from complex biological samples.
+MINT is a comprehensive toolkit for **liquid chromatography-mass spectrometry (LC-MS)** based metabolomics, providing both a powerful Python library and an intuitive web-based interface for extracting, visualizing, and analyzing targeted metabolomics data from complex biological samples.
 
 ![Screenshot](quickstart/peak-preview.png)
 _**Figure 1:** MINT browser interface showing interactive peak preview with retention time optimization._
@@ -14,7 +14,7 @@ Metabolomics—the comprehensive study of small molecule metabolites in biologic
 - **Drug Discovery**: Understanding metabolic pathways and drug effects
 - **Environmental Science**: Tracking metabolic responses to environmental changes
 
-MINT streamlines the LC-MS data processing workflow with powerful features for targeted metabolite quantification, quality assessment, and statistical analysis.
+MINT streamlines the LC-MS data processing workflow with powerful features for targeted metabolite quantification, quality assessment, and statistical analysis. It is particularly well-suited for handling **large amounts of data (10,000+ files)**.
 
 ## Quick Links
 
@@ -23,6 +23,7 @@ MINT streamlines the LC-MS data processing workflow with powerful features for t
 - **[Demo Data](https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link)** - Download test data with sample LC-MS files and target lists
 - **[GUI Documentation](gui.md)** - Detailed interface guide
 - **[Target Lists](targets.md)** - How to define extraction protocols
+- **[Python Library Documentation](https://lewisresearchgroup.github.io/ms-mint)** - Core ms-mint library for scripts and notebooks
 
 ## Resources
 
@@ -109,4 +110,26 @@ _**Figure 4:** Hierarchical clustering heatmap showing metabolic profiles of 12 
 
 Ready to try MINT? Head to the **[Quickstart Tutorial](quickstart.md)** to process demo data in under 30 minutes, or visit the **[Installation Guide](install.md)** to set up MINT on your system.
 
-For questions, bug reports, or feature requests, please visit our [GitHub Issues](https://github.com/LewisResearchGroup/ms-mint-app/issues) page.
+## Citation
+
+When using MINT in your research, please cite:
+
+- **ms-mint library**: DOI: [10.5281/zenodo.12733875](https://zenodo.org/doi/10.5281/zenodo.12733875)
+- **ms-mint-app**: DOI: [10.5281/zenodo.13121148](https://zenodo.org/doi/10.5281/zenodo.13121148)
+
+## Support
+
+- [GitHub: ms-mint Issues](https://github.com/LewisResearchGroup/ms-mint/issues)
+- [GitHub: ms-mint-app Issues](https://github.com/LewisResearchGroup/ms-mint-app/issues)
+
+## Contributing
+
+MINT is an open-source project. Contributions are welcome!
+
+- Report issues on GitHub
+- Submit pull requests
+- Share improvements and extensions
+
+## Disclaimer
+
+MINT is provided as-is. Always validate results and consult domain experts.
