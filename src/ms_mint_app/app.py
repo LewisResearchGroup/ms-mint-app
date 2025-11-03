@@ -114,43 +114,41 @@ logout_button = html.A(href="/logout", children=logout_button)
 
 _layout = html.Div(
     [
-        # Header with logo
+        # Header with logo and buttons
         html.Div([
             html.Img(
                 src="/assets/MINT-logo-header.png",
                 style={
-                    "height": "60px",
-                    "marginBottom": "10px",
-                    "display": "block",
-                    "marginLeft": "auto",
-                    "marginRight": "auto"
+                    "height": "50px",
+                    "float": "left",
+                    "marginRight": "20px"
                 }
             ),
-        ], style={"textAlign": "center", "marginBottom": "10px"}),
+            html.A(
+                href=f"https://github.com/LewisResearchGroup/ms-mint-app/issues/new?body={T.get_issue_text()}",
+                children=[
+                    html.Button(
+                        "Issues", id="B_issues", style={"float": "right", "color": "info"}
+                    )
+                ],
+                target="_blank",
+            ),
+            html.A(
+                href="https://lewisresearchgroup.github.io/ms-mint-app/gui/",
+                children=[
+                    html.Button(
+                        "Documentation",
+                        id="B_help",
+                        style={"float": "right", "color": "info"},
+                    )
+                ],
+                target="_blank",
+            ),
+        ], style={"marginBottom": "20px", "overflow": "auto"}),
 
         html.Div(logout_button),
         dcc.Interval(
             id="progress-interval", n_intervals=0, interval=2000, disabled=False
-        ),
-        html.A(
-            href="https://lewisresearchgroup.github.io/ms-mint-app/gui/",
-            children=[
-                html.Button(
-                    "Documentation",
-                    id="B_help",
-                    style={"float": "right", "color": "info"},
-                )
-            ],
-            target="_blank",
-        ),
-        html.A(
-            href=f"https://github.com/LewisResearchGroup/ms-mint-app/issues/new?body={T.get_issue_text()}",
-            children=[
-                html.Button(
-                    "Issues", id="B_issues", style={"float": "right", "color": "info"}
-                )
-            ],
-            target="_blank",
         ),
         dbc.Progress(
             id="progress-bar",
