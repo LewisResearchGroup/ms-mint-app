@@ -167,9 +167,13 @@ def main():
                 os.startfile(url)
         elif sys.platform == "darwin":
             # Try Chrome app mode on macOS, fallback to default
-            try:
-                subprocess.Popen(["open", "-a", "Google Chrome", "--args", f"--app={url}"])
-            except:
+            chrome_path = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+            if os.path.exists(chrome_path):
+                try:
+                    subprocess.Popen([chrome_path, f"--app={url}"])
+                except:
+                    subprocess.Popen(["open", url])
+            else:
                 subprocess.Popen(["open", url])
         else:
             # Linux: try Chrome app mode, fallback to default
