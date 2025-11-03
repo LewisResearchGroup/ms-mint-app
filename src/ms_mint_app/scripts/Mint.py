@@ -9,7 +9,6 @@ import pkg_resources
 import xlsxwriter
 import bs4
 import logging
-import threading
 
 from waitress import serve
 from os.path import expanduser
@@ -72,8 +71,8 @@ def show_splash_screen():
         progress.pack(pady=20)
         progress.start(10)
 
-        # Store reference so we can close it later
-        root.splash_root = root
+        # Update the window to show it
+        root.update()
 
         return root
     except:
@@ -177,12 +176,6 @@ def main():
     splash = None
     if os.name == "nt" and not args.no_browser and not args.debug:
         splash = show_splash_screen()
-        if splash:
-            # Run splash screen in a separate thread so it doesn't block
-            def run_splash():
-                splash.mainloop()
-            splash_thread = threading.Thread(target=run_splash, daemon=True)
-            splash_thread.start()
 
     # Windows multiprocessing support
     if os.name == "nt":
@@ -208,7 +201,22 @@ def main():
 
     from ms_mint_app.app import create_app, register_callbacks
 
+    # Update splash screen to keep it responsive
+    if splash:
+        try:
+            splash.update()
+        except:
+            pass
+
     app, cache, fsc = create_app()
+
+    # Update splash screen
+    if splash:
+        try:
+            splash.update()
+        except:
+            pass
+
     register_callbacks(app, cache, fsc)
 
     app.css.config.serve_locally = True
