@@ -9,6 +9,7 @@ import pkg_resources
 import xlsxwriter
 import bs4
 import logging
+import threading
 
 from waitress import serve
 from os.path import expanduser
@@ -17,6 +18,67 @@ from collections import namedtuple
 from multiprocessing import freeze_support
 
 import ms_mint_app
+
+
+def show_splash_screen():
+    """Show a simple splash screen on Windows while the app loads."""
+    try:
+        import tkinter as tk
+        from tkinter import ttk
+
+        root = tk.Tk()
+        root.title("MINT")
+        root.overrideredirect(True)  # Remove window decorations
+
+        # Get screen dimensions to center the window
+        screen_width = root.winfo_screenwidth()
+        screen_height = root.winfo_screenheight()
+
+        # Splash screen size
+        width = 400
+        height = 200
+        x = (screen_width - width) // 2
+        y = (screen_height - height) // 2
+
+        root.geometry(f"{width}x{height}+{x}+{y}")
+        root.configure(bg='#98D8C8')  # Minty theme color
+
+        # MINT text
+        title_label = tk.Label(
+            root,
+            text="MINT",
+            font=("Arial", 32, "bold"),
+            bg='#98D8C8',
+            fg='#ffffff'
+        )
+        title_label.pack(pady=30)
+
+        # Loading message
+        message_label = tk.Label(
+            root,
+            text="Loading application...",
+            font=("Arial", 12),
+            bg='#98D8C8',
+            fg='#ffffff'
+        )
+        message_label.pack(pady=10)
+
+        # Progress bar
+        progress = ttk.Progressbar(
+            root,
+            mode='indeterminate',
+            length=300
+        )
+        progress.pack(pady=20)
+        progress.start(10)
+
+        # Store reference so we can close it later
+        root.splash_root = root
+
+        return root
+    except:
+        # If splash screen fails, just continue without it
+        return None
 
 
 welcome = r"""
@@ -111,6 +173,17 @@ def main():
 
     url = f"http://{args.host}:{args.port}"
 
+    # Show splash screen on Windows (in GUI mode)
+    splash = None
+    if os.name == "nt" and not args.no_browser and not args.debug:
+        splash = show_splash_screen()
+        if splash:
+            # Run splash screen in a separate thread so it doesn't block
+            def run_splash():
+                splash.mainloop()
+            splash_thread = threading.Thread(target=run_splash, daemon=True)
+            splash_thread.start()
+
     # Windows multiprocessing support
     if os.name == "nt":
         # https://github.com/pyinstaller/pyinstaller/wiki/Recipe-Multiprocessing
@@ -122,13 +195,16 @@ def main():
     if args.serve_path is not None:
         os.environ["MINT_SERVE_PATH"] = args.serve_path
 
-    print(welcome)
+    # Only show ASCII art in console if not showing splash screen
+    if not splash:
+        print(welcome)
 
     # Set logging level - use WARNING unless debug mode
     root_logger = logging.getLogger()
     root_logger.setLevel(logging.DEBUG if args.debug else logging.WARNING)
 
-    print("Loading app...")
+    if not splash:
+        print("Loading app...")
 
     from ms_mint_app.app import create_app, register_callbacks
 
@@ -138,7 +214,15 @@ def main():
     app.css.config.serve_locally = True
     app.scripts.config.serve_locally = True
 
-    print("Server ready! Opening browser...")
+    # Close splash screen if it was shown
+    if splash:
+        try:
+            splash.destroy()
+        except:
+            pass
+
+    if not splash:
+        print("Server ready! Opening browser...")
 
     # Open browser after app is configured and ready
     if not args.no_browser:
