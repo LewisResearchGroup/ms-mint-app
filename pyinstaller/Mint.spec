@@ -55,3 +55,21 @@ coll = COLLECT(
     upx=False,
     name='Mint',
 )
+
+# Create macOS .app bundle
+import sys
+if sys.platform == 'darwin':
+    app = BUNDLE(
+        coll,
+        name='Mint.app',
+        icon=None,
+        bundle_identifier='org.lewisresearchgroup.mint',
+        info_plist={
+            'CFBundleName': 'MINT',
+            'CFBundleDisplayName': 'MINT - Metabolomics Integrator',
+            'CFBundleVersion': '1.1.2',
+            'CFBundleShortVersionString': '1.1.2',
+            'NSHighResolutionCapable': 'True',
+            'LSMinimumSystemVersion': '10.15.0',
+        },
+    )

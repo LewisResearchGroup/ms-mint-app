@@ -46,7 +46,14 @@ jobs:
     - name: Verify PyInstaller output
       shell: bash
       run: |
-        ls -la pyinstaller/dist/Mint/
+        ls -la pyinstaller/dist/
+        if [ -d "pyinstaller/dist/Mint.app" ]; then
+          echo "Found Mint.app bundle"
+          ls -la pyinstaller/dist/Mint.app/
+        else
+          echo "Warning: Mint.app not found, falling back to Mint folder"
+          ls -la pyinstaller/dist/Mint/
+        fi
 
     - name: Install create-dmg
       run: |
@@ -59,17 +66,22 @@ jobs:
         mkdir -p dmg_temp
 
         # Copy the app bundle to temp directory
-        cp -r pyinstaller/dist/Mint dmg_temp/
+        if [ -d "pyinstaller/dist/Mint.app" ]; then
+          cp -r pyinstaller/dist/Mint.app dmg_temp/
+          APP_NAME="Mint.app"
+        else
+          cp -r pyinstaller/dist/Mint dmg_temp/
+          APP_NAME="Mint"
+        fi
 
         # Create the DMG
         create-dmg \
           --volname "MINT Installer" \
-          --volicon "pyinstaller/dist/Mint/Mint" \
           --window-pos 200 120 \
           --window-size 800 400 \
           --icon-size 100 \
-          --icon "Mint" 200 190 \
-          --hide-extension "Mint" \
+          --icon "$APP_NAME" 200 190 \
+          --hide-extension "$APP_NAME" \
           --app-drop-link 600 185 \
           "MINT-${{ steps.get_version.outputs.version }}.dmg" \
           "dmg_temp/" || true
