@@ -114,16 +114,12 @@ logout_button = html.A(href="/logout", children=logout_button)
 
 _layout = html.Div(
     [
-        # Header with logo and buttons
+        html.Div(logout_button),
+        dcc.Interval(
+            id="progress-interval", n_intervals=0, interval=2000, disabled=False
+        ),
+        # Header with centered logo and buttons on the right
         html.Div([
-            html.Img(
-                src="/assets/MINT-logo-header.png",
-                style={
-                    "height": "50px",
-                    "float": "left",
-                    "marginRight": "20px"
-                }
-            ),
             html.A(
                 href=f"https://github.com/LewisResearchGroup/ms-mint-app/issues/new?body={T.get_issue_text()}",
                 children=[
@@ -144,12 +140,18 @@ _layout = html.Div(
                 ],
                 target="_blank",
             ),
-        ], style={"marginBottom": "20px", "overflow": "auto"}),
-
-        html.Div(logout_button),
-        dcc.Interval(
-            id="progress-interval", n_intervals=0, interval=2000, disabled=False
-        ),
+            html.Div([
+                html.Img(
+                    src="/assets/MINT-logo-header.png",
+                    style={
+                        "height": "60px",
+                        "display": "block",
+                        "marginLeft": "auto",
+                        "marginRight": "auto"
+                    }
+                ),
+            ], style={"textAlign": "center", "clear": "both"}),
+        ], style={"marginBottom": "20px"}),
         dbc.Progress(
             id="progress-bar",
             value=100,
