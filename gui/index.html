@@ -10,7 +10,7 @@
         <meta name="author" content="Soren Wacker">
       
       
-        <link rel="canonical" href="https://github.com/lewisresearchgroup/ms-mint-app/gui/">
+        <link rel="canonical" href="https://lewisresearchgroup.github.io/ms-mint-app/gui/">
       
       
         <link rel="prev" href="../quickstart/">
@@ -19,16 +19,19 @@
         <link rel="next" href="../targets/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+      <link rel="icon" href="../docs/image/MINT-logo.jpg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
     
     
       
-        <title>GUI - ms-mint-app</title>
+        <title>GUI - MINT - Metabolomics Integrator</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,7 +70,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -92,7 +102,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="ms-mint-app" class="md-header__button md-logo" aria-label="ms-mint-app" data-md-component="logo">
+    <a href=".." title="MINT - Metabolomics Integrator" class="md-header__button md-logo" aria-label="MINT - Metabolomics Integrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -106,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ms-mint-app
+            MINT - Metabolomics Integrator
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -118,6 +128,32 @@
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -149,6 +185,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
@@ -164,6 +202,18 @@
 </div>
       
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/LewisResearchGroup/ms-mint-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    LewisResearchGroup/ms-mint-app
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -188,16 +238,30 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="ms-mint-app" class="md-nav__button md-logo" aria-label="ms-mint-app" data-md-component="logo">
+    <a href=".." title="MINT - Metabolomics Integrator" class="md-nav__button md-logo" aria-label="MINT - Metabolomics Integrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    ms-mint-app
+    MINT - Metabolomics Integrator
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/LewisResearchGroup/ms-mint-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    LewisResearchGroup/ms-mint-app
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -673,6 +737,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../gallery/" class="md-nav__link">
         
   
@@ -695,323 +781,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#workspaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      Workspaces
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#ms-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      MS-files
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      Metadata
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#targetlists" class="md-nav__link">
-    <span class="md-ellipsis">
-      Targetlists
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#add-metabolites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Add Metabolites
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Optimization
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Optimization">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#manual-interactive-peak-optimization" class="md-nav__link">
-    <span class="md-ellipsis">
-      Manual (interactive) peak optimization
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#processing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Processing
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quality-control" class="md-nav__link">
-    <span class="md-ellipsis">
-      Quality Control
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#analysis" class="md-nav__link">
-    <span class="md-ellipsis">
-      Analysis
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#selections-and-transformations" class="md-nav__link">
-    <span class="md-ellipsis">
-      Selections and transformations
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Selections and transformations">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#scaling-techniques" class="md-nav__link">
-    <span class="md-ellipsis">
-      Scaling Techniques
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Scaling Techniques">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#1-standard-scaling" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Standard Scaling
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2-robust-scaling" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Robust Scaling
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-min-max-scaling" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Min-Max Scaling
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#heatmap" class="md-nav__link">
-    <span class="md-ellipsis">
-      Heatmap
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Heatmap">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-plot-correlation-between-metabolites-using-scaled-peak_area_top3-values" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: Plot correlation between metabolites using scaled peak_area_top3 values
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#distributions" class="md-nav__link">
-    <span class="md-ellipsis">
-      Distributions
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Distributions">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-box-plot-of-scaled-peak_area_top3-values-by-metabolite" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: Box-plot of scaled peak_area_top3 values by metabolite
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principal-component-analysis-pca" class="md-nav__link">
-    <span class="md-ellipsis">
-      Principal Component Analysis (PCA)
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Principal Component Analysis (PCA)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-pca-colored-by-sample-label-ie-biological-organism-using-z-scores" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: PCA colored by sample label (i.e. biological organism) using z-scores
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#hierarchical-clustering" class="md-nav__link">
-    <span class="md-ellipsis">
-      Hierarchical clustering
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Hierarchical clustering">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#steps-for-agglomerative-clustering" class="md-nav__link">
-    <span class="md-ellipsis">
-      Steps for Agglomerative Clustering
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dendrogram" class="md-nav__link">
-    <span class="md-ellipsis">
-      Dendrogram
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#example-hirarchical-clustering-with-different-metrics-using-z-scores-for-each-metabolite" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: Hirarchical clustering with different metrics using z-scores (for each metabolite)
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#plotting" class="md-nav__link">
-    <span class="md-ellipsis">
-      Plotting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Plotting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#example-compare-log2-transformed-and-then-z-scaled-peak_area_top3-for-between-lc-columns-for-all-metabolites" class="md-nav__link">
-    <span class="md-ellipsis">
-      Example: Compare log2 transformed and then z-scaled peak_area_top3 for between LC columns for all metabolites.
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           
             <div class="md-content" data-md-component="content">
@@ -1020,9 +789,12 @@
                   
 
 
+  
+  
 
-<h1 id="mint-gui">MINT GUI</h1>
-<h2 id="workspaces">Workspaces</h2>
+
+<h1 id="mint-gui">MINT GUI<a class="headerlink" href="#mint-gui" title="Permanent link">&para;</a></h1>
+<h2 id="workspaces">Workspaces<a class="headerlink" href="#workspaces" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Add new workspaces</li>
 <li>Delete workspaces</li>
@@ -1035,7 +807,7 @@ The home directory is different on different platforms. Under Windows the defaul
 The path to the active workspace is always displayed above the workspace tab.</p>
 <p>To activate a particular workspace the workspace has to be selected in the table and then the <code>ACTIVATE</code> button has to be clicked. 
 <code>DELETE</code> will display a popup window upon confirmation the selected workspace with all corresponding files on the harddrive in <code>--data-dir</code> will be removed. </p>
-<h2 id="ms-files">MS-files</h2>
+<h2 id="ms-files">MS-files<a class="headerlink" href="#ms-files" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Import mass spectrometry files (MS-file) in mzXML or mzML format</li>
 <li>Convert file to feather format (other formats will be removed)</li>
@@ -1049,29 +821,29 @@ be copied manually into the ms-files subdirectory. This will be improved in futu
 <p>The files are converted to <code>feather</code> format which is based on Apache Arrow. It is a representation that allows faster read into memory.
 If files were added manually by copying into the ms-files subdirectory the files can be converted to feather format with the <code>CONVERT TO FEATHER</code> button.
 Note that <em>mzXML</em> and <em>mzML</em> files will be deleted after convertion. </p>
-<h2 id="metadata">Metadata</h2>
+<h2 id="metadata">Metadata<a class="headerlink" href="#metadata" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Select samples used for peak optimization by setting values in the column <code>PeakOpt</code> to <code>True</code>.</li>
 <li>Add batch labels to analyse for possible batch effects.</li>
 <li>Add labels to analyse for differences of different groups (e.g. treatment and control)</li>
-<li>Add types for different files e.g. biological sample, quality control sample, standards etc in order to include ore exclude certain types during analysis.</li>
+<li>Add types for different files e.g. biological sample, quality control sample, standards etc in order to include or exclude certain types during analysis.</li>
 <li>Add other types of metadata. </li>
 </ul>
 <p><img alt="Metadata" src="../image/metadata.png" title="Metadata" /></p>
 <p>Metadata for the individual files can be edited in the <code>Metadata</code> tab. This data can be used to group results e.g. by batch or by label as well as types.
 You want to edit metadata table to:</p>
-<h2 id="targetlists">Targetlists</h2>
+<h2 id="targetlists">Targetlists<a class="headerlink" href="#targetlists" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Import peaklist from CSV file or add new peaks manually</li>
 <li>Rename peaks definitions or change parameters</li>
 <li>Delete peak definitions</li>
 </ul>
 <p><img alt="Targetlists" src="../image/targets.png" title="Peaklist" /></p>
-<p>Targetlists are collection of peak definitions for the extraction of MS intensities beloning to individual metabolites. 
+<p>Targetlists are collection of peak definitions for the extraction of MS intensities belonging to individual metabolites. 
 Targetlists can be provided as Excel or CSV files. Targetlists are explained in more detail <a href="../targets/">here</a>.
 Files can be uploaded via the drag and drop area or the selection tool. The targetlists can be edited in place or
 with the optimization tools.</p>
-<h2 id="add-metabolites">Add Metabolites</h2>
+<h2 id="add-metabolites">Add Metabolites<a class="headerlink" href="#add-metabolites" title="Permanent link">&para;</a></h2>
 <blockquote>
 <p>Since version 1.0.0 this functionality has been removed and will be provided as an optional plugin.</p>
 </blockquote>
@@ -1080,7 +852,7 @@ with the optimization tools.</p>
 <li>Add selected metabolites to peaklist (without RT estimation)</li>
 </ul>
 <p><img alt="Add metabolites" src="../image/add-metabolites.png" title="Add metabolites" /></p>
-<h2 id="optimization">Optimization</h2>
+<h2 id="optimization">Optimization<a class="headerlink" href="#optimization" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Optimize retention times for all peaks or individual peaks</li>
 <li>Preview all peakshapes with quality indicator</li>
@@ -1091,10 +863,10 @@ The tools in the peak optimization tab can be used to quickly review all  peak d
 the presently loaded peaklist. </p>
 <p><img alt="Target optimization" src="../image/target-optimization.png" /></p>
 <p>The <code>GENERATE PEAK PREVIEWS</code> generates a preview of all peak definitions and plots the
-coresponding chromatograms for all files. The peaks can be reviewed and modified one by one
-with the interactive tool. <code>FIND CLOSED PEAKS</code> iterates through all peak definitions and
-identifes the closest peak with respect to the expected RT which is displayed as black vertical line.</p>
-<h3 id="manual-interactive-peak-optimization">Manual (interactive) peak optimization</h3>
+corresponding chromatograms for all files. The peaks can be reviewed and modified one by one
+with the interactive tool. <code>FIND CLOSEST PEAKS</code> iterates through all peak definitions and
+identifies the closest peak with respect to the expected RT which is displayed as black vertical line.</p>
+<h3 id="manual-interactive-peak-optimization">Manual (interactive) peak optimization<a class="headerlink" href="#manual-interactive-peak-optimization" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Optimize individual peaks one by one</li>
 <li>Find bad peaks</li>
@@ -1106,7 +878,7 @@ identifes the closest peak with respect to the expected RT which is displayed as
 using the peak width as defined in the peaklist is extracted and displayed. The current rt window
 is visualized as green box. <code>SET RT TO CURRENT VIEW</code> will set the <em>rt_min</em> and <em>rt_max</em> values 
 to the current view and updated the peaklist accordingly.</p>
-<h2 id="processing">Processing</h2>
+<h2 id="processing">Processing<a class="headerlink" href="#processing" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Run MINT (apply the extraction protocol to all files in the workspace)</li>
 <li>Download results</li>
@@ -1123,18 +895,18 @@ The generated results can be downloaded with the <code>DOWNLOAD</code> button.</
 <li><code>DOWNLOAD DENSE MATRIX</code>: This will download a dense data table with targets as rows and files as columns. The observable used for the cells can be selected in the drop down menu. Optionllay, you can transpose the table, by checking the <code>Transposed</code> checkbox.</li>
 <li><code>DELETE RESULTS</code>: Delete results file if present, and start from scratch.</li>
 </ul>
-<h2 id="quality-control">Quality Control</h2>
+<h2 id="quality-control">Quality Control<a class="headerlink" href="#quality-control" title="Permanent link">&para;</a></h2>
 <p>Analytical visualizations to display a few quality metrics and comparisons. The <code>m/z drift</code> compares the observed m/z values with the ones set in the target list. This value will always be lower than the <code>mz_width</code> set in the target list for each target. It is one way of evaluating how well the machine is calibrated. Generally speaking, values between [-5, 5] are acceptible, but it depends on the specific assay and experiment.  </p>
 <p>The graphs are categorized by <code>sample_type</code> set in the Metadata tab. You should have some quality control, or calibration samples with known metabolite composition, to be able to make judgements about the quality.</p>
 <p>The second plot breaks down the <code>m/z drift</code> by target, to see how the calibration varies between targets.</p>
 <p>The PCA (Principal Components Analysis) plot shows a PCA using <code>peak_area_top3</code>. You can compare different groups of samples as set in the <code>sample_types</code> column in the Metadata tab.</p>
 <p>The final plot displays peak shapes of a random sample of files for all targets. To change the sample, you can refresh this page. </p>
-<h2 id="analysis">Analysis</h2>
+<h2 id="analysis">Analysis<a class="headerlink" href="#analysis" title="Permanent link">&para;</a></h2>
 <p>After running MINT the results can be downloaed or analysed using the provided tools.
 For quality control purposes histograms and boxplots can be generated in the 
 quality control tab. The interactive heatmap tool can be used to explore the results data after <code>RUN MINT</code>
 has been exectuted. The tool allows to explore the generated data in from of heatmaps.</p>
-<h2 id="selections-and-transformations">Selections and transformations</h2>
+<h2 id="selections-and-transformations">Selections and transformations<a class="headerlink" href="#selections-and-transformations" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Include/exclude file types (based on <code>Type</code> column in metadata)</li>
 <li>Include/exclude peak labels for analysis</li>
@@ -1153,35 +925,35 @@ has been exectuted. The tool allows to explore the generated data in from of hea
 <li><code>Scaling group(s)</code>: Column or selection of columns to group the data and apply the normalization function in the dropdown menu for each group. If you want to z-scores for each target, you need to select <code>peak_label</code> here, and in the dropdown menu 'Standard scaling`.</li>
 <li><code>Scaling technique</code>: You can choose between standard scaling, min-max scaling, or robust scaling, or no scaling (if nothing is selected).</li>
 </ul>
-<h3 id="scaling-techniques">Scaling Techniques</h3>
-<h4 id="1-standard-scaling">1. Standard Scaling</h4>
+<h3 id="scaling-techniques">Scaling Techniques<a class="headerlink" href="#scaling-techniques" title="Permanent link">&para;</a></h3>
+<h4 id="1-standard-scaling">1. Standard Scaling<a class="headerlink" href="#1-standard-scaling" title="Permanent link">&para;</a></h4>
 <p><strong>Standard scaling</strong> (also known as z-score normalization) transforms the data such that the mean of each feature becomes 0 and the standard deviation becomes 1. This is useful when the features have different units or magnitudes, as it ensures they are on the same scale.</p>
 <p>The formula for standard scaling is:</p>
-<pre><code>z = (x - mean) / standard_deviation
-</code></pre>
+<div class="highlight"><pre><span></span><code>z = (x - mean) / standard_deviation
+</code></pre></div>
 <p>Where:
 - <code>x</code> is the original value.
 - <code>mean</code> is the mean of the feature.
 - <code>standard_deviation</code> is the standard deviation of the feature.</p>
-<h4 id="2-robust-scaling">2. Robust Scaling</h4>
+<h4 id="2-robust-scaling">2. Robust Scaling<a class="headerlink" href="#2-robust-scaling" title="Permanent link">&para;</a></h4>
 <p><strong>Robust scaling</strong> is used to scale features using statistics that are robust to outliers. This scaling technique uses the median and the interquartile range (IQR) instead of the mean and standard deviation, making it more suitable for datasets with outliers.</p>
 <p>The formula for robust scaling is:</p>
-<pre><code>x_scaled = (x - median) / IQR
-</code></pre>
+<div class="highlight"><pre><span></span><code>x_scaled = (x - median) / IQR
+</code></pre></div>
 <p>Where:
 - <code>x</code> is the original value.
 - <code>median</code> is the median of the feature.
 - <code>IQR</code> is the interquartile range of the feature (IQR = Q3 - Q1).</p>
-<h4 id="3-min-max-scaling">3. Min-Max Scaling</h4>
+<h4 id="3-min-max-scaling">3. Min-Max Scaling<a class="headerlink" href="#3-min-max-scaling" title="Permanent link">&para;</a></h4>
 <p><strong>Min-max scaling</strong> (also known as normalization) transforms the data to fit within a the range [0, 1]. This scaling techique is useful when you want to preserve the relationships within the data, but want to adjust the scale.</p>
 <p>The formula for min-max scaling is:</p>
-<pre><code>x_scaled = (x - x_min) / (x_max - x_min)
-</code></pre>
+<div class="highlight"><pre><span></span><code>x_scaled = (x - x_min) / (x_max - x_min)
+</code></pre></div>
 <p>Where:
 - <code>x</code> is the original value.
 - <code>x_min</code> is the minimum value of the feature.
 - <code>x_max</code> is the maximum value of the feature.</p>
-<h2 id="heatmap">Heatmap</h2>
+<h2 id="heatmap">Heatmap<a class="headerlink" href="#heatmap" title="Permanent link">&para;</a></h2>
 <p><img alt="Heatmap" src="../image/heatmap.png" title="Heatmap" /></p>
 <p>The first dropdown menu allows to include certain file types e.g. biological samples rather than quality control samples.
 The second dropdown menu distinguishes the how the heatmap is generated. </p>
@@ -1192,15 +964,15 @@ The second dropdown menu distinguishes the how the heatmap is generated. </p>
 <li><code>Correlation</code>: Calculate pearson correlation between columns.</li>
 <li><code>Show in new tab</code>: The figure will be generated in a new independent tab. That way multiple heatmaps can be generated at the same time. This may only work when you serve MINT locally, since the plot is served on a different port. If the app becomes unresponsive to changes, reload the tab. </li>
 </ul>
-<h3 id="example-plot-correlation-between-metabolites-using-scaled-peak_area_top3-values">Example: Plot correlation between metabolites using scaled peak_area_top3 values</h3>
+<h3 id="example-plot-correlation-between-metabolites-using-scaled-peak_area_top3-values">Example: Plot correlation between metabolites using scaled peak_area_top3 values<a class="headerlink" href="#example-plot-correlation-between-metabolites-using-scaled-peak_area_top3-values" title="Permanent link">&para;</a></h3>
 <p><img alt="Heatmap" src="../image/heatmap-correlation.png" title="Correlation" /></p>
-<h2 id="distributions">Distributions</h2>
+<h2 id="distributions">Distributions<a class="headerlink" href="#distributions" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Plot histograms</li>
 <li>Density distributions</li>
 <li>Boxplots</li>
 </ul>
-<h3 id="example-box-plot-of-scaled-peak_area_top3-values-by-metabolite">Example: Box-plot of scaled peak_area_top3 values by metabolite</h3>
+<h3 id="example-box-plot-of-scaled-peak_area_top3-values-by-metabolite">Example: Box-plot of scaled peak_area_top3 values by metabolite<a class="headerlink" href="#example-box-plot-of-scaled-peak_area_top3-values-by-metabolite" title="Permanent link">&para;</a></h3>
 <p><img alt="Quality Control" src="../image/distributions.png" title="Quality Control" /></p>
 <p>The MS-files can be grouped based on the values in the metadata table. If nothing
 is selected the data will not be grouped in order to plot the overall distribution.
@@ -1210,7 +982,7 @@ For example, the analysis can be limited to only the biological samples if such 
 type has been defined in the type column of the metadata table. </p>
 <p>The checkbox can be used to create a dense view. If the box is unchecked the output will be visually grouped into an individual section for each metabolite.</p>
 <p>The plots are interactive. You can switch off labels, zoom in on particular areas of interest, or hover the mouse cursor over a datapoint to get more information about underlying sample and/or target.</p>
-<h2 id="principal-component-analysis-pca">Principal Component Analysis (PCA)</h2>
+<h2 id="principal-component-analysis-pca">Principal Component Analysis (PCA)<a class="headerlink" href="#principal-component-analysis-pca" title="Permanent link">&para;</a></h2>
 <ul>
 <li>Perform Principal Component Analysis (PCA)</li>
 <li>Plot projections to first N principal components</li>
@@ -1232,11 +1004,11 @@ type has been defined in the type column of the metadata table. </p>
 <li><strong>Definition</strong>: PCA loadings represent the coefficients of the linear combination of the original variables that define each principal component. They indicate the contribution of each original feature to the principal components.</li>
 <li><strong>Purpose</strong>: Loadings help in understanding the importance of each feature in the principal components and how they contribute to the variance explained by each component.</li>
 </ul>
-<h3 id="example-pca-colored-by-sample-label-ie-biological-organism-using-z-scores">Example: PCA colored by sample label (i.e. biological organism) using z-scores</h3>
+<h3 id="example-pca-colored-by-sample-label-ie-biological-organism-using-z-scores">Example: PCA colored by sample label (i.e. biological organism) using z-scores<a class="headerlink" href="#example-pca-colored-by-sample-label-ie-biological-organism-using-z-scores" title="Permanent link">&para;</a></h3>
 <p><img alt="PCA" src="../image/pca.png" title="Principal Components Analysis" /></p>
-<h2 id="hierarchical-clustering">Hierarchical clustering</h2>
+<h2 id="hierarchical-clustering">Hierarchical clustering<a class="headerlink" href="#hierarchical-clustering" title="Permanent link">&para;</a></h2>
 <p>Hierarchical clustering is a technique for cluster analysis that seeks to build a hierarchy of clusters. It can be divided into two main types: <strong>agglomerative</strong> and <strong>divisive</strong>.  MINT uses agglomerative hierarchical clustering, also known as bottom-up clustering, starts with each data point as a separate cluster and iteratively merges the closest clusters until all points are in a single cluster or a stopping criterion is met.</p>
-<h3 id="steps-for-agglomerative-clustering">Steps for Agglomerative Clustering</h3>
+<h3 id="steps-for-agglomerative-clustering">Steps for Agglomerative Clustering<a class="headerlink" href="#steps-for-agglomerative-clustering" title="Permanent link">&para;</a></h3>
 <ol>
 <li><strong>Initialization</strong>: Start with each data point as its own cluster.</li>
 <li><strong>Distance Calculation</strong>: Compute the pairwise distance between all clusters.</li>
@@ -1244,11 +1016,11 @@ type has been defined in the type column of the metadata table. </p>
 <li><strong>Update Distances</strong>: Recalculate the distances between the new cluster and all other clusters.</li>
 <li><strong>Repeat</strong>: Repeat steps 3 and 4 until all data points are in a single cluster or the desired number of clusters is achieved.</li>
 </ol>
-<h3 id="dendrogram">Dendrogram</h3>
+<h3 id="dendrogram">Dendrogram<a class="headerlink" href="#dendrogram" title="Permanent link">&para;</a></h3>
 <p>The output of hierarchical clustering is often visualized using a dendrogram, which is a tree-like diagram that shows the arrangement of clusters and their hierarchical relationships. Each branch of the dendrogram represents a merge or split, and the height of the branches indicates the distance or dissimilarity between clusters.</p>
-<h3 id="example-hirarchical-clustering-with-different-metrics-using-z-scores-for-each-metabolite">Example: Hirarchical clustering with different metrics using z-scores (for each metabolite)</h3>
+<h3 id="example-hirarchical-clustering-with-different-metrics-using-z-scores-for-each-metabolite">Example: Hirarchical clustering with different metrics using z-scores (for each metabolite)<a class="headerlink" href="#example-hirarchical-clustering-with-different-metrics-using-z-scores-for-each-metabolite" title="Permanent link">&para;</a></h3>
 <p><img alt="Hierarchical clustering" src="../image/hierarchical-clustering.png" title="Hierarchical clustering" /></p>
-<h2 id="plotting">Plotting</h2>
+<h2 id="plotting">Plotting<a class="headerlink" href="#plotting" title="Permanent link">&para;</a></h2>
 <p>With great power comes great responsibility. The plotting tool can generate impressive, and very complex plots, but it can be a bit overwhelming in the beginning. It uses the <a href="http://seaborn.pydata.org/">Seaborn</a> library under the hood. Familiarity, with this library can help understanding what the different settings are doing. We recommend starting with a basic plot and then increase its complexity stepwisely.</p>
 <ul>
 <li>Bar plots</li>
@@ -1257,7 +1029,7 @@ type has been defined in the type column of the metadata table. </p>
 <li>Scatter plots</li>
 <li>and more...</li>
 </ul>
-<h3 id="example-compare-log2-transformed-and-then-z-scaled-peak_area_top3-for-between-lc-columns-for-all-metabolites">Example: Compare log2 transformed and then z-scaled peak_area_top3 for between LC columns for all metabolites.</h3>
+<h3 id="example-compare-log2-transformed-and-then-z-scaled-peak_area_top3-for-between-lc-columns-for-all-metabolites">Example: Compare log2 transformed and then z-scaled peak_area_top3 for between LC columns for all metabolites.<a class="headerlink" href="#example-compare-log2-transformed-and-then-z-scaled-peak_area_top3-for-between-lc-columns-for-all-metabolites" title="Permanent link">&para;</a></h3>
 <p><img alt="" src="../image/plotting-example-1.png" /></p>
 
 
@@ -1278,8 +1050,16 @@ type has been defined in the type column of the metadata table. </p>
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
         
       </main>
       
@@ -1293,6 +1073,33 @@ type has been defined in the type column of the metadata table. </p>
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
       Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/LewisResearchGroup/ms-mint-app" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://pypi.org/project/ms-mint-app/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 444.7a20.4 20.4 0 1 1 0-40.7 20.4 20.4 0 1 1 0 40.7M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.6-183.4a20.4 20.4 0 1 1 0 40.8 20.4 20.4 0 1 1 0-40.8"/></svg>
     </a>
   
 </div>
@@ -1314,8 +1121,6 @@ type has been defined in the type column of the metadata table. </p>
             
 
 
-  
-
 
 <h4>Cookie consent</h4>
 <p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.
@@ -1325,11 +1130,32 @@ type has been defined in the type column of the metadata table. </p>
   <ul class="task-list">
     
     
+    
       
         
   
   
     
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="github" checked>
+      <span class="task-list-indicator"></span>
+      GitHub
+    </label>
+  </li>
+
+      
+    
+    
+      
+        
+  
+  
+    
+    
+      
     
   
   <li class="task-list-item">
@@ -1342,10 +1168,6 @@ type has been defined in the type column of the metadata table. </p>
 
       
     
-    
-      
-    
-    
   </ul>
 </div>
 <div class="md-consent__controls">
@@ -1353,6 +1175,12 @@ type has been defined in the type column of the metadata table. </p>
     
       <button class="md-button md-button--primary">Accept</button>
     
+    
+    
+  
+    
+    
+      <button type="reset" class="md-button md-button--primary">Reject</button>
     
     
   
@@ -1370,10 +1198,10 @@ type has been defined in the type column of the metadata table. </p>
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>

@@ -10,7 +10,7 @@
         <meta name="author" content="Soren Wacker">
       
       
-        <link rel="canonical" href="https://github.com/lewisresearchgroup/ms-mint-app/quickstart/">
+        <link rel="canonical" href="https://lewisresearchgroup.github.io/ms-mint-app/quickstart/">
       
       
         <link rel="prev" href="../install/">
@@ -19,16 +19,19 @@
         <link rel="next" href="../gui/">
       
       
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.12">
+      <link rel="icon" href="../docs/image/MINT-logo.jpg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
     
     
       
-        <title>Quickstart - ms-mint-app</title>
+        <title>Quickstart - MINT - Metabolomics Integrator</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.2afb09e1.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -67,7 +70,14 @@
   </head>
   
   
-    <body dir="ltr">
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple">
   
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
@@ -76,7 +86,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#quickstart-guide-for-ms-mint-app" class="md-skip">
+        <a href="#quickstart-guide" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +102,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="ms-mint-app" class="md-header__button md-logo" aria-label="ms-mint-app" data-md-component="logo">
+    <a href=".." title="MINT - Metabolomics Integrator" class="md-header__button md-logo" aria-label="MINT - Metabolomics Integrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -106,7 +116,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            ms-mint-app
+            MINT - Metabolomics Integrator
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -118,6 +128,32 @@
         </div>
       </div>
     </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="deep-purple"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="deep-purple" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
     
     
       <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
@@ -149,6 +185,8 @@
         </button>
       </nav>
       
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
@@ -164,6 +202,18 @@
 </div>
       
     
+    
+      <div class="md-header__source">
+        <a href="https://github.com/LewisResearchGroup/ms-mint-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    LewisResearchGroup/ms-mint-app
+  </div>
+</a>
+      </div>
     
   </nav>
   
@@ -188,16 +238,30 @@
 
 
 
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="ms-mint-app" class="md-nav__button md-logo" aria-label="ms-mint-app" data-md-component="logo">
+    <a href=".." title="MINT - Metabolomics Integrator" class="md-nav__button md-logo" aria-label="MINT - Metabolomics Integrator" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
 
     </a>
-    ms-mint-app
+    MINT - Metabolomics Integrator
   </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/LewisResearchGroup/ms-mint-app" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    LewisResearchGroup/ms-mint-app
+  </div>
+</a>
+    </div>
   
   <ul class="md-nav__list" data-md-scrollfix>
     
@@ -302,9 +366,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-install-ms-mint-app" class="md-nav__link">
+  <a href="#1-install-mint" class="md-nav__link">
     <span class="md-ellipsis">
-      1. Install ms-mint-app
+      1. Install MINT
     </span>
   </a>
   
@@ -313,25 +377,25 @@
         <li class="md-nav__item">
   <a href="#2-create-a-workspace" class="md-nav__link">
     <span class="md-ellipsis">
-      2. Create a workspace
+      2. Create a Workspace
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#3-download-the-demo-files" class="md-nav__link">
+  <a href="#3-download-demo-data" class="md-nav__link">
     <span class="md-ellipsis">
-      3. Download the demo files
+      3. Download Demo Data
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#4-upload-lcms-files" class="md-nav__link">
+  <a href="#4-upload-lc-ms-files" class="md-nav__link">
     <span class="md-ellipsis">
-      4. Upload LCMS files
+      4. Upload LC-MS Files
     </span>
   </a>
   
@@ -340,116 +404,62 @@
         <li class="md-nav__item">
   <a href="#5-add-metadata" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Add metadata
+      5. Add Metadata
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-add-targets-metabolites" class="md-nav__link">
+  <a href="#6-add-targets-metabolites" class="md-nav__link">
     <span class="md-ellipsis">
-      5. Add targets (metabolites)
+      6. Add Targets (Metabolites)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#6-optimize-retention-times" class="md-nav__link">
+  <a href="#7-optimize-retention-times" class="md-nav__link">
     <span class="md-ellipsis">
-      6. Optimize retention times
+      7. Optimize Retention Times
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-process-the-data" class="md-nav__link">
+  <a href="#8-process-the-data" class="md-nav__link">
     <span class="md-ellipsis">
-      7. Process the data
+      8. Process the Data
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#8-analyze-the-results" class="md-nav__link">
+  <a href="#9-analyze-the-results" class="md-nav__link">
     <span class="md-ellipsis">
-      8. Analyze the results.
+      9. Analyze the Results
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-switch-to-analysisplotting" class="md-nav__link">
-    <span class="md-ellipsis">
-      9. Switch to Analysis/Plotting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. Switch to Analysis/Plotting">
+    <nav class="md-nav" aria-label="9. Analyze the Results">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#a-select-peak_label-for-the-x-axis" class="md-nav__link">
+  <a href="#heatmap" class="md-nav__link">
     <span class="md-ellipsis">
-      a) select peak_label for the X axis.
+      Heatmap
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#b-set-aspect-ratio-to-5" class="md-nav__link">
+  <a href="#analysisplotting-tool" class="md-nav__link">
     <span class="md-ellipsis">
-      b) set aspect-ratio to 5.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-select-logarithmic-y-scale-in-the-dropdown-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      c) select Logarithmic y-scale in the dropdown options.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#d-click-on-update" class="md-nav__link">
-    <span class="md-ellipsis">
-      d) click on UPDATE.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#e-set-figure-height-to-15-and-aspect-ratio-to-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      e) set figure height to 1.5 and aspect ratio to 2.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#e-set-column-to-label" class="md-nav__link">
-    <span class="md-ellipsis">
-      e) set Column to Label.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#f-set-row-to-batch" class="md-nav__link">
-    <span class="md-ellipsis">
-      f) set Row to Batch.
+      Analysis/Plotting Tool
     </span>
   </a>
   
@@ -461,9 +471,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#exercise-try-to-create-the-following-plot" class="md-nav__link">
+  <a href="#next-steps" class="md-nav__link">
     <span class="md-ellipsis">
-      Exercise: Try to create the following plot:
+      Next Steps
     </span>
   </a>
   
@@ -550,6 +560,28 @@
   
   
     <li class="md-nav__item">
+      <a href="../../CONTRIBUTING.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Contributing
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../gallery/" class="md-nav__link">
         
   
@@ -572,200 +604,6 @@
               </div>
             
             
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-install-ms-mint-app" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Install ms-mint-app
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-create-a-workspace" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Create a workspace
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-download-the-demo-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. Download the demo files
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-upload-lcms-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Upload LCMS files
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-add-metadata" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Add metadata
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#5-add-targets-metabolites" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. Add targets (metabolites)
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#6-optimize-retention-times" class="md-nav__link">
-    <span class="md-ellipsis">
-      6. Optimize retention times
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#7-process-the-data" class="md-nav__link">
-    <span class="md-ellipsis">
-      7. Process the data
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#8-analyze-the-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      8. Analyze the results.
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#9-switch-to-analysisplotting" class="md-nav__link">
-    <span class="md-ellipsis">
-      9. Switch to Analysis/Plotting
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="9. Switch to Analysis/Plotting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#a-select-peak_label-for-the-x-axis" class="md-nav__link">
-    <span class="md-ellipsis">
-      a) select peak_label for the X axis.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#b-set-aspect-ratio-to-5" class="md-nav__link">
-    <span class="md-ellipsis">
-      b) set aspect-ratio to 5.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#c-select-logarithmic-y-scale-in-the-dropdown-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      c) select Logarithmic y-scale in the dropdown options.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#d-click-on-update" class="md-nav__link">
-    <span class="md-ellipsis">
-      d) click on UPDATE.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#e-set-figure-height-to-15-and-aspect-ratio-to-2" class="md-nav__link">
-    <span class="md-ellipsis">
-      e) set figure height to 1.5 and aspect ratio to 2.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#e-set-column-to-label" class="md-nav__link">
-    <span class="md-ellipsis">
-      e) set Column to Label.
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#f-set-row-to-batch" class="md-nav__link">
-    <span class="md-ellipsis">
-      f) set Row to Batch.
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#exercise-try-to-create-the-following-plot" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exercise: Try to create the following plot:
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
           
           
             <div class="md-content" data-md-component="content">
@@ -774,75 +612,102 @@
                   
 
 
+  
+  
 
-<h1 id="quickstart-guide-for-ms-mint-app">Quickstart Guide for ms-mint-app</h1>
-<p>Welcome to the ms-mint-app quickstart guide! This guide will help you get up and running with the application, allowing you to start analyzing mass spectrometry data efficiently. Follow the steps below to install the app, create a workspace, and begin processing your data.</p>
-<h2 id="1-install-ms-mint-app">1. Install <code>ms-mint-app</code></h2>
-<p>If you know how to use <code>pip</code> run:</p>
-<pre><code>pip install ms-mint-app
-</code></pre>
-<p>or follow the instruction <a href="https://lewisresearchgroup.github.io/ms-mint-app/install/">here</a>.</p>
-<p>Then start the application with</p>
-<pre><code>Mint
-</code></pre>
-<p>or, if you have a prefered directory for data you can specify it with <code>--data-dir</code> e.g.:</p>
-<pre><code>Mint --data-dir /data
-</code></pre>
-<p>The application will take a while until it starts up. In the mean time the browser window will show</p>
-<blockquote>
-<p>This site can’t be reached</p>
-</blockquote>
-<p>Just wait a bit until the terminal shows <code>INFO:waitress:Serving on http://127.0.0.1:9999</code> and refresh the page.
-The application is now served on port <code>9999</code> of your local machine.</p>
+
+<h1 id="quickstart-guide">Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Permanent link">&para;</a></h1>
+<p>Welcome to the MINT quickstart guide! This tutorial walks you through processing a complete LC-MS metabolomics dataset—from installation to analysis—in under 30 minutes. You'll learn the core MINT workflow using demo data from bacterial samples.</p>
+<h2 id="1-install-mint">1. Install MINT<a class="headerlink" href="#1-install-mint" title="Permanent link">&para;</a></h2>
+<p><strong>Quick install with pip:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>ms-mint-app
+</code></pre></div></p>
+<p>For other installation methods (conda, Docker, Windows installer), see the <a href="../install/">Installation Guide</a>.</p>
+<p><strong>Start MINT:</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Mint
+</code></pre></div></p>
+<p><strong>Optional:</strong> Specify a custom data directory:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Mint<span class="w"> </span>--data-dir<span class="w"> </span>/path/to/your/data
+</code></pre></div></p>
+<p><strong>First launch:</strong>
+- MINT may take 10–30 seconds to start
+- Your browser will open automatically to <code>http://localhost:9999</code>
+- If you see "This site can't be reached," wait for the terminal to show <code>INFO:waitress:Serving on http://127.0.0.1:9999</code>, then refresh
+- On first launch, you won't have any workspaces yet</p>
 <p><img alt="" src="first-start.png" /></p>
-<p>If you have never started the application before, you will not have any workspaces yet.</p>
-<h2 id="2-create-a-workspace">2. Create a workspace</h2>
-<p>In the <code>Workspaces</code> tab click on the blue button with the label <code>CREATE WORKSPACE</code>. A dialogue opens asking you for the name of the future workspace. Type <code>DEMO</code> into the text field and click on <code>CREATE</code>.</p>
+<h2 id="2-create-a-workspace">2. Create a Workspace<a class="headerlink" href="#2-create-a-workspace" title="Permanent link">&para;</a></h2>
+<p>A <strong>workspace</strong> is a container for all files related to a single project. Each workspace stores MS files, metadata, target lists, and results separately.</p>
+<p><strong>Steps:</strong>
+1. Navigate to the <strong>Workspaces</strong> tab
+2. Click <strong>CREATE WORKSPACE</strong>
+3. Enter <code>DEMO</code> as the workspace name
+4. Click <strong>CREATE</strong></p>
 <p><img alt="Create workspace" src="create-workspace.png" /></p>
-<p>Now you have created your first workspace, but it is empty. We will need some input files to populate it.
-You can see which workspace is activated in the light-blue info box:</p>
-<p><img alt="Worspace active" src="workspace-activated.png" /></p>
-<h2 id="3-download-the-demo-files">3. Download the demo files</h2>
-<p>Some demo files are available for download on the <code>ms-mint</code> Google-Drive. Go on and download the files from <a href="https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link">Google Drive</a> and extract the archive.</p>
-<p>You will find two <code>csv</code> files and 12 <code>mzXML</code> and/or <code>mzML</code> files. </p>
-<pre><code>.
-├── README.md
-├── metadata
-│   └── metadata.csv
-├── ms-files
-│   ├── CA_B1.mzXML
-│   ├── CA_B2.mzXML
-│   ├── CA_B3.mzXML
-│   ├── CA_B4.mzXML
-│   ├── EC_B1.mzXML
-│   ├── EC_B2.mzXML
-│   ├── EC_B3.mzXML
-│   ├── EC_B4.mzXML
-│   ├── SA_B1.mzML
-│   ├── SA_B2.mzML
-│   ├── SA_B3.mzML
-│   └── SA_B4.mzML
-└── targets
-    └── targets.csv
-
-4 directories, 15 files
-</code></pre>
+<p>Your workspace is now active (shown in the blue info box at the top):</p>
+<p><img alt="Workspace active" src="workspace-activated.png" /></p>
+<h2 id="3-download-demo-data">3. Download Demo Data<a class="headerlink" href="#3-download-demo-data" title="Permanent link">&para;</a></h2>
+<p>Download the demo dataset from <a href="https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link">Google Drive</a> and extract the archive.</p>
+<p><strong>Dataset contents:</strong> </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>.
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>├── README.md
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>├── metadata
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>│   └── metadata.csv
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>├── ms-files
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>│   ├── CA_B1.mzXML
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>│   ├── CA_B2.mzXML
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>│   ├── CA_B3.mzXML
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>│   ├── CA_B4.mzXML
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>│   ├── EC_B1.mzXML
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>│   ├── EC_B2.mzXML
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>│   ├── EC_B3.mzXML
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>│   ├── EC_B4.mzXML
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>│   ├── SA_B1.mzML
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>│   ├── SA_B2.mzML
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>│   ├── SA_B3.mzML
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>│   └── SA_B4.mzML
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>└── targets
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a>    └── targets.csv
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>4 directories, 15 files
+</code></pre></div>
+<p><strong>What's in the demo data?</strong></p>
 <ul>
-<li>A folder with 12 mass-spectrometry (MS) files from microbial samples. We have four files for each <em>Staphylococcus aureus</em> (SA), <em>Escherichia coli</em> (EC), and <em>Candida albicans</em> (CA).
-Each file belongs to one of four batches (B1-B4). </li>
-<li><code>metadata.csv</code> contains this information in tabular format. Setting up the metadata for your project is essential. </li>
-<li><code>targets.csv</code> contains the extraction lists. The identification of the metabolites has been done before, so we know where the metabolites appear in the MS data.</li>
+<li><strong>12 LC-MS files</strong> (mzXML/mzML format) from three bacterial species:</li>
+<li><em>Staphylococcus aureus</em> (SA) - 4 replicates</li>
+<li><em>Escherichia coli</em> (EC) - 4 replicates</li>
+<li><em>Candida albicans</em> (CA) - 4 replicates</li>
+<li>
+<p>Each replicate from one of four batches (B1–B4)</p>
+</li>
+<li>
+<p><strong>metadata.csv</strong> - Sample information including organism labels, batches, and experimental conditions</p>
+</li>
+<li>
+<p><strong>targets.csv</strong> - Target list with metabolite m/z values and retention times (metabolites were previously identified)</p>
+</li>
 </ul>
-<h2 id="4-upload-lcms-files">4. Upload LCMS files</h2>
-<p>Switch to <code>MS-Files</code> tab and upload the 12 MS files, by either using the Explorer/Finder to the Upload field, or by clicking on the upload field and selecting the files in the dialogue box that opens. Wait until all files are uploaded:</p>
+<h2 id="4-upload-lc-ms-files">4. Upload LC-MS Files<a class="headerlink" href="#4-upload-lc-ms-files" title="Permanent link">&para;</a></h2>
+<p><strong>Steps:</strong>
+1. Navigate to the <strong>MS-Files</strong> tab
+2. Drag and drop all 12 MS files into the upload area (or click to browse)
+3. Wait for upload to complete</p>
 <p><img alt="" src="ms-files-uploaded.png" /></p>
-<p>To speed up future processing you can now convert these files to the <code>.feather</code> format, by selecting all files and clicking on "CONVERT SELECTED FILES TO FEATHER".</p>
-<h2 id="5-add-metadata">5. Add metadata</h2>
-<p>Switch to <code>Metadata</code> and upload <code>metadata.csv</code>. This will populate the table with important information.</p>
+<p><strong>Optional but recommended:</strong> Convert files to Feather format for faster processing:
+- Select all files
+- Click <strong>CONVERT SELECTED FILES TO FEATHER</strong>
+- This creates optimized <code>.feather</code> files and removes the original mzML/mzXML files</p>
+<h2 id="5-add-metadata">5. Add Metadata<a class="headerlink" href="#5-add-metadata" title="Permanent link">&para;</a></h2>
+<p>Metadata links your MS files to experimental conditions (sample groups, batches, quality control designations, etc.). This is <strong>essential</strong> for meaningful analysis.</p>
+<p><strong>Steps:</strong>
+1. Navigate to the <strong>Metadata</strong> tab
+2. Upload <code>metadata.csv</code>
+3. Review the populated table</p>
 <p><img alt="" src="metadata-added.png" /></p>
-<p>This file contains critical information about your samples, and setting up the metadata accurately and meticulously is essential. 
-The metadata table is a cornerstone for downstream processes in <code>ms-mint</code> and should not be omitted. 
-Properly configured metadata enhances the quality and precision of your results, making it a vital component of your workflow.</p>
+<p><strong>Why metadata matters:</strong>
+- Enables grouping and coloring in visualizations
+- Controls which samples are used for optimization
+- Tracks batch effects and quality control samples
+- Powers statistical comparisons between groups</p>
 <table>
 <thead>
 <tr>
@@ -901,51 +766,106 @@ Properly configured metadata enhances the quality and precision of your results,
 </tr>
 </tbody>
 </table>
-<h2 id="5-add-targets-metabolites">5. Add targets (metabolites)</h2>
-<p>Switch to <code>Targets</code> and upload <code>MINT-targets.csv</code>.
-<img alt="" src="targets-table.png" /></p>
-<p>This is the data extraction protocol. This determines what data is extracted from the files. The same protocol is applied to all files. No fitting or peak optimization is done. 
-MINT therefore requires a very stable chromatographic column and stable retention times for all files in a workspace. </p>
-<h2 id="6-optimize-retention-times">6. Optimize retention times</h2>
-<p>Switch to <code>Peak Optimization</code> tab and select <code>Use all files</code> in the <code>File selection</code> menu. Normally, especially for large datasets, you should select a small representative set of samples including standards (with known concentrations of the target metabolites). The peak optimization takes longer the more files are used for it and the more targets are defined. 'Click on <code>UPDATE PEAK PREVIEWS</code>. </p>
+<h2 id="6-add-targets-metabolites">6. Add Targets (Metabolites)<a class="headerlink" href="#6-add-targets-metabolites" title="Permanent link">&para;</a></h2>
+<p>The <strong>target list</strong> defines which metabolites to extract from your LC-MS data. Each target specifies an m/z value and retention time window.</p>
+<p><strong>Steps:</strong>
+1. Navigate to the <strong>Targets</strong> tab
+2. Upload <code>targets.csv</code> (or <code>MINT-targets.csv</code>)
+3. Review the target table</p>
+<p><img alt="" src="targets-table.png" /></p>
+<p><strong>Important notes:</strong>
+- The same extraction protocol is applied to all files
+- MINT is designed for <strong>targeted</strong> analysis (not untargeted peak picking)
+- Requires stable chromatography and consistent retention times
+- See <a href="../targets/">Target Lists documentation</a> for target file format details </p>
+<h2 id="7-optimize-retention-times">7. Optimize Retention Times<a class="headerlink" href="#7-optimize-retention-times" title="Permanent link">&para;</a></h2>
+<p>Retention times can drift between runs due to column aging or temperature variations. MINT's optimization tools help you verify and adjust retention time windows.</p>
+<p><strong>Steps:</strong>
+1. Navigate to the <strong>Peak Optimization</strong> tab
+2. In <strong>File selection</strong>, choose <code>Use all files</code> (for this small demo dataset)
+   - <em>For large datasets:</em> Select a representative subset including QC/standard samples
+3. Click <strong>UPDATE PEAK PREVIEWS</strong></p>
 <p><img alt="" src="peak-preview.png" /></p>
-<p>This will show you the shapes of the data in the selected regions as an overview. This is a great way to validate that your target parameters are correct. 
-However, you have to make sure that the metabolite you are looking for is present in the files. That is why you should always add some standard samples.
-The colors in the plots correspond to the colors in the metadata table.</p>
-<p>You can use the interactive tool below to optimize the retention time for each target manually. You can do that by zooming in towards the area that you want to select as peak and then click on <code>SET RT TO CURRENT VIEW</code>. The green area is what is currently selected as retention time (RT) range. The black bar is the expected retention time of the peak maximum that you usually know from former experiments. This way you can compare the peak with older experiments. To set the expected RT to the middle of the current window press <code>CONFIRM RETENTION TIME</code>. If the target is not present in any of the files, you can and should remove it from the target list by clicking on <code>REMOVE TARGET</code>. </p>
+<p><strong>What you're seeing:</strong>
+- Peak shapes for all targets across selected files
+- Colors match those in your metadata table
+- Validates that targets are correctly defined and present in your samples</p>
+<p><strong>Manual optimization (optional):</strong></p>
+<p>Use the interactive tool below the previews to fine-tune individual targets:</p>
 <p><img alt="" src="peak-optimization.png" /></p>
 <ul>
-<li>if you are happy with the peak shapes you can proceed to <code>Processing</code>.</li>
+<li><strong>Zoom</strong> to the region of interest</li>
+<li><strong>SET RT TO CURRENT VIEW</strong> - Updates the retention time window (green box)</li>
+<li><strong>CONFIRM RETENTION TIME</strong> - Sets expected RT to center of current view</li>
+<li><strong>REMOVE TARGET</strong> - Delete targets not present in your samples</li>
 </ul>
-<h2 id="7-process-the-data">7. Process the data</h2>
-<p>Switch to <code>Processing</code> and start the data extraction with <code>Run MINT</code></p>
+<p>The black vertical line shows the expected RT from your target list for comparison with previous experiments.</p>
+<p>When satisfied with all peak shapes, proceed to <strong>Processing</strong>.</p>
+<h2 id="8-process-the-data">8. Process the Data<a class="headerlink" href="#8-process-the-data" title="Permanent link">&para;</a></h2>
+<p>Now run the full data extraction across all samples and targets.</p>
+<p><strong>Steps:</strong>
+1. Navigate to the <strong>Processing</strong> tab
+2. Click <strong>RUN MINT</strong>
+3. Wait for the progress bar to complete
+4. A green notification will appear: <code>Finished running MINT</code></p>
 <p><img alt="" src="run-mint.png" /></p>
-<p>The extraction process is done when you get a green notification <code>Finished running MINT</code>.
-Now, you can download the results in long-format or the dense peak_max values. 
-The tidy format contains all results, while the <code>DENSE PEAK_MAX</code> only contians the <code>peak_max</code> values as a matrix. </p>
-<h2 id="8-analyze-the-results">8. Analyze the results.</h2>
-<p>Once the results are generated the 'Heatmap<code>tab will show an interactive heatmap.
-You can change the size of the heatmap by changing your browser window and</code>UPDATE<code>the plot.
-The heatmap shows the</code>peak_max` values. The dropdown menu provides some options.</p>
-<h2 id="9-switch-to-analysisplotting">9. Switch to <code>Analysis/Plotting</code></h2>
-<p>The plotting tool is very powerful, but requires some practise. It is a wrapper of the powerful seaborn API. 
-Let's create a few simple visualizations.</p>
+<p><strong>Download results:</strong>
+- <strong>DOWNLOAD ALL RESULTS</strong> - Complete dataset in tidy (long) format
+- <strong>DOWNLOAD DENSE MATRIX</strong> - Peak values in matrix format (samples × metabolites)
+  - Select which metric to export (e.g., <code>peak_max</code>, <code>peak_area</code>)
+  - Option to transpose the matrix</p>
+<h2 id="9-analyze-the-results">9. Analyze the Results<a class="headerlink" href="#9-analyze-the-results" title="Permanent link">&para;</a></h2>
+<p>Once processing completes, you can explore your data with MINT's built-in visualization tools.</p>
+<h3 id="heatmap">Heatmap<a class="headerlink" href="#heatmap" title="Permanent link">&para;</a></h3>
+<p>Navigate to the <strong>Heatmap</strong> tab to see an interactive heatmap of your results.</p>
+<p><strong>Customization options:</strong>
+- Cluster rows/columns
+- Show dendrograms
+- Transpose matrix
+- Calculate correlations between metabolites
+- Filter by sample type</p>
+<p>Resize your browser window and click <strong>UPDATE</strong> to regenerate the plot.</p>
+<h3 id="analysisplotting-tool">Analysis/Plotting Tool<a class="headerlink" href="#analysisplotting-tool" title="Permanent link">&para;</a></h3>
+<p>The <strong>Analysis/Plotting</strong> tab provides a powerful interface for creating custom visualizations using <a href="https://seaborn.pydata.org/">Seaborn</a>.</p>
+<p><strong>Let's create a simple bar plot:</strong></p>
+<ol>
+<li>Navigate to <strong>Analysis/Plotting</strong></li>
+<li>Default settings create a basic bar plot showing average peak intensities:</li>
+</ol>
 <p><img alt="" src="01-demo-plot.png" /></p>
-<p>And click on <code>Update</code>. A very simple bar-graph is shown, and we will gradually make it more complex. 
-This simple bar graph shows the average <code>peak_max</code> value across the whole dataset for all targets. </p>
-<h3 id="a-select-peak_label-for-the-x-axis">a) select <code>peak_label</code> for the <code>X</code> axis.</h3>
-<h3 id="b-set-aspect-ratio-to-5">b) set aspect-ratio to 5.</h3>
-<h3 id="c-select-logarithmic-y-scale-in-the-dropdown-options">c) select <code>Logarithmic y-scale</code> in the dropdown options.</h3>
-<h3 id="d-click-on-update">d) click on <code>UPDATE</code>.</h3>
+<ol>
+<li><strong>Improve the plot step-by-step:</strong></li>
+<li>Set <strong>X axis</strong> to <code>peak_label</code></li>
+<li>Set <strong>Aspect ratio</strong> to <code>5</code></li>
+<li>Enable <strong>Logarithmic y-scale</strong></li>
+<li>Click <strong>UPDATE</strong></li>
+</ol>
 <p><img alt="" src="02-demo-plot.png" /></p>
-<h3 id="e-set-figure-height-to-15-and-aspect-ratio-to-2">e) set figure height to <code>1.5</code> and aspect ratio to <code>2</code>.</h3>
-<h3 id="e-set-column-to-label">e) set <code>Column</code> to <code>Label</code>.</h3>
-<h3 id="f-set-row-to-batch">f) set <code>Row</code> to <code>Batch</code>.</h3>
+<ol>
+<li><strong>Create faceted plots by group:</strong></li>
+<li>Set <strong>Figure height</strong> to <code>1.5</code></li>
+<li>Set <strong>Aspect ratio</strong> to <code>2</code></li>
+<li>Set <strong>Column</strong> to <code>Label</code> (organism)</li>
+<li>Set <strong>Row</strong> to <code>Batch</code></li>
+<li>Click <strong>UPDATE</strong></li>
+</ol>
 <p><img alt="" src="03-demo-plot.png" /></p>
-<p>This way you can look at the whole dataset at once, sliced by <code>Batch</code> and <code>Label</code></p>
-<h2 id="exercise-try-to-create-the-following-plot">Exercise: Try to create the following plot:</h2>
+<p>This creates a grid showing all metabolites across all organisms and batches simultaneously!</p>
+<p><strong>Challenge:</strong> Try to recreate this plot:</p>
 <p><img alt="" src="05-demo-plot.png" /></p>
-<p><a href="../gui/">Read more</a></p>
+<p><em>Hint: Experiment with different plot types (violin, box, strip) and color/hue settings.</em></p>
+<h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
+<p>Congratulations! You've completed the MINT quickstart tutorial. You now know how to:
+- ✅ Install and launch MINT
+- ✅ Create workspaces and upload data
+- ✅ Define targets and optimize retention times
+- ✅ Process LC-MS data
+- ✅ Visualize and analyze results</p>
+<p><strong>Learn more:</strong>
+- <a href="../gui/">GUI Documentation</a> - Complete interface reference
+- <a href="../targets/">Target Lists</a> - Target file format details
+- <a href="https://github.com/LewisResearchGroup/ms-mint-app/issues">GitHub Issues</a> - Report bugs or request features
+- <a href="https://www.lewisresearchgroup.org/software">Lewis Research Group Software</a> - Other metabolomics tools</p>
 
 
 
@@ -965,8 +885,16 @@ This simple bar graph shows the average <code>peak_max</code> value across the w
             </div>
           
           
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
 <script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
         
       </main>
       
@@ -980,6 +908,33 @@ This simple bar graph shows the average <code>peak_max</code> value across the w
     Made with
     <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
       Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/LewisResearchGroup/ms-mint-app" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://pypi.org/project/ms-mint-app/" target="_blank" rel="noopener" title="pypi.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.8 200.5c-7.7-30.9-22.3-54.2-53.4-54.2h-40.1v47.4c0 36.8-31.2 67.8-66.8 67.8H172.7c-29.2 0-53.4 25-53.4 54.3v101.8c0 29 25.2 46 53.4 54.3 33.8 9.9 66.3 11.7 106.8 0 26.9-7.8 53.4-23.5 53.4-54.3v-40.7H226.2v-13.6h160.2c31.1 0 42.6-21.7 53.4-54.2 11.2-33.5 10.7-65.7 0-108.6M286.2 444.7a20.4 20.4 0 1 1 0-40.7 20.4 20.4 0 1 1 0 40.7M167.8 248.1h106.8c29.7 0 53.4-24.5 53.4-54.3V91.9c0-29-24.4-50.7-53.4-55.6-35.8-5.9-74.7-5.6-106.8.1-45.2 8-53.4 24.7-53.4 55.6v40.7h106.9v13.6h-147c-31.1 0-58.3 18.7-66.8 54.2-9.8 40.7-10.2 66.1 0 108.6 7.6 31.6 25.7 54.2 56.8 54.2H101v-48.8c0-35.3 30.5-66.4 66.8-66.4m-6.6-183.4a20.4 20.4 0 1 1 0 40.8 20.4 20.4 0 1 1 0-40.8"/></svg>
     </a>
   
 </div>
@@ -1001,8 +956,6 @@ This simple bar graph shows the average <code>peak_max</code> value across the w
             
 
 
-  
-
 
 <h4>Cookie consent</h4>
 <p>We use cookies to recognize your repeated visits and preferences, as well as to measure the effectiveness of our documentation and whether users find what they're searching for. With your consent, you're helping us to make our documentation better.
@@ -1012,11 +965,32 @@ This simple bar graph shows the average <code>peak_max</code> value across the w
   <ul class="task-list">
     
     
+    
       
         
   
   
     
+    
+  
+  <li class="task-list-item">
+    <label class="task-list-control">
+      <input type="checkbox" name="github" checked>
+      <span class="task-list-indicator"></span>
+      GitHub
+    </label>
+  </li>
+
+      
+    
+    
+      
+        
+  
+  
+    
+    
+      
     
   
   <li class="task-list-item">
@@ -1029,10 +1003,6 @@ This simple bar graph shows the average <code>peak_max</code> value across the w
 
       
     
-    
-      
-    
-    
   </ul>
 </div>
 <div class="md-consent__controls">
@@ -1040,6 +1010,12 @@ This simple bar graph shows the average <code>peak_max</code> value across the w
     
       <button class="md-button md-button--primary">Accept</button>
     
+    
+    
+  
+    
+    
+      <button type="reset" class="md-button md-button--primary">Reject</button>
     
     
   
@@ -1057,10 +1033,10 @@ This simple bar graph shows the average <code>peak_max</code> value across the w
     
     
       
-      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f8cc74c7.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.sections", "navigation.expand", "navigation.indexes", "navigation.top", "toc.integrate", "search.suggest", "search.highlight", "content.tabs.link", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8b220af.min.js"></script>
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
       
     
   </body>
