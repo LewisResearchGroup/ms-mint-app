@@ -20,15 +20,16 @@ MINT streamlines the LC-MS data processing workflow with powerful features for t
 
 - **[Quickstart Tutorial](quickstart.md)** - Get started with demo data in minutes
 - **[Installation Guide](install.md)** - Multiple installation options (pip, conda, Docker, Windows)
+- **[Demo Data](https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link)** - Download test data with sample LC-MS files and target lists
 - **[GUI Documentation](gui.md)** - Detailed interface guide
 - **[Target Lists](targets.md)** - How to define extraction protocols
 
 ## Resources
 
+- **[Lewis Research Group Software](https://www.lewisresearchgroup.org/software)** - Explore additional metabolomics and computational biology tools
 - [GitHub: ms-mint-app](https://github.com/LewisResearchGroup/ms-mint-app) - Web application (this project)
 - [GitHub: ms-mint](https://github.com/LewisResearchGroup/ms-mint) - Core Python library
 - [Plugin Template](https://github.com/sorenwacker/ms-mint-plugin-template) - Extend MINT functionality
-- [Lewis Research Group Software](https://www.lewisresearchgroup.org/software) - Other metabolomics tools
 
 ## Understanding LC-MS Metabolomics
 

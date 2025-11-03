@@ -30,6 +30,7 @@ MINT streamlines the processing of LC-MS data by providing:
 
 - **[Installation Guide](https://lewisresearchgroup.github.io/ms-mint-app/install/)** - Install MINT via pip, conda, Docker, or Windows installer
 - **[Quickstart Tutorial](https://lewisresearchgroup.github.io/ms-mint-app/quickstart/)** - Step-by-step guide with demo data
+- **[Demo Data](https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link)** - Download test data with sample LC-MS files and target lists
 - **[Full Documentation](https://lewisresearchgroup.github.io/ms-mint-app/)** - Comprehensive user guide and reference
 
 ![Screenshot](https://lewisresearchgroup.github.io/ms-mint-app/image/hierarchical-clustering.png)
@@ -70,6 +71,10 @@ MINT streamlines the processing of LC-MS data by providing:
 ## Related Software
 
 MINT is developed by the [Lewis Research Group](https://www.lewisresearchgroup.org/). For other metabolomics and computational biology tools, visit [lewisresearchgroup.org/software](https://www.lewisresearchgroup.org/software).
+
+## Development Environment
+
+This project uses the `ms-mint` conda environment. For development and contributing, please refer to the [Installation Guide](https://lewisresearchgroup.github.io/ms-mint-app/install/) for setting up the conda environment.
 
 ## Contributing
 
