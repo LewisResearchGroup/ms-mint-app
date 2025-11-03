@@ -1,0 +1,89 @@
+name: Build macOS DMG
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 1
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Get version from tag
+      id: get_version
+      shell: bash
+      run: |
+        # Get the tag name from the release
+        VERSION="${GITHUB_REF#refs/tags/}"
+        # Remove 'v' prefix if present
+        VERSION="${VERSION#v}"
+        echo "version=$VERSION" >> $GITHUB_OUTPUT
+        echo "Version: $VERSION"
+
+    - name: Install dependencies
+      env:
+        SETUPTOOLS_SCM_PRETEND_VERSION: ${{ steps.get_version.outputs.version }}
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+        pip install -e .
+
+    - name: Build with PyInstaller
+      working-directory: pyinstaller
+      run: |
+        pyinstaller Mint.spec
+
+    - name: Verify PyInstaller output
+      shell: bash
+      run: |
+        ls -la pyinstaller/dist/Mint/
+
+    - name: Install create-dmg
+      run: |
+        brew install create-dmg
+
+    - name: Create DMG
+      shell: bash
+      run: |
+        # Create a temporary directory for DMG contents
+        mkdir -p dmg_temp
+
+        # Copy the app bundle to temp directory
+        cp -r pyinstaller/dist/Mint dmg_temp/
+
+        # Create the DMG
+        create-dmg \
+          --volname "MINT Installer" \
+          --volicon "pyinstaller/dist/Mint/Mint" \
+          --window-pos 200 120 \
+          --window-size 800 400 \
+          --icon-size 100 \
+          --icon "Mint" 200 190 \
+          --hide-extension "Mint" \
+          --app-drop-link 600 185 \
+          "MINT-${{ steps.get_version.outputs.version }}.dmg" \
+          "dmg_temp/" || true
+
+        # If create-dmg fails, use hdiutil as fallback
+        if [ ! -f "MINT-${{ steps.get_version.outputs.version }}.dmg" ]; then
+          hdiutil create -volname "MINT" -srcfolder dmg_temp -ov -format UDZO "MINT-${{ steps.get_version.outputs.version }}.dmg"
+        fi
+
+    - name: Upload DMG to Release
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        gh release upload ${{ github.event.release.tag_name }} \
+          ./MINT-${{ steps.get_version.outputs.version }}.dmg \
+          --clobber
