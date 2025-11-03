@@ -111,21 +111,10 @@ def main():
 
     url = f"http://{args.host}:{args.port}"
 
-    if not args.no_browser:
-        if os.name == "nt":
-            # https://github.com/pyinstaller/pyinstaller/wiki/Recipe-Multiprocessing
-            multiprocessing.freeze_support()
-
-        # Open the browser
-        if sys.platform in ["win32", "nt"]:
-            os.startfile(url)
-        elif sys.platform == "darwin":
-            subprocess.Popen(["open", url])
-        else:
-            try:
-                subprocess.Popen(["xdg-open", url])
-            except OSError:
-                print("Please open a browser on: ", url)
+    # Windows multiprocessing support
+    if os.name == "nt":
+        # https://github.com/pyinstaller/pyinstaller/wiki/Recipe-Multiprocessing
+        multiprocessing.freeze_support()
 
     if args.data_dir is not None:
         os.environ["MINT_DATA_DIR"] = args.data_dir
@@ -149,7 +138,21 @@ def main():
     app.css.config.serve_locally = True
     app.scripts.config.serve_locally = True
 
-    print("Configuration done starting server...")
+    print("Server ready! Opening browser...")
+
+    # Open browser after app is configured and ready
+    if not args.no_browser:
+        if sys.platform in ["win32", "nt"]:
+            os.startfile(url)
+        elif sys.platform == "darwin":
+            subprocess.Popen(["open", url])
+        else:
+            try:
+                subprocess.Popen(["xdg-open", url])
+            except OSError:
+                print("Please open a browser on: ", url)
+    else:
+        print(f"Server starting at {url}")
 
     if args.debug:
         app.run(
