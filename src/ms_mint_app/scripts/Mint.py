@@ -114,7 +114,6 @@ def main():
     if not args.no_browser:
         if os.name == "nt":
             # https://github.com/pyinstaller/pyinstaller/wiki/Recipe-Multiprocessing
-            print('Using Windows')
             multiprocessing.freeze_support()
 
         # Open the browser
@@ -136,8 +135,9 @@ def main():
 
     print(welcome)
 
+    # Set logging level - use WARNING unless debug mode
     root_logger = logging.getLogger()
-    root_logger.setLevel(logging.INFO)
+    root_logger.setLevel(logging.DEBUG if args.debug else logging.WARNING)
 
     print("Loading app...")
 
