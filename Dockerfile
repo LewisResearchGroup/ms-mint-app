@@ -5,8 +5,8 @@ FROM python:3.12
 EXPOSE 9999
 
 # Set environment variables
-ENV SQLALCHEMY_DATABASE_URI sqlite:///data/mint.db
-ENV MINT_DATA_DIR /data/
+ENV SQLALCHEMY_DATABASE_URI=sqlite:///data/mint.db
+ENV MINT_DATA_DIR=/data/
 
 # Create the data directory
 RUN mkdir -p /data
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     libhdf5-serial-dev \
     hdf5-tools \
     gfortran \
-    libatlas-base-dev \
+    libopenblas-dev \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
