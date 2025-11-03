@@ -118,8 +118,16 @@ _layout = html.Div(
         dcc.Interval(
             id="progress-interval", n_intervals=0, interval=2000, disabled=False
         ),
-        # Header with centered logo and buttons on the right
+        # Header with logo on left and buttons on right
         html.Div([
+            html.Img(
+                src="/assets/MINT-logo-header.png",
+                style={
+                    "height": "50px",
+                    "float": "left",
+                    "marginTop": "5px"
+                }
+            ),
             html.A(
                 href=f"https://github.com/LewisResearchGroup/ms-mint-app/issues/new?body={T.get_issue_text()}",
                 children=[
@@ -140,18 +148,7 @@ _layout = html.Div(
                 ],
                 target="_blank",
             ),
-            html.Div([
-                html.Img(
-                    src="/assets/MINT-logo-header.png",
-                    style={
-                        "height": "60px",
-                        "display": "block",
-                        "marginLeft": "auto",
-                        "marginRight": "auto"
-                    }
-                ),
-            ], style={"textAlign": "center", "clear": "both"}),
-        ], style={"marginBottom": "20px"}),
+        ], style={"marginBottom": "20px", "overflow": "auto"}),
         dbc.Progress(
             id="progress-bar",
             value=100,
