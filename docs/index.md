@@ -20,7 +20,7 @@ MINT streamlines the LC-MS data processing workflow with powerful features for t
 
 - **[Quickstart Tutorial](quickstart.md)** - Get started with demo data in minutes
 - **[Installation Guide](install.md)** - Multiple installation options (pip, conda, Docker, Windows)
-- **[Demo Data](https://drive.google.com/drive/folders/1U4xMy5lfETk93sSVXPI79cCWyIMcAjeZ?usp=drive_link)** - Download test data with sample LC-MS files and target lists
+- **[Demo Data](https://zenodo.org/records/14727891)** - Download test data with sample LC-MS files and target lists
 - **[GUI Documentation](gui.md)** - Detailed interface guide
 - **[Target Lists](targets.md)** - How to define extraction protocols
 - **[Python Library Documentation](https://lewisresearchgroup.github.io/ms-mint)** - Core ms-mint library for scripts and notebooks
