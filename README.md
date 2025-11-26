@@ -31,7 +31,7 @@ MINT streamlines the processing of LC-MS data by providing:
 
 - **[Installation Guide](https://lewisresearchgroup.github.io/ms-mint-app/install/)** - Install MINT via pip, conda, Docker, or Windows installer
 - **[Quickstart Tutorial](https://lewisresearchgroup.github.io/ms-mint-app/quickstart/)** - Step-by-step guide with demo data
-- **[Demo Data](https://zenodo.org/records/14727891)** - Download test data with sample LC-MS files and target lists
+- **[Demo Data](https://zenodo.org/records/17727891)** - Download test data with sample LC-MS files and target lists
 - **[Full Documentation](https://lewisresearchgroup.github.io/ms-mint-app/)** - Comprehensive user guide and reference
 
 ![Screenshot](https://lewisresearchgroup.github.io/ms-mint-app/image/hierarchical-clustering.png)
