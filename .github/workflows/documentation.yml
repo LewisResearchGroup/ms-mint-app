@@ -2,7 +2,7 @@ name: Deploy Documentation
 on:
   push:
     branches:
-      - develop
+      - dev
 jobs:
   build:
     runs-on: ubuntu-latest
