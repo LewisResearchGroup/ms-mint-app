@@ -1,8 +1,9 @@
 name: Build macOS DMG
 
 on:
-  release:
-    types: [published]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build-macos:

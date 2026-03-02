@@ -1,13 +1,13 @@
 name: Publish Python Package to PyPI
 
 on:
-  release:
-    types: [created]
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    if: github.event.release.prerelease == false
     steps:
     - uses: actions/checkout@v2
 
