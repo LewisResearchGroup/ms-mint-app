@@ -51,12 +51,19 @@ black src/
 flake8 src/
 ```
 
+## Branching Strategy
+
+- **main** - Protected branch for releases only. Direct pushes are blocked.
+- **dev** - Active development branch.
+
 ## Making Changes
 
 ### Workflow
 
-1. Create a new branch for your feature or bugfix:
+1. Create a new branch from `dev` for your feature or bugfix:
    ```bash
+   git checkout dev
+   git pull
    git checkout -b feature/your-feature-name
    ```
 
@@ -72,12 +79,14 @@ flake8 src/
    git commit -m "Add feature: description of your changes"
    ```
 
-5. Push to your fork:
+5. Push your branch:
    ```bash
    git push origin feature/your-feature-name
    ```
 
-6. Open a pull request on GitHub.
+6. Open a pull request to the `dev` branch on GitHub.
+
+7. For releases, a PR from `dev` to `main` will be created.
 
 ### Pull Request Guidelines
 
