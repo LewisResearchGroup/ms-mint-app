@@ -1,26 +1,40 @@
-  
 {% extends "base.html" %}
+
+{% block title %}Sign In - MINT{% endblock %}
 
 {% block content %}
 <h1>Sign In</h1>
+
+{% if error %}
+<div class="error-message">
+  {{ error }}
+</div>
+{% endif %}
+
 <form action="" method="post" novalidate>
   {{ form.hidden_tag() }}
-  <p>
-    {{ form.username(size=32) }}<br>
-    {{ form.username.label }}<br>
-  </p>
-  <p>
-    {{ form.password(size=32) }}<br>
-    {{ form.password.label }}<br>
-  </p>
-  <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
-  <p>{{ form.submit() }}</p >
- 
-  {% if error %}
-  <p class="error"><strong>Error:</strong> {{ error }}
-    {% endif %}
-</form>
-  <div id='register'>
-    <a href="{{ url_for('main.register') }}"><button>Register</button></a>
+
+  <div class="form-group">
+    <label for="username">Username</label>
+    {{ form.username(class="", placeholder="Enter your username", id="username") }}
   </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    {{ form.password(class="", placeholder="Enter your password", id="password") }}
+  </div>
+
+  <div class="checkbox-group">
+    {{ form.remember_me(id="remember_me") }}
+    <label for="remember_me">Remember me</label>
+  </div>
+
+  {{ form.submit(class="btn btn-primary") }}
+</form>
+
+<div class="divider"><span>or</span></div>
+
+<a href="{{ url_for('main.register') }}" class="btn btn-secondary" style="display: block; text-align: center; text-decoration: none;">
+  Create Account
+</a>
 {% endblock %}
