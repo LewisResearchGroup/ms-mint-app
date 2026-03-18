@@ -6,11 +6,24 @@
 ![PyPI - Downloads](https://img.shields.io/pypi/dm/ms-mint-app)
 [![DOI](https://zenodo.org/badge/491654035.svg)](https://zenodo.org/doi/10.5281/zenodo.13121148)
 
-![](docs/image/MINT-logo.jpg)
+
+# Notice
+
+This repository is kept for archival and compatibility purposes.
+
+The current and improved version of this software has moved to:
+
+**https://github.com/LewisResearchGroup/ms-mint-app2**
+
+New development, maintenance, and issue tracking now happen in the new repository.
+
+##################################################################################
  
 # MINT (Metabolomics Integrator)
 
 The Metabolomics Integrator (MINT) is a web-based post-processing tool for liquid chromatography-mass spectrometry (LC-MS) based metabolomics. MINT enables researchers to extract, visualize, and analyze targeted metabolomics data with an intuitive browser-based interface.
+
+![](docs/image/MINT-logo.jpg)
 
 ## Overview
 
