@@ -43,7 +43,7 @@ def test__merge_metadata():
     print('Actual result:')
     print(actual_df)
 
-    pd.testing.assert_frame_equal(actual_df, expected_df, check_dtype=False)
+    assert actual_df.equals(expected_df), f"Actual:\n{actual_df}\n\nExpected:\n{expected_df}"
     
     
 

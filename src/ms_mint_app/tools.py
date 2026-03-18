@@ -689,10 +689,10 @@ def fig_to_src(fig, dpi=100):
 
 def merge_metadata(old: pd.DataFrame, new: pd.DataFrame, index_col='ms_file_label') -> pd.DataFrame:
     """
-    This function updates one existing dataframe 
+    This function updates one existing dataframe
     with information from a second dataframe.
-    If a column of the new dataframe does not 
-    exist it will be created.
+    If a column of the new dataframe does not
+    exist it will be created. Dtypes are preserved.
 
     Parameters:
     old (pd.DataFrame): The DataFrame to merge new data into.
@@ -701,22 +701,27 @@ def merge_metadata(old: pd.DataFrame, new: pd.DataFrame, index_col='ms_file_labe
     Returns:
     pd.DataFrame: The merged DataFrame.
 
-    """    
-    old = old.set_index(index_col)
-
+    """
+    old = old.set_index(index_col).copy()
     new = new.groupby(index_col).first().replace("null", None)
 
-    for col in new.columns:
-        if col == "" or col.startswith("Unnamed"):
-            continue
-        if not col in old.columns:
-            old[col] = None
-        for ndx in new.index:
-            value = new.loc[ndx, col]
-            if value is None:
-                continue
-            if ndx in old.index:
-                old.loc[ndx, col] = value
+    # Filter new to only rows that exist in old
+    common_idx = old.index.intersection(new.index)
+    new_common = new.loc[common_idx]
+
+    # Identify columns to update vs new columns to add
+    existing_cols = [c for c in new.columns if c in old.columns
+                     and c != "" and not c.startswith("Unnamed")]
+    new_cols = [c for c in new.columns if c not in old.columns
+                and c != "" and not c.startswith("Unnamed")]
+
+    # Update existing columns using pandas update (preserves dtypes)
+    if existing_cols:
+        old.update(new_common[existing_cols])
+
+    # Add new columns with proper dtype
+    for col in new_cols:
+        old[col] = new_common[col].reindex(old.index)
 
     return old.reset_index()
 
