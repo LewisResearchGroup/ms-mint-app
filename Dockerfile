@@ -11,8 +11,8 @@ ENV MINT_DATA_DIR=/data/
 # Create the data directory
 RUN mkdir -p /data
 
-# Upgrade pip
-RUN /usr/local/bin/python -m pip install --upgrade pip
+# Upgrade pip and install setuptools
+RUN /usr/local/bin/python -m pip install --upgrade pip setuptools
 
 # Install system dependencies required for building certain Python packages
 RUN apt-get update && apt-get install -y \
