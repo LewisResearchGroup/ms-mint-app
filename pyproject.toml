@@ -26,7 +26,7 @@ classifiers = [
 ]
 dependencies = [
   "setuptools<72",
-  "ms-mint>=1.1.1",
+  "ms-mint>=1.1.2",
   "xlsxwriter",
   "waitress",
   "dash",
