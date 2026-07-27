@@ -81,6 +81,6 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        gh release upload ${{ github.event.release.tag_name }} \
+        gh release upload ${{ github.ref_name }} \
           ./InnoSetup/Output/MINT-${{ steps.get_version.outputs.version }}-Setup.exe \
           --clobber
